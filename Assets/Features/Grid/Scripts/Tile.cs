@@ -8,7 +8,7 @@ namespace WeekAnkama
     {
         private Grid<Tile> _grid;
         private Vector2Int _coords;
-
+        public int value = 0;
         public Vector2Int Coords => _coords;
 
         public Tile(Grid<Tile> grid, Vector2Int coords)
