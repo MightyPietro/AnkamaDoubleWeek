@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IActionEffect
+namespace WeekAnkama
 {
-    void Process();
+
+    public interface IActionEffect
+    {
+        void Process();
+    }
 }
+

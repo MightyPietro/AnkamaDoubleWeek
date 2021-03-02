@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
+    [System.Serializable]
     public class Push : MonoBehaviour,IActionEffect
     {
         public void Process()
