@@ -4,14 +4,12 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-
-    public class Push : ActionEffect
+    public class Attract : ActionEffect
     {
         public override void Process()
         {
-            Debug.Log("Push");
+            Debug.Log("Attract");
         }
-
     }
 }
 
