@@ -7,7 +7,7 @@ namespace WeekAnkama
 {
     public class Bootstrapper : MonoBehaviour
     {
-        Grid<Tile> _grid;
+        public Grid _grid;
         public int x = 10;
         public int y = 10;
         public Vector2 size;
@@ -18,9 +18,9 @@ namespace WeekAnkama
         public Vector3 pos;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
-            _grid = new Grid<Tile>(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
+            _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
         }
 
         private void Update()
@@ -31,8 +31,8 @@ namespace WeekAnkama
 
 
             if (_grid.TryGetTile(pos, out Tile tile)) {
-                text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileCenterWorldPosition(tile.Coords.x, tile.Coords.y));
-                test.transform.position = _grid.GetTileCenterWorldPosition(tile.Coords.x, tile.Coords.y);
+                text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileWorldPosition(tile.Coords.x, tile.Coords.y));
+                test.transform.position = _grid.GetTileWorldPosition(tile.Coords.x, tile.Coords.y);
                 tile.value++;
                 text.text = $"{tile.Coords.x} - {tile.Coords.y} ____ { tile.value.ToString()}"; 
             }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-    public class Grid<T>
+    public class Grid
     {
-        private T[,] _tiles;
+        private Tile[,] _tiles;
         private int _width;
         private int _height;
         private Vector2 _cellSize;
@@ -17,13 +17,13 @@ namespace WeekAnkama
         public int Heigth => _height;
         public Vector2 CellSize => _cellSize;
 
-        public Grid(int width, int height, Vector2 cellSize, Func<Grid<T>, Vector2Int, T> gridObjectFactory, Vector2 normalizedOffset)
+        public Grid(int width, int height, Vector2 cellSize, Func<Grid, Vector2Int, Tile> gridObjectFactory, Vector2 normalizedOffset)
         {
             _width = width;
             _height = height;
             _cellSize = cellSize;
             _originOffset = new Vector3(normalizedOffset.x * _cellSize.x * _width, normalizedOffset.y * _cellSize.y * _height);
-            _tiles = new T[_width, _height];
+            _tiles = new Tile[_width, _height];
 
             for (int y = 0; y < _height; y++)
             {
@@ -40,20 +40,20 @@ namespace WeekAnkama
         /// <param name="worldPosition"></param>
         /// <param name="tile"></param>
         /// <returns></returns>
-        public bool TryGetTile(Vector3 worldPosition, out T tile)
+        public bool TryGetTile(Vector3 worldPosition, out Tile tile)
         {
             Vector2Int position = GetXY(worldPosition);
             tile = GetTile(position.x, position.y);
             return tile != null;
         }
 
-        public void SetTile(Vector3 worldPosition, T tile)
+        public void SetTile(Vector3 worldPosition, Tile tile)
         {
             Vector2Int position = GetXY(worldPosition);
             SetTile(position.x, position.y, tile);
         }
 
-        public Vector3 GetTileWorldPosition(int x, int y)
+        public Vector3 GetBorderTileWorldPosition(int x, int y)
         {
             float worldX = x * _cellSize.x + _originOffset.x;
             float worldY = y * _cellSize.y + _originOffset.y;
@@ -62,9 +62,9 @@ namespace WeekAnkama
             //return TwoDToIso(x,y) + _originOffset;
         }
 
-        public Vector3 GetTileCenterWorldPosition(int x, int y)
+        public Vector3 GetTileWorldPosition(int x, int y)
         {
-            return GetTileWorldPosition(x,y) + new Vector3(0.5f * _cellSize.x, 0, 0.5f * _cellSize.y);
+            return GetBorderTileWorldPosition(x,y) + new Vector3(0.5f * _cellSize.x, 0, 0.5f * _cellSize.y);
             //return GetTileWorldPosition(x, y) + TwoDToIso(0.5f, 0.5f);
         }
 
@@ -78,7 +78,7 @@ namespace WeekAnkama
             //return IsoToTwoD(worldposition);
         }
 
-        private void SetTile(int x, int y, T tile)
+        private void SetTile(int x, int y, Tile tile)
         {
             if (x >= 0 && y >= 0 && x < _width &&  y < _height)
             {
@@ -86,7 +86,7 @@ namespace WeekAnkama
             }
         }
 
-        private T GetTile(int x, int y)
+        private Tile GetTile(int x, int y)
         {
             if (x >= 0 && y >= 0 && x < _width && y < _height)
             {
@@ -94,7 +94,7 @@ namespace WeekAnkama
             }
             else
             {
-                return default(T);
+                return default(Tile);
             }
         }
 
@@ -120,17 +120,17 @@ namespace WeekAnkama
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    Debug.DrawLine(GetTileWorldPosition(x, y), GetTileWorldPosition(x, y + 1),Color.red);
-                    Debug.DrawLine(GetTileWorldPosition(x, y), GetTileWorldPosition(x + 1, y), Color.red);
+                    Debug.DrawLine(GetBorderTileWorldPosition(x, y), GetBorderTileWorldPosition(x, y + 1),Color.red);
+                    Debug.DrawLine(GetBorderTileWorldPosition(x, y), GetBorderTileWorldPosition(x + 1, y), Color.red);
                 }
             }
-            Debug.DrawLine(GetTileWorldPosition(_width, 0), GetTileWorldPosition(_width, _height), Color.red);
-            Debug.DrawLine(GetTileWorldPosition(0, _height), GetTileWorldPosition(_width, _height), Color.red);
+            Debug.DrawLine(GetBorderTileWorldPosition(_width, 0), GetBorderTileWorldPosition(_width, _height), Color.red);
+            Debug.DrawLine(GetBorderTileWorldPosition(0, _height), GetBorderTileWorldPosition(_width, _height), Color.red);
         }
         #endregion
 
         #region PATHFINDING
-        /*public List<Tile> GetNeighbours(Tile tile)
+        public List<Tile> GetNeighbours(Tile tile)
         {
             List<Tile> neighbours = new List<Tile>();
 
@@ -150,7 +150,9 @@ namespace WeekAnkama
                     }
                 }
             }
-        }*/
+
+            return neighbours;
+        }
         #endregion
 
     }
