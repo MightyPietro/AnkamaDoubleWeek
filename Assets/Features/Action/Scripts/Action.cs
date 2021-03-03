@@ -13,6 +13,36 @@ namespace WeekAnkama
         public List<ActionType> actionTypes;
         public System.Type[] actionEffects;
 
+        [SerializeField]
+        private List<ActionEffect> testEffects = new List<ActionEffect>();
+
+        [ContextMenu("Set Action Effects")]
+        void SetActionEffects() //A mettre en Init quelque part
+        {
+            System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
+            System.Type[] effectsTypes = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
+
+            testEffects = new List<ActionEffect>();
+
+            for (int j = 0; j < actionTypes.Count; j++)
+            {
+                foreach (System.Type item in effectsTypes)
+                {
+                    if (item.Name == actionTypes[j].ToString())
+                    {
+                        object obj = System.Activator.CreateInstance(item);
+
+                        ActionEffect eff = obj as ActionEffect;
+
+                        eff.Process();
+
+                        testEffects.Add(eff);
+
+                    }
+
+                }
+            }
+        }
 
         [ContextMenu("Do Something")]
         void DoSomething()
@@ -24,12 +54,10 @@ namespace WeekAnkama
         [ContextMenu("Display List")]
         void Display()
         {
-            foreach (System.Type item in actionEffects)
+            foreach (ActionEffect item in testEffects)
             {
 
-                //Debug.Log(item);
-                object obj = System.Activator.CreateInstance(item);
-                Debug.Log(obj);
+                Debug.Log(item);
             }
 
         }
@@ -45,7 +73,12 @@ namespace WeekAnkama
                     if (item.Name == actionTypes[j].ToString())
                     {
                         object obj = System.Activator.CreateInstance(item);
-                        item.GetMethod("Process").Invoke(obj, null);
+
+                        ActionEffect eff = obj as ActionEffect;
+
+                        eff.Process();
+
+                        //item.GetMethod("Process").Invoke(obj, null);
 
                     }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WeekAnkama
@@ -126,6 +128,31 @@ namespace WeekAnkama
             Debug.DrawLine(GetTileWorldPosition(0, _height), GetTileWorldPosition(_width, _height), Color.red);
         }
         #endregion
+
+        #region PATHFINDING
+        /*public List<Tile> GetNeighbours(Tile tile)
+        {
+            List<Tile> neighbours = new List<Tile>();
+
+            for(int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if((x== 0 || y==0) && x!=y)
+                    {
+                        int checkX = tile.Coords.x + x;
+                        int checkY = tile.Coords.y + y;
+
+                        if(checkX>= 0 && checkX < Width && checkY>=0 && checkY < Heigth)
+                        {
+                            neighbours.Add(_tiles[checkX, checkY]);
+                        }
+                    }
+                }
+            }
+        }*/
+        #endregion
+
     }
 }
 
