@@ -6,9 +6,9 @@ namespace WeekAnkama
 {
     public class Damage : ActionEffect
     {
-        public override void Process()
+        public override void Process(Tile targetTile, Action action)
         {
-            Debug.Log("Damage");
+            Debug.Log(targetTile._player.fatigue += action.fatigueDmg);
         }
 
     }

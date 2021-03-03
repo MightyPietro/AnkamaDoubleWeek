@@ -6,7 +6,7 @@ namespace WeekAnkama
 {
     public class Attract : ActionEffect
     {
-        public override void Process()
+        public override void Process(Tile targetTile, Action action)
         {
             Debug.Log("Attract");
         }
