@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
+using Sirenix.OdinInspector;
 using System.Linq;
 
 namespace WeekAnkama
@@ -9,7 +9,13 @@ namespace WeekAnkama
     [CreateAssetMenu(menuName = "Assets/Action")]
     public class Action : ScriptableObject
     {
-        public enum ActionType { Push, Attract, Damage };
+        
+        [Range(0,10)]
+        public int paCost;
+        [Range(0, 200)]
+        public int fatigueDmg;
+
+        [Header("Action")]
         public List<ActionType> actionTypes;
         public System.Type[] actionEffects;
 
@@ -17,7 +23,7 @@ namespace WeekAnkama
         private List<ActionEffect> testEffects = new List<ActionEffect>();
 
         [ContextMenu("Set Action Effects")]
-        void SetActionEffects() //A mettre en Init quelque part
+        void SetActionEffects(Tile targetTile, Action action) //A mettre en Init quelque part
         {
             System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
             System.Type[] effectsTypes = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
@@ -34,7 +40,7 @@ namespace WeekAnkama
 
                         ActionEffect eff = obj as ActionEffect;
 
-                        eff.Process();
+                        eff.Process(targetTile, action);
 
                         testEffects.Add(eff);
 
@@ -44,28 +50,18 @@ namespace WeekAnkama
             }
         }
 
-        [ContextMenu("Do Something")]
-        void DoSomething()
+        [ContextMenu("FindActionEffectSubClass")]
+        void FindActionEffectSubClass()
         {
             System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
             actionEffects = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
         }
 
-        [ContextMenu("Display List")]
-        void Display()
-        {
-            foreach (ActionEffect item in testEffects)
-            {
-
-                Debug.Log(item);
-            }
-
-        }
 
         [ContextMenu("Process")]
-        public void Process()
+        public void Process(Tile targetTile, Action action)
         {
-            DoSomething();
+            FindActionEffectSubClass();
             for (int j = 0; j < actionTypes.Count; j++)
             {
                 foreach (System.Type item in actionEffects)
@@ -76,7 +72,7 @@ namespace WeekAnkama
 
                         ActionEffect eff = obj as ActionEffect;
 
-                        eff.Process();
+                        eff.Process(targetTile, action);
 
                         //item.GetMethod("Process").Invoke(obj, null);
 

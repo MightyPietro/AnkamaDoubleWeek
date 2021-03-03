@@ -6,7 +6,7 @@ namespace WeekAnkama
 {
     public abstract class ActionEffect
     {
-        public virtual void Process() { Debug.Log("Action"); }
+        public virtual void Process(Tile targetTile, Action action) { Debug.Log("Action"); }
     }
 }
 
