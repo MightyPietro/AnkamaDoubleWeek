@@ -13,6 +13,7 @@ namespace WeekAnkama
         #region Getter/Setter
         public List<Player> players { get { return _players; } set { _players = value; } }
         #endregion
+
     }
 
 

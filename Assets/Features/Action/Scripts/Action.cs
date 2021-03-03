@@ -12,6 +12,8 @@ namespace WeekAnkama
         
         [Range(0,10)]
         public int paCost;
+        [Range(0, 200)]
+        public int fatigueDmg;
 
         [Header("Action")]
         public List<ActionType> actionTypes;
@@ -21,7 +23,7 @@ namespace WeekAnkama
         private List<ActionEffect> testEffects = new List<ActionEffect>();
 
         [ContextMenu("Set Action Effects")]
-        void SetActionEffects() //A mettre en Init quelque part
+        void SetActionEffects(Tile targetTile, Action action) //A mettre en Init quelque part
         {
             System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
             System.Type[] effectsTypes = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
@@ -38,7 +40,7 @@ namespace WeekAnkama
 
                         ActionEffect eff = obj as ActionEffect;
 
-                        eff.Process();
+                        eff.Process(targetTile, action);
 
                         testEffects.Add(eff);
 
@@ -57,7 +59,7 @@ namespace WeekAnkama
 
 
         [ContextMenu("Process")]
-        public void Process()
+        public void Process(Tile targetTile, Action action)
         {
             FindActionEffectSubClass();
             for (int j = 0; j < actionTypes.Count; j++)
@@ -70,7 +72,7 @@ namespace WeekAnkama
 
                         ActionEffect eff = obj as ActionEffect;
 
-                        eff.Process();
+                        eff.Process(targetTile, action);
 
                         //item.GetMethod("Process").Invoke(obj, null);
 
