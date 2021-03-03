@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_FloorTileRock03
+  m_Shader: {fileID: -6465566751694194690, guid: 548d4873fae8d0948ba3bb3ab7f69c36, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Albedo:
+        m_Texture: {fileID: 2800000, guid: 838dd1db9f12c5d40b2a988f4e3e1f05, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Albedo_1:
+        m_Texture: {fileID: 2800000, guid: 593d503ecf3487f48964f9e6d74ff2b2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Albedo_2:
+        m_Texture: {fileID: 2800000, guid: 8ee8ef44f3748e2448646b25e259f6dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Albedo_3:
+        m_Texture: {fileID: 2800000, guid: 66ff1c6d19ff66a4088215db9a3fa53a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Albedo_4:
+        m_Texture: {fileID: 2800000, guid: 1985036d3d77db74e8d1840929d8da27, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal:
+        m_Texture: {fileID: 2800000, guid: 4475b34a53c153d4891c4e9f8325c040, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal_1:
+        m_Texture: {fileID: 2800000, guid: f39120ebc1c688e4196f4656d8e01013, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal_2:
+        m_Texture: {fileID: 2800000, guid: 23d121393ddf7a040b5ae02fa158316e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal_3:
+        m_Texture: {fileID: 2800000, guid: 1789722a8fd1ab7419c4370c74c77ed0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normal_4:
+        m_Texture: {fileID: 2800000, guid: ab8f5bcd9ae42b24197fe4a4491d3b5b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BASE_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EMISSION_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _METALNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NORMAL_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SPECULAR_COLOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SPECULAR_IOR_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SPECULAR_ROUGHNESS_MAP:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_29FE92E7_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 806a943702c3cbb418b13d8d9e53b5b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_684609A5_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 5dd4c94f9f4ecd24ca48617b94ac26c9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_7377898B_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 13548d8d0fcb5c44b8044ce08a99c697, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_7FEB5A52_Texture_1:
+        m_Texture: {fileID: 2800000, guid: a6748dd5162b0244e8ebea3e1893668b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_C20FC18F_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 1322e2829127b9149b535ee52e1cffdd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_AFF7A59F: 0
+    - Metallic: 0
+    - Roughness: 0
+    - Vector1_6B065809: 0
+    - Vector1_79522974: 0
+    - Vector1_AC301C23: 0.2
+    - Vector1_F713CF69: 1
+    - _METALNESS: 0
+    - _SPECULAR_IOR: 1.5
+    - _SPECULAR_ROUGHNESS: 0
+    m_Colors:
+    - Color_98C78F3E: {r: 1, g: 1, b: 1, a: 0}
+    - Color_A072D5E5: {r: 1, g: 0.6387253, b: 0, a: 0}
+    - Vector3_Offset: {r: 0.5, g: 0, b: 0.5, a: 0}
+    - _BASE_COLOR: {r: 0, g: 0, b: 0, a: 0}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
+    - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []
