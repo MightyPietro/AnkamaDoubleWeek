@@ -20,13 +20,23 @@ namespace WeekAnkama
         // Start is called before the first frame update
         void Start()
         {
+            MouseHandler.OnMouseMove += (Vector2 position) => {
+                RaycastHit hitData;
+                Ray ray = Camera.main.ScreenPointToRay(new Vector3(position.x, position.y)); 
+                if(Physics.Raycast(ray,out hitData, 100))
+                {
+                    pos = hitData.point;
+                }
+            };
             _grid = new Grid<Tile>(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
         }
 
         private void Update()
         {
-            pos = pointer.transform.position;
-            pos.y = 0;
+            //pos = pointer.transform.position;
+            //pos.y = 0;
+            Debug.Log(pos);
+            
             _grid.DebugGrid();
 
 
