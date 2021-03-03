@@ -32,19 +32,20 @@ namespace WeekAnkama
 
         private void DoSomethingOnTile(Tile targetTile)
         {
-            if(actualPlayer.currentAction != null)
+            
+            /*if(actualPlayer.currentAction != null)
             {
                 DoAction(targetTile);
             }
-            else
-            {
+            else*/
+            //{
                 MoveCharacter(targetTile);
-            }
+            //}
         }
 
         private void MoveCharacter(Tile targetTile)
         {
-            DeplacementManager.instance.AskToMove(targetTile, transform);
+            DeplacementManager.instance.AskToMove(targetTile, actualPlayer.transform);
         }
 
         [Button]

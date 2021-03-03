@@ -16,7 +16,7 @@ namespace WeekAnkama
         private List<Player> players = new List<Player>();
 
         [SerializeField]
-        private int secondByTurn;
+        private int secondByTurn = 15;
 
         private int turnIndex = -1;
         private float currentTurnTimeLeft = 0;
@@ -54,7 +54,7 @@ namespace WeekAnkama
             turnIndex = (turnIndex + 1) % players.Count;
 
             currentPlayerTurn = players[turnIndex];
-            //playerManager.StartPlayerTurn(currentPlayerTurn);
+            playerManager.StartPlayerTurn(currentPlayerTurn);
 
             newTurnText.text = "Player " + (turnIndex + 1).ToString();
             StartCoroutine(ShowTextNewTurn());
