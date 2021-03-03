@@ -18,19 +18,9 @@ namespace WeekAnkama
 		float temp = 5;
 		public Transform testT, testMovable;
 
-        private void Start()
+        private void Awake()
         {
-			AskToMove(testT.position, testMovable);
-		}
-
-        private void Update()
-        {
-			temp -= Time.deltaTime;
-			if(temp<0)
-            {
-				AskToMove(testT.position, testMovable);
-				temp = 5;
-            }
+			instance = this;
         }
 
         public void AskToMove(Tile wantedTile, Transform objetToMove)
@@ -46,8 +36,10 @@ namespace WeekAnkama
 
 		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
 		{
+			Debug.Log("Path good ?");
 			if (pathSuccessful)
 			{
+				Debug.Log("Yes");
 				path = newPath;
 				targetIndex = 0;
 				StopCoroutine(FollowPath());
@@ -60,6 +52,7 @@ namespace WeekAnkama
 			Tile currentWaypoint = path[0];
 			while (true)
 			{
+				Debug.Log(targetToMove.gameObject);
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
 
@@ -70,7 +63,15 @@ namespace WeekAnkama
 					{
 						yield break;
 					}
+
+					currentWaypoint.UnSetPlayer();
+
 					currentWaypoint = path[targetIndex];
+
+					if(targetToMove.gameObject.GetComponent<Player>()!=null)
+                    {
+						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
+                    }
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
