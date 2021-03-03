@@ -14,7 +14,7 @@ namespace WeekAnkama
         public GameObject test;
         public GameObject pointer;
         public Text text;
-
+        Tile currentTile;
         public Vector3 pos;
 
         // Start is called before the first frame update
@@ -28,24 +28,34 @@ namespace WeekAnkama
                     pos = hitData.point;
                 }
             };
-            _grid = new Grid<Tile>(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
+
+            MouseHandler.OnMouseLeftClick += () =>
+            {
+                Tile oldTile = currentTile;
+                if (_grid.TryGetTile(pos, out currentTile))
+                {
+                    text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y));
+                    test.transform.position = _grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);                    
+                }
+                else
+                {
+                    currentTile = oldTile;
+                }
+            };
+            _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
         }
 
         private void Update()
         {
-            //pos = pointer.transform.position;
-            //pos.y = 0;
-            Debug.Log(pos);
+
             
             _grid.DebugGrid();
 
 
-            if (_grid.TryGetTile(pos, out Tile tile)) {
-                text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileWorldPosition(tile.Coords.x, tile.Coords.y));
-                test.transform.position = _grid.GetTileWorldPosition(tile.Coords.x, tile.Coords.y);
-                tile.value++;
-                text.text = $"{tile.Coords.x} - {tile.Coords.y} ____ { tile.value.ToString()}"; 
-            }
+            if (currentTile == null) return;
+            currentTile.value++;
+            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ { currentTile.value.ToString()}";
+
         }
     }
 }
