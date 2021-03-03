@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actualPlayer: {fileID: 535180477}
-  _cardsLayout: {fileID: 176345888}
+  _cardsLayoutParent: {fileID: 176345888}
   _actionButtonPrefab: {fileID: 598516139735485380, guid: e4a2060130ebcb542a3fc9a8b6386e5a, type: 3}
 --- !u!4 &1907539870
 Transform:

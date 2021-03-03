@@ -15,6 +15,8 @@ namespace WeekAnkama
 
         public Vector3 worldPosition;
 
+        public Player _player;
+
         //Pathfinding
         public int gCost;
         public int hCost;

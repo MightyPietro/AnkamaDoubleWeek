@@ -34,7 +34,7 @@ namespace WeekAnkama
         {
             if(actualPlayer.currentAction != null)
             {
-                DoAction();
+                DoAction(targetTile);
             }
             else
             {
@@ -48,11 +48,11 @@ namespace WeekAnkama
         }
 
         [Button]
-        private void DoAction()
+        private void DoAction(Tile targetTile)
         {
             if(actualPlayer.PA >= actualPlayer.currentAction.paCost)
             {
-                actualPlayer.currentAction.Process();
+                actualPlayer.currentAction.Process(targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
             }
