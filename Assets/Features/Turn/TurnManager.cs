@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class TurnManager : MonoBehaviour
@@ -11,12 +12,18 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private int secondByTurn;
 
-    private int turnIndex = 0;
+    private int turnIndex = -1;
     private float currentTurnTimeLeft = 0;
     
     PlayerCharacter currentPlayerTurn;
 
     public UnityEvent beginTurnEvent, endTurnEvent;
+
+    [SerializeField]
+    private Text newTurnText;
+    [SerializeField]
+    private List<Image> turnFeedback;
+    public List<Color> colorTests;
 
     private void Start()
     {
@@ -42,6 +49,15 @@ public class TurnManager : MonoBehaviour
         turnIndex = (turnIndex + 1) % players.Count;
 
         currentPlayerTurn = players[turnIndex];
+
+        newTurnText.text = "Player " + (turnIndex + 1).ToString();
+        StartCoroutine(ShowTextNewTurn());
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            turnFeedback[i].color = colorTests[(turnIndex + i) % players.Count];
+        }
+
         beginTurnEvent.Invoke();
     }
 
@@ -49,5 +65,12 @@ public class TurnManager : MonoBehaviour
     {
         Debug.Log("End Turn");
         endTurnEvent.Invoke();
+    }
+
+    IEnumerator ShowTextNewTurn()
+    {
+        newTurnText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        newTurnText.gameObject.SetActive(false);
     }
 }
