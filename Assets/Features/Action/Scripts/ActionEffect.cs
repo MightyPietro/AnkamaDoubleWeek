@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-
     public abstract class ActionEffect
     {
         public virtual void Process() { Debug.Log("Action"); }
