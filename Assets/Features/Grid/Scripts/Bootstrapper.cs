@@ -56,8 +56,8 @@ namespace WeekAnkama
 
 
             if (currentTile == null) return;
-            currentTile.value++;
-            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ { currentTile.value.ToString()}";
+            //currentTile.value++;
+            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ ";
 
         }
     }

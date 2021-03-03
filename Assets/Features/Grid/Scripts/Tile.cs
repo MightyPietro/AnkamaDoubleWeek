@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +9,9 @@ namespace WeekAnkama
     {
         private Grid _grid;
         private Vector2Int _coords;
-        public int value = 0;
-        public Vector2Int Coords => _coords;
-
-        public bool walkable = true;
-
-        public Vector3 worldPosition;
-
-        public Player _player;
+        private bool _walkable;
+        private TileEffect _effect;
+        private Player _player;
 
         //Pathfinding
         public int gCost;
@@ -23,12 +19,42 @@ namespace WeekAnkama
         public Tile parent;
         int heapIndex;
 
-        public Tile(Grid grid, Vector2Int coords, Vector3 _worldPosition)
+        public Vector2Int Coords => _coords;
+
+        public bool Walkable => _walkable;
+        public Player Player => _player;
+
+        public event System.Action<Player> OnEnterCase;
+        public event System.Action<Player> OnLeaveCase;
+
+        public Tile(Grid grid, Vector2Int coords)
         {
             _grid = grid;
             _coords = coords;
-            worldPosition = _worldPosition;
+
+            OnEnterCase += PerformEffect;
         }
+
+
+        public void SetPlayer(Player player)
+        {
+            if (player == null) return;
+            _player = player;
+            OnEnterCase?.Invoke(player);
+        }
+
+        public void UnSetPlayer()
+        {            
+            OnLeaveCase?.Invoke(_player);
+            _player = null;
+        }
+
+        private void PerformEffect(Player player)
+        {
+            _effect.Process(player);
+        }
+
+
 
         #region Pathfinding
 

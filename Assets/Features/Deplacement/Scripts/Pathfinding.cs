@@ -33,7 +33,7 @@ namespace WeekAnkama
 
             if(grid.TryGetTile(startPos, out startTile) && grid.TryGetTile(endPos, out endTile))
             {
-                if(endTile.walkable && startTile != endTile)
+                if(endTile.Walkable && startTile != endTile)
                 {
 					pathSuccess = SetAllNodes(startTile, endTile);
                 }
@@ -101,7 +101,7 @@ namespace WeekAnkama
 
 				foreach (Tile neighbour in grid.GetNeighbours(currentNode))
 				{
-					if (!neighbour.walkable || closedSet.Contains(neighbour))
+					if (!neighbour.Walkable || closedSet.Contains(neighbour))
 					{
 						continue;
 					}
