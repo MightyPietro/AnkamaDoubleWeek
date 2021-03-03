@@ -15,7 +15,7 @@ namespace WeekAnkama
         public int Heigth => _height;
         public Vector2 CellSize => _cellSize;
 
-        public Grid(int width, int height, Vector2 cellSize, Func<Grid<T>, Vector2Int, T> gridObjectFactory, Vector3 normalizedOffset)
+        public Grid(int width, int height, Vector2 cellSize, Func<Grid<T>, Vector2Int, T> gridObjectFactory, Vector2 normalizedOffset)
         {
             _width = width;
             _height = height;
@@ -53,27 +53,27 @@ namespace WeekAnkama
 
         public Vector3 GetTileWorldPosition(int x, int y)
         {
-            /*float worldX = x * _cellSize.x + _originOffset.x;
+            float worldX = x * _cellSize.x + _originOffset.x;
             float worldY = y * _cellSize.y + _originOffset.y;
-            return new Vector3(worldX, worldY);
-            */
-            return TwoDToIso(x,y) + _originOffset;
+            return new Vector3(worldX, 0,worldY);
+            
+            //return TwoDToIso(x,y) + _originOffset;
         }
 
         public Vector3 GetTileCenterWorldPosition(int x, int y)
         {
-            //return GetTileWorldPosition(x,y) + new Vector3(0.5f * _cellSize.x, 0.5f * _cellSize.y);
-            return GetTileWorldPosition(x, y) + TwoDToIso(0.5f, 0.5f);
+            return GetTileWorldPosition(x,y) + new Vector3(0.5f * _cellSize.x, 0, 0.5f * _cellSize.y);
+            //return GetTileWorldPosition(x, y) + TwoDToIso(0.5f, 0.5f);
         }
 
         #region PRIVATE METHODS
         private Vector2Int GetXY(Vector3 worldposition)
         {
-            /*float x = Mathf.FloorToInt((worldposition.x - _originOffset.x) / _cellSize.x);
-            float y = Mathf.FloorToInt((worldposition.y - _originOffset.y) / _cellSize.y);
+            int x = Mathf.FloorToInt((worldposition.x - _originOffset.x) / _cellSize.x);
+            int y = Mathf.FloorToInt((worldposition.z - _originOffset.y) / _cellSize.y);
             return new Vector2Int(x,y);
-            */
-            return IsoToTwoD(worldposition);
+            
+            //return IsoToTwoD(worldposition);
         }
 
         private void SetTile(int x, int y, T tile)
@@ -107,6 +107,7 @@ namespace WeekAnkama
             int y = Mathf.FloorToInt( ((worldIsoPos.y - _originOffset.y) / (_cellSize.y / 2.0f) - ((worldIsoPos.x - _originOffset.x) / (_cellSize.x / 2.0f))) / 2.0f );
             return new Vector2Int( x, y);
         }
+
         #endregion
 
 
@@ -117,12 +118,12 @@ namespace WeekAnkama
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    Debug.DrawLine(GetTileWorldPosition(x, y), GetTileWorldPosition(x, y + 1));
-                    Debug.DrawLine(GetTileWorldPosition(x, y), GetTileWorldPosition(x + 1, y));
+                    Debug.DrawLine(GetTileWorldPosition(x, y), GetTileWorldPosition(x, y + 1),Color.red);
+                    Debug.DrawLine(GetTileWorldPosition(x, y), GetTileWorldPosition(x + 1, y), Color.red);
                 }
             }
-            Debug.DrawLine(GetTileWorldPosition(_width, 0), GetTileWorldPosition(_width, _height));
-            Debug.DrawLine(GetTileWorldPosition(0, _height), GetTileWorldPosition(_width, _height));
+            Debug.DrawLine(GetTileWorldPosition(_width, 0), GetTileWorldPosition(_width, _height), Color.red);
+            Debug.DrawLine(GetTileWorldPosition(0, _height), GetTileWorldPosition(_width, _height), Color.red);
         }
         #endregion
     }
