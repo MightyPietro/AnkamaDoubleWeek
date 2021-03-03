@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Lights/Global Lighting Settings.lighting.meta
 guid: cd940c7db71c6fa48b5f83456d7b0173
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
+=======
+guid: 153c80600643efc49b5859ffc38f8ff4
+DefaultImporter:
+  externalObjects: {}
+>>>>>>> develop:Assets/Plugins/Sirenix/Demos/Editor Windows.unitypackage.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
