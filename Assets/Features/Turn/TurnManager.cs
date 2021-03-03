@@ -44,7 +44,6 @@ public class TurnManager : MonoBehaviour
 
     public void BeginTurn()
     {
-        Debug.Log("Begin Turn");
         currentTurnTimeLeft = secondByTurn;
         turnIndex = (turnIndex + 1) % players.Count;
 
@@ -63,7 +62,6 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
-        Debug.Log("End Turn");
         endTurnEvent.Invoke();
     }
 

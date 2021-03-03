@@ -4,19 +4,58 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-    public class Tile
+    public class Tile : IHeapItem<Tile>
     {
-        private Grid<Tile> _grid;
+        private Grid _grid;
         private Vector2Int _coords;
         public int value = 0;
         public Vector2Int Coords => _coords;
 
-        public Tile(Grid<Tile> grid, Vector2Int coords)
+        public bool walkable = true;
+
+        //Pathfinding
+        public int gCost;
+        public int hCost;
+        public Tile parent;
+        int heapIndex;
+
+        public Tile(Grid grid, Vector2Int coords)
         {
             _grid = grid;
             _coords = coords;
         }
 
+        #region Pathfinding
+
+        public int HeapIndex
+        {
+            get
+            {
+                return heapIndex;
+            }
+            set
+            {
+                heapIndex = value;
+            }
+        }
+        public int fCost
+        {
+            get
+            {
+                return gCost + hCost;
+            }
+        }
+
+        public int CompareTo(Tile nodeToCompare)
+        {
+            int compare = fCost.CompareTo(nodeToCompare.fCost);
+            if (compare == 0)
+            {
+                compare = hCost.CompareTo(nodeToCompare.hCost);
+            }
+            return -compare;
+        }
+        #endregion
     }
 }
 
