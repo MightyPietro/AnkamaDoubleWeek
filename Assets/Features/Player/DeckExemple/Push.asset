@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
-  actionTypes: 0000000002000000
+  paCost: 0
+  fatigueDmg: 0
+  actionTypes: 00000000

@@ -5,6 +5,5 @@ using UnityEngine;
 public enum ActionType
 {
     Push,
-    Attract,
-    Damage
+    Attract
 }

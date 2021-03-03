@@ -8,7 +8,7 @@ namespace WeekAnkama
     public class PlayerManager : MonoBehaviour
     {
         #region Private Variables
-        [SerializeField,HideInInspector] private Player _actualPlayer;
+        [SerializeField] private Player _actualPlayer;
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
         #endregion
@@ -32,15 +32,15 @@ namespace WeekAnkama
 
         private void DoSomethingOnTile(Tile targetTile)
         {
-            
-            /*if(actualPlayer.currentAction != null)
+
+            if (actualPlayer.currentAction != null && targetTile.Player != null)
             {
                 DoAction(targetTile);
             }
-            else*/
-            //{
+            else
+            {
                 MoveCharacter(targetTile);
-            //}
+            }
         }
 
         private void MoveCharacter(Tile targetTile)
