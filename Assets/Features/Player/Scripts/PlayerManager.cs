@@ -8,8 +8,8 @@ namespace WeekAnkama
     public class PlayerManager : MonoBehaviour
     {
         #region Private Variables
-        [SerializeField] private Player _actualPlayer;
-        [SerializeField] private Transform _cardsLayout;
+        [SerializeField,HideInInspector] private Player _actualPlayer;
+        [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
         #endregion
 
@@ -28,7 +28,13 @@ namespace WeekAnkama
         [Button]
         private void DoAction()
         {
-            actualPlayer.currentAction.Process();
+            if(actualPlayer.PA >= actualPlayer.currentAction.paCost)
+            {
+                actualPlayer.currentAction.Process();
+                actualPlayer.PA -= actualPlayer.currentAction.paCost;
+
+            }
+
         }
 
         [Button]
@@ -59,7 +65,7 @@ namespace WeekAnkama
         {
             for (int i = 0; i < actualPlayer.hand.Count; i++)
             {
-                Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayout);
+                Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
                 Action action = actualPlayer.hand[i];
                 _instantiatedActionButton.onClick.AddListener(() => AddCurrentAction(action));
                 _instantiatedActionButton.name = action.name;
