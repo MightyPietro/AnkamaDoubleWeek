@@ -8,7 +8,7 @@ namespace WeekAnkama
     {
         public override void Process(Tile targetTile, Action action)
         {
-            Debug.Log(targetTile._player.fatigue += action.fatigueDmg);
+            Debug.Log(targetTile.Player.fatigue += action.fatigueDmg);
         }
 
     }

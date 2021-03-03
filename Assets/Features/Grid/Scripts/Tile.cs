@@ -12,6 +12,7 @@ namespace WeekAnkama
         private bool _walkable;
         private TileEffect _effect;
         private Player _player;
+        private Vector3 _worldPosition;
 
         //Pathfinding
         public int gCost;
@@ -23,14 +24,16 @@ namespace WeekAnkama
 
         public bool Walkable => _walkable;
         public Player Player => _player;
+        public Vector3 WorldPosition => _worldPosition;
 
         public event System.Action<Player> OnEnterCase;
         public event System.Action<Player> OnLeaveCase;
 
-        public Tile(Grid grid, Vector2Int coords)
+        public Tile(Grid grid, Vector2Int coords, Vector3 worldPosition)
         {
             _grid = grid;
             _coords = coords;
+            _worldPosition = worldPosition;
 
             OnEnterCase += PerformEffect;
         }

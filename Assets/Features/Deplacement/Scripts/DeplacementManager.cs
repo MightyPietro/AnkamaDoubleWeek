@@ -35,7 +35,7 @@ namespace WeekAnkama
 
         public void AskToMove(Tile wantedTile, Transform objetToMove)
         {
-			AskToMove(wantedTile.worldPosition, objetToMove);
+			AskToMove(wantedTile.WorldPosition, objetToMove);
 		}
 
 		public void AskToMove(Vector3 wantedPos, Transform objetToMove)
@@ -61,7 +61,7 @@ namespace WeekAnkama
 			while (true)
 			{
 				posUnit = targetToMove.position;
-				posTarget = currentWaypoint.worldPosition;
+				posTarget = currentWaypoint.WorldPosition;
 
 				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
 				{
@@ -72,7 +72,7 @@ namespace WeekAnkama
 					}
 					currentWaypoint = path[targetIndex];
 				}
-				direction = (currentWaypoint.worldPosition-targetToMove.position).normalized;
+				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
 				targetToMove.position += direction * speed * Time.deltaTime;
 				//	Vector3.MoveTowards(transform.position,currentWaypoint,speed * Time.deltaTime);
