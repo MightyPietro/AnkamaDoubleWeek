@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
+using Sirenix.OdinInspector;
 using System.Linq;
 
 namespace WeekAnkama
@@ -9,7 +9,11 @@ namespace WeekAnkama
     [CreateAssetMenu(menuName = "Assets/Action")]
     public class Action : ScriptableObject
     {
-        public enum ActionType { Push, Attract, Damage };
+        
+        [Range(0,10)]
+        public int paCost;
+
+        [Header("Action")]
         public List<ActionType> actionTypes;
         public System.Type[] actionEffects;
 
@@ -51,16 +55,6 @@ namespace WeekAnkama
             actionEffects = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
         }
 
-        [ContextMenu("Display List")]
-        void Display()
-        {
-            foreach (ActionEffect item in testEffects)
-            {
-
-                Debug.Log(item);
-            }
-
-        }
 
         [ContextMenu("Process")]
         public void Process()
