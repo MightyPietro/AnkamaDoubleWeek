@@ -44,8 +44,8 @@ namespace WeekAnkama
             }
         }
 
-        [ContextMenu("Do Something")]
-        void DoSomething()
+        [ContextMenu("FindActionEffectSubClass")]
+        void FindActionEffectSubClass()
         {
             System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
             actionEffects = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
@@ -65,7 +65,7 @@ namespace WeekAnkama
         [ContextMenu("Process")]
         public void Process()
         {
-            DoSomething();
+            FindActionEffectSubClass();
             for (int j = 0; j < actionTypes.Count; j++)
             {
                 foreach (System.Type item in actionEffects)
