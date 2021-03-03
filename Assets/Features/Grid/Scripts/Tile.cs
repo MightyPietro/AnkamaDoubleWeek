@@ -24,6 +24,7 @@ namespace WeekAnkama
 
         public bool Walkable => _walkable;
         public Player Player => _player;
+        public TileEffect Effect => _effect;
         public Vector3 WorldPosition => _worldPosition;
 
         public event System.Action<Player> OnEnterCase;
@@ -34,8 +35,6 @@ namespace WeekAnkama
             _grid = grid;
             _coords = coords;
             _worldPosition = worldPosition;
-
-            OnEnterCase += PerformEffect;
         }
 
 
@@ -52,9 +51,17 @@ namespace WeekAnkama
             _player = null;
         }
 
-        private void PerformEffect(Player player)
+        public void SetTileEffect(TileEffect effect)
         {
-            _effect.Process(player);
+            _effect = effect;
+            effect.BootUp(this);
+            OnEnterCase?.Invoke(_player);
+        }
+
+        public void UnSetTileEffect(TileEffect effect)
+        {
+            _effect.ShutDown();
+            _effect = null;
         }
 
 

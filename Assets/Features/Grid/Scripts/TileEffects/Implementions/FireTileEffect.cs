@@ -5,15 +5,21 @@ using UnityEngine;
 namespace WeekAnkama
 {
     [System.Serializable]
-    [CreateAssetMenu(fileName ="FireTileEffect", menuName = "CustomAssets/FireTileEffect")]
+    [CreateAssetMenu(fileName ="FireTileEffect", menuName = "Assets/TileEffects/Fire")]
     public class FireTileEffect : TileEffect
     {
         [SerializeField]protected int _fatigue;
 
         public override void Process(Player _player)
         {
+            Debug.Log("Prout " + _fatigue.ToString() + " " + _linkedTile.Coords.ToString());
+            if (_player == null) { 
+                Debug.LogError($"Player is Null in { this.GetType().ToString()}");
+                return;
+            } 
             _player.fatigue += _fatigue;
         }
+
     }
 }
 
