@@ -25,7 +25,7 @@ namespace WeekAnkama
 
         IEnumerator FindPath(Vector3 startPos, Vector3 endPos, int maxDistance)
         {
-			Vector3[] waypoints = new Vector3[0];
+			List<Tile> waypoints = new List<Tile>();
             bool pathSuccess = false;
 
             Tile startTile = new Tile(grid, new Vector2Int(0, 0), grid.GetTileWorldPosition(0,0));
@@ -47,13 +47,12 @@ namespace WeekAnkama
 
         }
 
-		Vector3[] RetracePath(Tile startNode, Tile endNode, int maxDistance)
+		List<Tile> RetracePath(Tile startNode, Tile endNode, int maxDistance)
 		{
 			List<Tile> path = GetPath(startNode, endNode, maxDistance);
-			Vector3[] waypoints = GetVectorPath(path);
-			Array.Reverse(waypoints);
-			return waypoints;
-
+			Tile[] tileArray = path.ToArray();
+			Array.Reverse(tileArray);
+			return new List<Tile>(tileArray);
 		}
 
 		public List<Tile> GetPath(Tile startNode, Tile endNode, int maxDistance)

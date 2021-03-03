@@ -10,7 +10,7 @@ namespace WeekAnkama
 		public Transform targetToMove;
 		[SerializeField]
 		float speed = 1;
-		Vector3[] path;
+		List<Tile> path;
 		int targetIndex;
 
 		Vector3 posUnit, posTarget, direction;
@@ -44,12 +44,11 @@ namespace WeekAnkama
 			PathRequestManager.RequestPath(objetToMove.position, wantedPos, 500, OnPathFound);
 		}
 
-		public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
+		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
 		{
 			if (pathSuccessful)
 			{
 				path = newPath;
-				Debug.Log("Allo ?");
 				targetIndex = 0;
 				StopCoroutine(FollowPath());
 				StartCoroutine(FollowPath());
@@ -58,24 +57,22 @@ namespace WeekAnkama
 
 		IEnumerator FollowPath()
 		{
-			Vector3 currentWaypoint = path[0];
+			Tile currentWaypoint = path[0];
 			while (true)
 			{
 				posUnit = targetToMove.position;
-				posTarget = currentWaypoint;
+				posTarget = currentWaypoint.worldPosition;
 
 				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
 				{
 					targetIndex++;
-					if (targetIndex >= path.Length)
+					if (targetIndex >= path.Count)
 					{
 						yield break;
 					}
 					currentWaypoint = path[targetIndex];
 				}
-				direction = (currentWaypoint-targetToMove.position).normalized;
-
-				Debug.Log(direction);
+				direction = (currentWaypoint.worldPosition-targetToMove.position).normalized;
 
 				targetToMove.position += direction * speed * Time.deltaTime;
 				//	Vector3.MoveTowards(transform.position,currentWaypoint,speed * Time.deltaTime);

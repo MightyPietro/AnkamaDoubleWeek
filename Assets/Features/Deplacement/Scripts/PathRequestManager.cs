@@ -21,7 +21,7 @@ namespace WeekAnkama
             pathfinding = GetComponent<Pathfinding>();
         }
 
-        public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, int maxDistance, Action<Vector3[], bool> callback)
+        public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, int maxDistance, Action<List<Tile>, bool> callback)
         {
             PathRequest newRequest = new PathRequest(pathStart, pathEnd, maxDistance, callback);
             instance.pathRequestQueue.Enqueue(newRequest);
@@ -38,7 +38,7 @@ namespace WeekAnkama
             }
         }
 
-        public void FinishedProcessingPath(Vector3[] path, bool success)
+        public void FinishedProcessingPath(List<Tile> path, bool success)
         {
             currentPathRequest.callback(path, success);
             isProcessingPath = false;
@@ -51,9 +51,9 @@ namespace WeekAnkama
             public Vector3 pathStart;
             public Vector3 pathEnd;
             public int maxDistance;
-            public Action<Vector3[], bool> callback;
+            public Action<List<Tile>, bool> callback;
 
-            public PathRequest(Vector3 _start, Vector3 _end, int _maxDistance, Action<Vector3[], bool> _callback)
+            public PathRequest(Vector3 _start, Vector3 _end, int _maxDistance, Action<List<Tile>, bool> _callback)
             {
                 pathStart = _start;
                 pathEnd = _end;
