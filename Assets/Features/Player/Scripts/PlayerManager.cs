@@ -18,11 +18,33 @@ namespace WeekAnkama
         public List<Action> actualPlayerHand { get { return actualPlayer.hand; } set { actualPlayer.hand = value; } }
         #endregion
 
+        private void Start()
+        {
+            MouseHandler.OnTileLeftClick += DoSomethingOnTile;
+        }
+
         public void StartPlayerTurn(Player _setActualPlayer)
         {
             actualPlayer = _setActualPlayer;
             DoDraw();
             DisplayCards();
+        }
+
+        private void DoSomethingOnTile(Tile targetTile)
+        {
+            if(actualPlayer.currentAction != null)
+            {
+                DoAction();
+            }
+            else
+            {
+                MoveCharacter(targetTile);
+            }
+        }
+
+        private void MoveCharacter(Tile targetTile)
+        {
+            DeplacementManager.instance.AskToMove(targetTile, transform);
         }
 
         [Button]

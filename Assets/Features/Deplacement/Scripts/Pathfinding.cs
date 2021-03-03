@@ -28,8 +28,8 @@ namespace WeekAnkama
 			Vector3[] waypoints = new Vector3[0];
             bool pathSuccess = false;
 
-            Tile startTile = new Tile(grid, new Vector2Int(0, 0));
-            Tile endTile = new Tile(grid, new Vector2Int(0, 0));
+            Tile startTile = new Tile(grid, new Vector2Int(0, 0), grid.GetTileWorldPosition(0,0));
+            Tile endTile = new Tile(grid, new Vector2Int(0, 0), grid.GetTileWorldPosition(0, 0));
 
             if(grid.TryGetTile(startPos, out startTile) && grid.TryGetTile(endPos, out endTile))
             {

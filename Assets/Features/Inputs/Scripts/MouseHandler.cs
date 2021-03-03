@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using WeekAnkama;
 
 public class MouseHandler : MonoBehaviour
 {
     [SerializeField]private InputActionAsset asset;
 
     public static event Action<Vector2> OnMouseMove;
-    public static event Action OnMouseLeftClick;
+    public static event System.Action OnMouseLeftClick;
+    public static event Action<Tile> OnTileLeftClick;
 
     private void Awake()
     {
@@ -23,6 +25,11 @@ public class MouseHandler : MonoBehaviour
     {
         Debug.Log("Click !!!");
         OnMouseLeftClick?.Invoke();
+    }
+
+    public static void OnTileClick(Tile clickedTile)
+    {
+        OnTileLeftClick?.Invoke(clickedTile);
     }
 
     private void OnMove(InputAction.CallbackContext ctx)

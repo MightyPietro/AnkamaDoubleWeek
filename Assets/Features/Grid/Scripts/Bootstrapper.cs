@@ -35,14 +35,16 @@ namespace WeekAnkama
                 if (_grid.TryGetTile(pos, out currentTile))
                 {
                     text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y));
-                    test.transform.position = _grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);                    
+                    test.transform.position = _grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
+
+                    MouseHandler.OnTileClick(currentTile);
                 }
                 else
                 {
                     currentTile = oldTile;
                 }
             };
-            _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
+            _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords, grid.GetTileWorldPosition(coords.x, coords.y)); }, new Vector2(-0.5f, -0.5f));
         }
 
         private void Update()

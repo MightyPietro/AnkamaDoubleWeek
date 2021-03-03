@@ -6,7 +6,7 @@ namespace WeekAnkama
 {
     public class DeplacementManager : MonoBehaviour
     {
-        static DeplacementManager instance;
+        public static DeplacementManager instance;
 		public Transform targetToMove;
 		[SerializeField]
 		float speed = 1;
@@ -33,8 +33,13 @@ namespace WeekAnkama
             }
         }
 
-        public void AskToMove(Vector3 wantedPos, Transform objetToMove)
+        public void AskToMove(Tile wantedTile, Transform objetToMove)
         {
+			AskToMove(wantedTile.worldPosition, objetToMove);
+		}
+
+		public void AskToMove(Vector3 wantedPos, Transform objetToMove)
+		{
 			targetToMove = objetToMove;
 			PathRequestManager.RequestPath(objetToMove.position, wantedPos, 500, OnPathFound);
 		}
@@ -54,15 +59,10 @@ namespace WeekAnkama
 		IEnumerator FollowPath()
 		{
 			Vector3 currentWaypoint = path[0];
-			Debug.Log("Allo ??");
 			while (true)
 			{
-
-				Debug.Log("Allo ???");
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint;
-
-				Debug.Log("Allo ????");
 
 				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
 				{

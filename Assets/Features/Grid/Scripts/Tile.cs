@@ -13,16 +13,19 @@ namespace WeekAnkama
 
         public bool walkable = true;
 
+        public Vector3 worldPosition;
+
         //Pathfinding
         public int gCost;
         public int hCost;
         public Tile parent;
         int heapIndex;
 
-        public Tile(Grid grid, Vector2Int coords)
+        public Tile(Grid grid, Vector2Int coords, Vector3 _worldPosition)
         {
             _grid = grid;
             _coords = coords;
+            worldPosition = _worldPosition;
         }
 
         #region Pathfinding
