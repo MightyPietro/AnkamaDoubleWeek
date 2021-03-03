@@ -20,13 +20,13 @@ namespace WeekAnkama
         // Start is called before the first frame update
         void Start()
         {
-            _grid = new Grid<Tile>(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector3(0, -0.5f));
+            _grid = new Grid<Tile>(x, y, size, (grid, coords) => { return new Tile(grid, coords); }, new Vector2(-0.5f, -0.5f));
         }
 
         private void Update()
         {
             pos = pointer.transform.position;
-            pos.z = 0;
+            pos.y = 0;
             _grid.DebugGrid();
 
 
