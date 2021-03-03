@@ -63,7 +63,15 @@ namespace WeekAnkama
 					{
 						yield break;
 					}
+
+					currentWaypoint.UnSetPlayer();
+
 					currentWaypoint = path[targetIndex];
+
+					if(targetToMove.gameObject.GetComponent<Player>()!=null)
+                    {
+						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
+                    }
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
