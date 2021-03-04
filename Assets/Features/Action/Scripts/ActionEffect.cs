@@ -9,10 +9,11 @@ namespace WeekAnkama
         protected GameObject instantiatedPrefab;
         public virtual void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            
+            Debug.Log(action.tileEffect);
 
-            if (action.isTileEffect && targetTile.Effect == null)
+            if (action.isTileEffect)
             {
+                
                 targetTile.SetTileEffect(action.tileEffect);
             }
 
