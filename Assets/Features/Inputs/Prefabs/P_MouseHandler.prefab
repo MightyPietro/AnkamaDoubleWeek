@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2226243517230318875}
   - component: {fileID: 2226243517230318876}
+  - component: {fileID: 6422372516221362981}
   m_Layer: 0
   m_Name: P_MouseHandler
   m_TagString: Untagged
@@ -44,3 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asset: {fileID: -944628639613478452, guid: 3fa25d779ee69124784cf104715e20ac, type: 3}
+--- !u!114 &6422372516221362981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2226243517230318874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ac782cb0b50354fa53bf8c89fa9a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

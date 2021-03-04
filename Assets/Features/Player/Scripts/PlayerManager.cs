@@ -33,8 +33,8 @@ namespace WeekAnkama
 
         private void Start()
         {
-            MouseHandler.OnTileLeftClick += DoSomethingOnTile;
-            MouseHandler.OnNonTileLeftClick += () => actualPlayer.currentAction = null;
+            MouseOperation.OnLeftClickTile += DoSomethingOnTile;
+            MouseOperation.OnLeftClickNoTile += () => actualPlayer.currentAction = null;
         }
 
         public void SetPlayerOutArena(Player killedPlayer)
