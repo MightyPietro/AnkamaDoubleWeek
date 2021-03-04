@@ -75,22 +75,24 @@ namespace WeekAnkama
             {
                 if (actualPlayer.currentAction != null)
                 {
-                    if(!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                    GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
+                    if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
                     {
-                        DoAction(targetTile);
-                        Debug.Log(targetTile.Player);
+                        if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                        {
+                            DoAction(targetTile);
+                            Debug.Log(targetTile.Player);
+                        }
+                        else if (actualPlayer.currentAction.isTileEffect)
+                        {
+                            DoAction(targetTile);
+                            Debug.Log(targetTile.Player);
+                        }
+                        else
+                        {
+                            actualPlayer.currentAction = null;
+                        }
                     }
-                    else if (actualPlayer.currentAction.isTileEffect)
-                    {
-                        DoAction(targetTile);
-                        Debug.Log(targetTile.Player);
-                    }
-                    else
-                    {
-                        actualPlayer.currentAction = null;
-                    }
-
-
                 }
                 else
                 {
@@ -172,8 +174,6 @@ namespace WeekAnkama
         [Button]
         private void DisplayCards()
         {
-            
-
             if (displayedCards.Count == 0)
             {
                 displayedCards.Clear();
@@ -183,25 +183,16 @@ namespace WeekAnkama
                     displayedCards.Add(_instantiatedActionButton);
                     Action action = actualPlayer.hand[i];
                     ResetCards(_instantiatedActionButton, action);
-
-
-
                 }
             }
             else
             {
-                
                 for (int i = 0; i < actualPlayer.hand.Count; i++)
                 {
-                    
                     Action action = actualPlayer.hand[i];
                     ResetCards(displayedCards[i], action);
-                    
                 }
-
             }
-
-
         }
         private void ResetCards(Button card, Action action)
         {
@@ -225,6 +216,15 @@ namespace WeekAnkama
                     displayedCards[i].interactable = false;
                 }
             }
+        }
+
+        private bool IsTargetValid(Tile castTile, Tile targetTile, int rangeNeeded)
+        {
+            if(castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y)
+            {
+                return (Mathf.Abs(targetTile.Coords.x - castTile.Coords.x) + Mathf.Abs(targetTile.Coords.y - castTile.Coords.y) <= rangeNeeded);
+            }
+            return false;
         }
 
     }

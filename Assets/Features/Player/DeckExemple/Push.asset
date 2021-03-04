@@ -18,5 +18,5 @@ MonoBehaviour:
   paCost: 1
   fatigueDmg: 0
   pushCase: 2
-  range: 0
+  range: 1
   actionTypes: 00000000
