@@ -59,7 +59,8 @@ namespace WeekAnkama
 
         void BeginBattle()
         {
-            for(int i = 0; i < spawnPosition.Count; i++)
+            Debug.Log("Begin battle");
+            for (int i = 0; i < spawnPosition.Count; i++)
             {
                 playerManager.TeleportPlayer(players[i], spawnPosition[i]);
             }

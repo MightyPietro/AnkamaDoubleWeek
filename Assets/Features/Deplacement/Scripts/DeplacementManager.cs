@@ -39,11 +39,6 @@ namespace WeekAnkama
 			}
 		}
 
-		public void AskToPush(Tile wantedTile, Transform objectToMove)
-        {
-			AskToMove(wantedTile.WorldPosition, objectToMove);
-		}
-
 		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
 		{
 			if (pathSuccessful)
@@ -86,7 +81,9 @@ namespace WeekAnkama
 					if(targetToMove.gameObject.GetComponent<Player>()!=null)
                     {
 						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
-                    }
+						targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
+
+					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
