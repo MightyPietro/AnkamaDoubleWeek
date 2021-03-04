@@ -39,6 +39,15 @@ namespace WeekAnkama
 			}
 		}
 
+		public void AskToMove(Tile wantedTile, Player playerToMove, int movementPoint)
+		{
+			if (!processDeplacement)
+			{
+				targetToMove = playerToMove.transform;
+				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
+			}
+		}
+
 		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
 		{
 			if (pathSuccessful)

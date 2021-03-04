@@ -50,8 +50,11 @@ namespace WeekAnkama
         {
             if (_setActualPlayer.isOut)
             {
+                _setActualPlayer.isOut = false;
                 TeleportPlayer(_setActualPlayer, turnManager.GetSpawnPoint(_setActualPlayer));
             }
+
+            _setActualPlayer.ResetFatigue();
 
             actualPlayer = _setActualPlayer;
             DoDraw();
@@ -80,7 +83,7 @@ namespace WeekAnkama
 
         private void MoveCharacter(Tile targetTile)
         {
-            DeplacementManager.instance.AskToMove(targetTile, actualPlayer.transform);
+            DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
         }
 
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)

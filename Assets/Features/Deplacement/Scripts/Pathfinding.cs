@@ -33,7 +33,12 @@ namespace WeekAnkama
 
             if(grid.TryGetTile(startPos, out startTile) && grid.TryGetTile(endPos, out endTile))
             {
-                if(endTile.Walkable && startTile != endTile)
+				Debug.Log(GetDistance(startTile, endTile) + " > " + maxDistance);
+				if(GetDistance(startTile, endTile) > maxDistance)
+                {
+					pathSuccess = false;
+                }
+				else if(endTile.Walkable && startTile != endTile)
                 {
 					pathSuccess = SetAllNodes(startTile, endTile);
                 }
