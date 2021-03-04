@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e4e965bee3d6748ac831677805d5f0, type: 3}
   m_Name: EarthTileEffect
   m_EditorClassIdentifier: 
-  TriggerOnEnterCase: 1
+  TriggerOnEnterCase: 0
   TriggerOnLeaveCase: 0
   TriggerOnTurnStart: 0
   TriggerOnTurnEnd: 0
-  _walkable: 0
-  _crossable: 0
-  _effectPrefab: {fileID: 0}
+  _walkable: 1
+  _crossable: 1
   _fatigue: 0
