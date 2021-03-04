@@ -63,7 +63,6 @@ public class MouseHandler : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Move !!!");
         OnMouseMove?.Invoke(ctx.ReadValue<Vector2>());
     }
 

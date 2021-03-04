@@ -7,12 +7,10 @@ namespace WeekAnkama
 {
     public class Bootstrapper : MonoBehaviour
     {
-        public Grid _grid;
         public int x = 10;
         public int y = 10;
         public Vector2 size;
         public GameObject test;
-        public GameObject pointer;
         public Text text;
         Tile casterTile;
         Tile currentTile;
@@ -28,19 +26,25 @@ namespace WeekAnkama
                 Ray ray = Camera.main.ScreenPointToRay(new Vector3(position.x, position.y)); 
                 if(Physics.Raycast(ray,out hitData, 100))
                 {
-                    pos = hitData.point;
+                    pos = hitData.point;                    
+                    Debug.Log("Move !!!" + pos);                    
+                }
+                else
+                {
+                    pos = new Vector3(-100,-100,-100);
                 }
             };
 
             MouseHandler.OnMouseLeftClick += () =>
             {
                 Tile oldTile = currentTile;
-                if (_grid.TryGetTile(pos, out currentTile))
+                if (GridManager.Grid.TryGetTile(pos, out currentTile))
                 {
-                    text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y));
-                    test.transform.position = _grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
+                    text.transform.position = Camera.main.WorldToScreenPoint(GridManager.Grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y));
+                    test.transform.position = GridManager.Grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
 
                     MouseHandler.OnTileClick(currentTile);
+                    StartCoroutine("TestFunc", GridManager.GetVisual(pos));
                 }
                 else
                 {
@@ -48,18 +52,23 @@ namespace WeekAnkama
                     currentTile = oldTile;
                 }
             };
-            _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords, grid.GetTileWorldPosition(coords.x, coords.y)); }, new Vector2(-0.5f, -0.5f));
-            _grid.TryGetTile(Vector3.zero, out Tile t);
-            t.SetTileEffect(effect);
+        }
 
-            _grid.TryGetTile(new Vector3(3,0,1), out Tile t2);
-            t2.SetTileEffect(effect2);
+        private void Start()
+        {
+        }
+
+        IEnumerator TestFunc(GameObject obj)
+        {
+            obj.transform.position = obj.transform.position + new Vector3(0,1,0);
+            yield return new WaitForSeconds(0.5f);
+            obj.transform.position = obj.transform.position + new Vector3(0, -1, 0);
         }
 
         private void Update()
         {
             //MouseHandler.Instance.DisableGameplayInputs();
-            _grid.DebugGrid();
+            GridManager.Grid.DebugGrid();
 
             /*_grid.TryGetTile(Vector3.zero, out Tile t);
             t.SetTileEffect(effect2);
