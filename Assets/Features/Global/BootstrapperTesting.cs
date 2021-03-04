@@ -43,12 +43,10 @@ namespace WeekAnkama
                     text.transform.position = Camera.main.WorldToScreenPoint(GridManager.Grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y));
                     test.transform.position = GridManager.Grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
 
-                    MouseHandler.OnTileClick(currentTile);
                     //StartCoroutine("TestFunc", GridManager.GetVisual(pos));
                 }
                 else
                 {
-                    MouseHandler.OnNonTileClick();
                     currentTile = oldTile;
                 }
             };
