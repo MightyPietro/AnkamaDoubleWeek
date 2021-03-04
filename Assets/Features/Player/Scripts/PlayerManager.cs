@@ -75,16 +75,26 @@ namespace WeekAnkama
             {
                 if (actualPlayer.currentAction != null)
                 {
-                    DoAction(targetTile);
-                    //if (targetTile.Player != null)
-                    //{
-                        
-                    //    Debug.Log(targetTile.Player);
-                    //}else actualPlayer.currentAction = null;
+                    if(!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                    {
+                        DoAction(targetTile);
+                        Debug.Log(targetTile.Player);
+                    }
+                    else if (actualPlayer.currentAction.isTileEffect)
+                    {
+                        DoAction(targetTile);
+                        Debug.Log(targetTile.Player);
+                    }
+                    else
+                    {
+                        actualPlayer.currentAction = null;
+                    }
+
 
                 }
                 else
                 {
+                    
                     MoveCharacter(targetTile);
                 }
             }
