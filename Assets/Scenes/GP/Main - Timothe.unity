@@ -439,7 +439,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274969088}
-  - component: {fileID: 274969087}
   m_Layer: 0
   m_Name: Directional Lights
   m_TagString: Untagged
@@ -447,19 +446,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &274969087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274969086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301f68c9326ac344bab71aa0d8d98f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RecordAudio: 1
 --- !u!4 &274969088
 Transform:
   m_ObjectHideFlags: 0
@@ -516,6 +502,11 @@ MonoBehaviour:
   - {fileID: 830005332}
   - {fileID: 77488810}
   - {fileID: 27136293}
+  spawnPosition:
+  - {x: 1, y: 1}
+  - {x: 5, y: 5}
+  - {x: 5, y: 1}
+  - {x: 1, y: 5}
   secondByTurn: 5
   newTurnText: {fileID: 1486189010}
   turnFeedback:
@@ -839,6 +830,10 @@ PrefabInstance:
       propertyPath: _cardsLayoutParent
       value: 
       objectReference: {fileID: 1258462463}
+    - target: {fileID: 459726740817805838, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
+      propertyPath: boot
+      value: 
+      objectReference: {fileID: 393725975}
     - target: {fileID: 459726740817805839, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
       propertyPath: m_Name
       value: P_PlayerManager

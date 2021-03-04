@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-    public abstract class ActionEffect
+    public abstract class ActionEffect:MonoBehaviour
     {
-        public virtual void Process(Tile targetTile, Action action) { Debug.Log("Action"); }
+        public virtual void Process(Tile targetTile, Action action)
+        {
+            
+        
+        }
     }
 }
 

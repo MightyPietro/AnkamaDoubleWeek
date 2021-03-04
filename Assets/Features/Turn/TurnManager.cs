@@ -16,6 +16,9 @@ namespace WeekAnkama
         private List<Player> players = new List<Player>();
 
         [SerializeField]
+        private List<Vector2Int> spawnPosition;
+
+        [SerializeField]
         private int secondByTurn = 15;
 
         private int turnIndex = -1;
@@ -31,21 +34,37 @@ namespace WeekAnkama
         private List<Image> turnFeedback;
         public List<Color> colorTests;
 
+        bool didBattleStart;
+
         private void Start()
         {
             OnEndPlayerTurn += BeginTurn;
+            BeginBattle();
         }
 
         void Update()
         {
-            if (currentTurnTimeLeft <= 0)
+            if (didBattleStart)
             {
-                EndTurn();
+                if (currentTurnTimeLeft <= 0)
+                {
+                    EndTurn();
+                }
+                else
+                {
+                    currentTurnTimeLeft -= Time.deltaTime;
+                }
             }
-            else
+        }
+
+        void BeginBattle()
+        {
+            for(int i = 0; i < spawnPosition.Count; i++)
             {
-                currentTurnTimeLeft -= Time.deltaTime;
+                playerManager.TeleportPlayer(players[i], spawnPosition[i]);
             }
+
+            didBattleStart = true;
         }
 
         public void BeginTurn(Player oldPlayer)
