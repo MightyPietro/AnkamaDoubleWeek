@@ -16,7 +16,7 @@ namespace WeekAnkama
         [SerializeField] private TurnManager turnManager;
 
         [SerializeField]
-        private Bootstrapper boot;
+        private BootstrapperTesting boot;
 
         Grid grid;
 

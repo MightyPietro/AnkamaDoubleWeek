@@ -7,7 +7,7 @@ namespace WeekAnkama
     public class Pathfinding : MonoBehaviour
     {
 		[SerializeField]
-		private Bootstrapper boot;
+		private BootstrapperTesting boot;
 
 		Grid grid;
 		PathRequestManager requestManager;

@@ -9,7 +9,6 @@ namespace WeekAnkama
         #region Private Variables
         [SerializeField] private List<Player> _players;
         [SerializeField]
-        private Bootstrapper boot;
         #endregion
 
         #region Getter/Setter

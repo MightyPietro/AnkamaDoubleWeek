@@ -11,8 +11,6 @@ namespace WeekAnkama
     {
         [SerializeField]
         private PlayerManager playerManager;
-        [SerializeField]
-        private Bootstrapper boot;
 
         [SerializeField]
         private List<Player> players = new List<Player>();
