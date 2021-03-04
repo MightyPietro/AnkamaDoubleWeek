@@ -1,76 +1,82 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class TurnManager : MonoBehaviour
+namespace WeekAnkama
 {
-    [SerializeField]
-    private List<PlayerCharacter> players = new List<PlayerCharacter>();
-
-    [SerializeField]
-    private int secondByTurn;
-
-    private int turnIndex = -1;
-    private float currentTurnTimeLeft = 0;
-    
-    PlayerCharacter currentPlayerTurn;
-
-    public UnityEvent beginTurnEvent, endTurnEvent;
-
-    [SerializeField]
-    private Text newTurnText;
-    [SerializeField]
-    private List<Image> turnFeedback;
-    public List<Color> colorTests;
-
-    private void Start()
+    public class TurnManager : MonoBehaviour
     {
-        endTurnEvent.AddListener(BeginTurn);
-    }
+        [SerializeField]
+        private PlayerManager playerManager;
 
-    void Update()
-    {
-        if(currentTurnTimeLeft <= 0)
+        [SerializeField]
+        private List<Player> players = new List<Player>();
+
+        [SerializeField]
+        private int secondByTurn = 15;
+
+        private int turnIndex = -1;
+        private float currentTurnTimeLeft = 0;
+
+        Player currentPlayerTurn;
+
+        public static event Action<Player> OnBeginPlayerTurn, OnEndPlayerTurn;
+
+        [SerializeField]
+        private Text newTurnText;
+        [SerializeField]
+        private List<Image> turnFeedback;
+        public List<Color> colorTests;
+
+        private void Start()
         {
-            EndTurn();
-        }
-        else
-        {
-            currentTurnTimeLeft -= Time.deltaTime;
-        }
-    }
-
-    public void BeginTurn()
-    {
-        Debug.Log("Begin Turn");
-        currentTurnTimeLeft = secondByTurn;
-        turnIndex = (turnIndex + 1) % players.Count;
-
-        currentPlayerTurn = players[turnIndex];
-
-        newTurnText.text = "Player " + (turnIndex + 1).ToString();
-        StartCoroutine(ShowTextNewTurn());
-
-        for(int i = 0; i < players.Count; i++)
-        {
-            turnFeedback[i].color = colorTests[(turnIndex + i) % players.Count];
+            OnEndPlayerTurn += BeginTurn;
         }
 
-        beginTurnEvent.Invoke();
-    }
+        void Update()
+        {
+            if (currentTurnTimeLeft <= 0)
+            {
+                EndTurn();
+            }
+            else
+            {
+                currentTurnTimeLeft -= Time.deltaTime;
+            }
+        }
 
-    public void EndTurn()
-    {
-        Debug.Log("End Turn");
-        endTurnEvent.Invoke();
-    }
+        public void BeginTurn(Player oldPlayer)
+        {
+            currentTurnTimeLeft = secondByTurn;
+            turnIndex = (turnIndex + 1) % players.Count;
 
-    IEnumerator ShowTextNewTurn()
-    {
-        newTurnText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        newTurnText.gameObject.SetActive(false);
+            currentPlayerTurn = players[turnIndex];
+            playerManager.StartPlayerTurn(currentPlayerTurn);
+
+            newTurnText.text = "Player " + (turnIndex + 1).ToString();
+            StartCoroutine(ShowTextNewTurn());
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                turnFeedback[i].color = colorTests[(turnIndex + i) % players.Count];
+            }
+
+            OnBeginPlayerTurn?.Invoke(currentPlayerTurn);
+        }
+
+        public void EndTurn()
+        {
+            OnEndPlayerTurn?.Invoke(currentPlayerTurn);
+        }
+
+        IEnumerator ShowTextNewTurn()
+        {
+            newTurnText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            newTurnText.gameObject.SetActive(false);
+        }
     }
 }

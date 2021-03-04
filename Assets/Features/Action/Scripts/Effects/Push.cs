@@ -7,7 +7,7 @@ namespace WeekAnkama
 
     public class Push : ActionEffect
     {
-        public override void Process()
+        public override void Process(Tile targetTile, Action action)
         {
             Debug.Log("Push");
         }
