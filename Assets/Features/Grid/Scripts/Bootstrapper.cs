@@ -27,7 +27,7 @@ namespace WeekAnkama
                 if(Physics.Raycast(ray,out hitData, 100))
                 {
                     pos = hitData.point;                    
-                    Debug.Log("Move !!!" + pos);
+                    Debug.Log("Move !!!" + pos);                    
                 }
                 else
                 {
@@ -44,6 +44,7 @@ namespace WeekAnkama
                     test.transform.position = GridManager.Grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
 
                     MouseHandler.OnTileClick(currentTile);
+                    StartCoroutine("TestFunc", GridManager.GetVisual(pos));
                 }
                 else
                 {
@@ -54,6 +55,13 @@ namespace WeekAnkama
 
         private void Start()
         {
+        }
+
+        IEnumerator TestFunc(GameObject obj)
+        {
+            obj.transform.position = obj.transform.position + new Vector3(0,1,0);
+            yield return new WaitForSeconds(0.5f);
+            obj.transform.position = obj.transform.position + new Vector3(0, -1, 0);
         }
 
         private void Update()

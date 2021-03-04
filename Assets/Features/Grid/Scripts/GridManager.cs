@@ -8,12 +8,14 @@ namespace WeekAnkama
     public class GridManager : MonoBehaviour
     {
         private static Grid _grid;
+        private static GameObject[,] _tilesVisual;   
 
         [SerializeField] private GridLevel _settings;
         [SerializeField] private GameObject[] _floor;
-        private GameObject[,] _tilesVisual;                
+                     
 
         public static Grid Grid => _grid;
+        public static GameObject[,] TilesVisual => _tilesVisual;
 
         private void Awake()
         {
@@ -37,14 +39,14 @@ namespace WeekAnkama
             }
         }
 
-        public GameObject GetVisual(Tile tile)
+        public static GameObject GetVisual(Tile tile)
         {
             return _tilesVisual[tile.Coords.x, tile.Coords.y];
         }
 
-        public GameObject GetVisual(Vector3 worldPosition)
+        public static GameObject GetVisual(Vector3 worldPosition)
         {
-            if (Grid.TryGetTile( worldPosition, out Tile t))
+            if (Grid.TryGetTile(worldPosition, out Tile t))
             {
                 return _tilesVisual[t.Coords.x, t.Coords.y];
             }

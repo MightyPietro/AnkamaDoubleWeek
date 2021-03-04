@@ -172,8 +172,8 @@ namespace WeekAnkama
         {
             card.onClick.AddListener(() => AddCurrentAction(action, card));
             card.name = action.name;
-            card.transform.FindChild("Name").GetComponent<Text>().text = action.name;
-            card.transform.FindChild("PA").GetComponent<Text>().text = action.paCost.ToString();
+            card.transform.Find("Name").GetComponent<Text>().text = action.name;
+            card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
 
             
             displayedCards.Add(card);
