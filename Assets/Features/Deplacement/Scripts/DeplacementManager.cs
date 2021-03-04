@@ -25,18 +25,23 @@ namespace WeekAnkama
 			instance = this;
         }
 
-        public void AskToMove(Tile wantedTile, Transform objetToMove)
+        public void AskToMove(Tile wantedTile, Transform objectToMove)
         {
-			AskToMove(wantedTile.WorldPosition, objetToMove);
+			AskToMove(wantedTile.WorldPosition, objectToMove);
 		}
 
-		public void AskToMove(Vector3 wantedPos, Transform objetToMove)
+		public void AskToMove(Vector3 wantedPos, Transform objectToMove)
 		{
 			if (!processDeplacement)
 			{
-				targetToMove = objetToMove;
-				PathRequestManager.RequestPath(objetToMove.position, wantedPos, 500, OnPathFound);
+				targetToMove = objectToMove;
+				PathRequestManager.RequestPath(objectToMove.position, wantedPos, 500, OnPathFound);
 			}
+		}
+
+		public void AskToPush(Tile wantedTile, Transform objectToMove)
+        {
+			AskToMove(wantedTile.WorldPosition, objectToMove);
 		}
 
 		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
