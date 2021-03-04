@@ -121,7 +121,7 @@ Material:
     - Metallic: 0
     - NormalPower: 0.438
     - Roughness: 0
-    - Saturation: 1
+    - Saturation: 0.06
     - Vector1_6B065809: 0
     - Vector1_79522974: 0
     - Vector1_AC301C23: 0.2
