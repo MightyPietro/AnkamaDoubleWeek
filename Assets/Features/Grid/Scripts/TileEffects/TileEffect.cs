@@ -16,7 +16,6 @@ namespace WeekAnkama
 
         [SerializeField] protected bool _walkable;
         [SerializeField] protected bool _crossable;
-        [SerializeField] protected GameObject _effectPrefab;
 
         public GameObject effectPrefab { get { return _effectPrefab; } set { _effectPrefab = value; } }
 

@@ -18,6 +18,7 @@ namespace WeekAnkama
         Tile currentTile;
         public Vector3 pos;
         public FireTileEffect effect;
+        public FireTileEffect effect2;
 
         // Start is called before the first frame update
         void Awake()
@@ -47,6 +48,11 @@ namespace WeekAnkama
                 }
             };
             _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords, grid.GetTileWorldPosition(coords.x, coords.y)); }, new Vector2(-0.5f, -0.5f));
+            _grid.TryGetTile(Vector3.zero, out Tile t);
+            t.SetTileEffect(effect);
+
+            _grid.TryGetTile(new Vector3(3,0,1), out Tile t2);
+            t2.SetTileEffect(effect2);
         }
 
         private void Update()
@@ -54,13 +60,13 @@ namespace WeekAnkama
             //MouseHandler.Instance.DisableGameplayInputs();
             _grid.DebugGrid();
 
-            _grid.TryGetTile(Vector3.zero, out Tile t);
-            t.SetTileEffect(effect);
+            /*_grid.TryGetTile(Vector3.zero, out Tile t);
+            t.SetTileEffect(effect2);
             Debug.Log("-------------" + t.Effect.ToString()) ;
 
             _grid.TryGetTile(new Vector3(3, 0, 1), out Tile t2);
             t2.SetTileEffect(effect);
-            Debug.Log("-------------" + t2.Effect.ToString());
+            Debug.Log("-------------" + t2.Effect.ToString());*/
 
             if (currentTile == null) return;
             //currentTile.value++;
