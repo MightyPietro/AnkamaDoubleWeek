@@ -15,6 +15,7 @@ namespace WeekAnkama
         [SerializeField] private List<Action> _deck;
         [SerializeField] private List<Action> _hand;
         [SerializeField] private Action _currentAction;
+        private bool _processMovement = false;
 
         [HideInInspector]
         public List<Action> _deckReminder;
@@ -29,6 +30,7 @@ namespace WeekAnkama
         public List<Action> deck { get { return _deck; } set { _deck = value; } }
         public List<Action> hand { get { return _hand; } set { _hand = value; } }
         public Action currentAction { get { return _currentAction; } set { _currentAction = value; } }
+        public bool processMovement { get { return _processMovement; } set { _processMovement = value; } }
         #endregion
 
     }

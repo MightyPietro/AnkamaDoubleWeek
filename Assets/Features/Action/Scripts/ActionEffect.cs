@@ -4,12 +4,17 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-    public abstract class ActionEffect:MonoBehaviour
+    public abstract class ActionEffect: MonoBehaviour
     {
-        public virtual void Process(Tile targetTile, Action action)
+        protected GameObject instantiatedPrefab;
+        public virtual void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            
-        
+            if (action.isTileEffect && targetTile.Effect == null)
+            {
+                targetTile.SetTileEffect(action.tileEffect);
+                instantiatedPrefab = Instantiate(action.tileEffect.effectPrefab, targetTile.WorldPosition, Quaternion.identity);
+            }
+
         }
     }
 }

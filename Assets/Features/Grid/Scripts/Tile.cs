@@ -9,7 +9,7 @@ namespace WeekAnkama
     {
         private Grid _grid;
         private Vector2Int _coords;
-        private bool _walkable;
+        private bool _walkable = true;
         private TileEffect _effect;
         private Player _player;
         private Vector3 _worldPosition;
@@ -21,7 +21,6 @@ namespace WeekAnkama
         int heapIndex;
 
         public Vector2Int Coords => _coords;
-
         public bool Walkable {
             get
             {

@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 393725971}
   - component: {fileID: 393725975}
   - component: {fileID: 393725974}
+  - component: {fileID: 393725976}
   m_Layer: 0
   m_Name: TimotheManager
   m_TagString: Untagged
@@ -507,7 +508,7 @@ MonoBehaviour:
   - {x: 5, y: 5}
   - {x: 5, y: 1}
   - {x: 1, y: 5}
-  secondByTurn: 5
+  secondByTurn: 9999
   newTurnText: {fileID: 1486189010}
   turnFeedback:
   - {fileID: 1659441823}
@@ -606,6 +607,21 @@ MonoBehaviour:
   pointer: {fileID: 439715043}
   text: {fileID: 1772121651}
   pos: {x: 0, y: 0, z: 0}
+  effect: {fileID: 0}
+--- !u!114 &393725976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393725968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f270d88b0f719b42880b59bbba79fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _players: []
+  boot: {fileID: 393725975}
 --- !u!1 &439715043
 GameObject:
   m_ObjectHideFlags: 0
