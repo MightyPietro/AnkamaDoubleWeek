@@ -62,7 +62,7 @@ namespace WeekAnkama
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
 
-				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
+				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
 					if (targetIndex >= path.Count) //Fin du déplacement
