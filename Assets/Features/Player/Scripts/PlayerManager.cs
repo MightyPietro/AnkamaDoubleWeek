@@ -11,6 +11,11 @@ namespace WeekAnkama
         [SerializeField] private Player _actualPlayer;
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
+
+        [SerializeField]
+        private Bootstrapper boot;
+
+        Grid grid;
         #endregion
 
         #region Getter/Setter
@@ -20,6 +25,7 @@ namespace WeekAnkama
 
         private void Start()
         {
+            grid = boot._grid;
             MouseHandler.OnTileLeftClick += DoSomethingOnTile;
         }
 
@@ -46,6 +52,21 @@ namespace WeekAnkama
         private void MoveCharacter(Tile targetTile)
         {
             DeplacementManager.instance.AskToMove(targetTile, actualPlayer.transform);
+        }
+
+        public bool TeleportPlayer(Player playerTooTeleport, Vector2Int posToTeleport)
+        {
+            Tile tileWanted = default;
+            if(boot._grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            {
+                playerTooTeleport.transform.position = tileWanted.WorldPosition;
+                playerTooTeleport.position = tileWanted.Coords;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [Button]

@@ -47,6 +47,12 @@ namespace WeekAnkama
             return tile != null;
         }
 
+        public bool TryGetTile(Vector2Int gridPosition, out Tile tile)
+        {
+            tile = GetTile(gridPosition.x, gridPosition.y);
+            return tile != null;
+        }
+
         public void SetTile(Vector3 worldPosition, Tile tile)
         {
             Vector2Int position = GetXY(worldPosition);
@@ -94,7 +100,7 @@ namespace WeekAnkama
             }
             else
             {
-                return default(Tile);
+                return null;
             }
         }
 
