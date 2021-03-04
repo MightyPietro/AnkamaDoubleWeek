@@ -11,7 +11,7 @@ namespace WeekAnkama
         private Vector2Int _coords;
         private bool _walkable = true;
         private bool _crossable = true;
-        private bool _usable;
+        private bool _usable = true;
         private TileEffect _effect;
         private Player _player;
         private Vector3 _worldPosition;

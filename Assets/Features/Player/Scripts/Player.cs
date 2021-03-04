@@ -35,7 +35,15 @@ namespace WeekAnkama
         public bool isOut { get { return _isOut; } set { _isOut = value; } }
         #endregion
 
-        //public void
+        public void TakeDamage(int amount)
+        {
+            fatigue += amount;
+        }
+
+        public void ResetFatigue()
+        {
+            fatigue = 0;
+        }
 
     }
 }

@@ -17,8 +17,8 @@ namespace WeekAnkama
         [SerializeField] protected bool _walkable;
         [SerializeField] protected bool _crossable;
 
-        public bool Walkable => Walkable;
-        public bool Crossable => Crossable;
+        public bool Walkable => _walkable;
+        public bool Crossable => _crossable;
 
         public abstract void Process(Player _player);
 

@@ -16,7 +16,6 @@ MonoBehaviour:
   TriggerOnLeaveCase: 0
   TriggerOnTurnStart: 0
   TriggerOnTurnEnd: 0
-  _walkable: 0
-  _crossable: 0
-  _effectPrefab: {fileID: 4756577318610380307, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
-  _fatigue: 3
+  _walkable: 1
+  _crossable: 1
+  _fatigue: 50
