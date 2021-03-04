@@ -10,6 +10,7 @@ namespace WeekAnkama
         private static Grid _grid;
 
         [SerializeField] private GridLevel _settings;
+        [SerializeField] private GameObject[] _floor;
         private GameObject[,] _tilesVisual;                
 
         public static Grid Grid => _grid;
@@ -22,13 +23,36 @@ namespace WeekAnkama
 
             _tilesVisual = new GameObject[_grid.Width, _grid.Heigth];
 
-            for (int y = 0; y < _grid.Heigth; y++)
+            int x = 0, y = 0;
+            foreach (var item in _floor)
             {
-                for (int x = 0; x < _grid.Width; x++)
+                _tilesVisual[x, y] = item;
+
+                x++;
+                if(x >= _settings.Width)
                 {
-                    //_tilesVisual[x, y] = Instantiate(,this);
-                }
+                    x = 0;
+                    y++;
+                }                
             }
+        }
+
+        public GameObject GetVisual(Tile tile)
+        {
+            return _tilesVisual[tile.Coords.x, tile.Coords.y];
+        }
+
+        public GameObject GetVisual(Vector3 worldPosition)
+        {
+            if (Grid.TryGetTile( worldPosition, out Tile t))
+            {
+                return _tilesVisual[t.Coords.x, t.Coords.y];
+            }
+            else
+            {
+                return null;
+            }
+            
         }
 
 
