@@ -102,7 +102,7 @@ namespace WeekAnkama
 
         private void MoveCharacter(Tile targetTile)
         {
-            boot._grid.TryGetTile(actualPlayer.position, out Tile castTile);
+            GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
             if (DeplacementManager.instance.GetDistance(targetTile, castTile)/10 <= actualPlayer.PM)
             {
                 DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);

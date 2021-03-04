@@ -35,7 +35,7 @@ namespace WeekAnkama
             {
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
                 Debug.Log(newTilePos);
-                boot._grid.TryGetTile(newTilePos, out newTile);
+                GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
                 {
                     Debug.Log("Out player");
