@@ -24,15 +24,16 @@ namespace WeekAnkama
         int heapIndex;
 
         public Vector2Int Coords => _coords;
+
         public bool Walkable {
             get
             {
                 if (_effect != null)
                 {
-                    return _walkable && _effect.Walkable;
+                    return _walkable && _effect.Walkable && _player == null;
                 }
                 else
-                    return _walkable;
+                    return _walkable && _player == null;
             }
         }
 
@@ -42,11 +43,11 @@ namespace WeekAnkama
             {
                 if(_effect != null)
                 {
-                    return _crossable && _effect.Crossable;
+                    return _crossable && _effect.Crossable && _player == null;
                 }
                 else
                 {
-                    return _crossable;
+                    return _crossable && _player == null;
                 }
 
             }
@@ -85,6 +86,11 @@ namespace WeekAnkama
 
         public void SetTileEffect(TileEffect effect)
         {
+            if(effect == null)
+            {
+                Debug.LogError("Impossible to set effect, effect is Null !!!");
+                return;
+            }
             if (_effect == null)
             {
                 _effectVisual = TileEffectPool.Instance.GetObjectInPool();
