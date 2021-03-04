@@ -14,6 +14,7 @@ namespace WeekAnkama
         public GameObject test;
         public GameObject pointer;
         public Text text;
+        Tile casterTile;
         Tile currentTile;
         public Vector3 pos;
         public FireTileEffect effect;
@@ -46,15 +47,11 @@ namespace WeekAnkama
                 }
             };
             _grid = new Grid(x, y, size, (grid, coords) => { return new Tile(grid, coords, grid.GetTileWorldPosition(coords.x, coords.y)); }, new Vector2(-0.5f, -0.5f));
-            _grid.TryGetTile(Vector3.zero, out Tile t);
-            t.SetTileEffect(effect);
-
-            _grid.TryGetTile(new Vector3(3,0,1), out Tile t2);
-            t2.SetTileEffect(effect);
         }
 
         private void Update()
         {
+            //MouseHandler.Instance.DisableGameplayInputs();
             _grid.DebugGrid();
 
             _grid.TryGetTile(Vector3.zero, out Tile t);
@@ -67,8 +64,7 @@ namespace WeekAnkama
 
             if (currentTile == null) return;
             //currentTile.value++;
-            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ ";
-
+            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ ";    
         }
     }
 }

@@ -7,6 +7,10 @@ using WeekAnkama;
 
 public class MouseHandler : MonoBehaviour
 {
+    private static MouseHandler _instance;
+
+    public static MouseHandler Instance => _instance;
+
     [SerializeField]private InputActionAsset asset;
 
     public static event Action<Vector2> OnMouseMove;
@@ -15,15 +19,34 @@ public class MouseHandler : MonoBehaviour
 
     private void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
         asset.Enable();
 
-        asset.FindActionMap("Gameplay").FindAction("Cursor").performed += OnMove;
+        asset.FindActionMap("Global").FindAction("Cursor").performed += OnMove;
         asset.FindActionMap("Gameplay").FindAction("Select").performed += OnLeftClick;
+    }
+
+    public void DisableGameplayInputs()
+    {
+        asset.FindActionMap("Gameplay").Disable();
+    }
+
+    public void EnableGameplayInputs()
+    {
+        asset.FindActionMap("Gameplay").Enable();
     }
 
     private void OnLeftClick(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Click !!!");
+        //Debug.Log("Click !!!");
         OnMouseLeftClick?.Invoke();
     }
 
@@ -34,12 +57,13 @@ public class MouseHandler : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext ctx)
     {
+        Debug.Log("Move !!!");
         OnMouseMove?.Invoke(ctx.ReadValue<Vector2>());
     }
 
     private void OnDestroy()
     {
-        asset.FindActionMap("Gameplay").FindAction("Cursor").performed -= OnMove;
+        asset.FindActionMap("Global").FindAction("Cursor").performed -= OnMove;
         asset.FindActionMap("Gameplay").FindAction("Select").performed -= OnLeftClick;
     }
 }

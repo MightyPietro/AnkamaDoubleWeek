@@ -18,4 +18,5 @@ MonoBehaviour:
   TriggerOnTurnEnd: 0
   _walkable: 0
   _crossable: 0
-  _fatigue: 3
+  _effectPrefab: {fileID: 0}
+  _fatigue: 50
