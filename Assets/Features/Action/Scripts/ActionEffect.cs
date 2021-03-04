@@ -14,7 +14,6 @@ namespace WeekAnkama
             if (action.isTileEffect && targetTile.Effect == null)
             {
                 targetTile.SetTileEffect(action.tileEffect);
-                instantiatedPrefab = Instantiate(action.tileEffect.effectPrefab, targetTile.WorldPosition, Quaternion.identity);
             }
 
         }

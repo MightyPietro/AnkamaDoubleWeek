@@ -139,7 +139,7 @@ namespace WeekAnkama
         [Button]
         private void DisplayCards()
         {
-            displayedCards.Clear();
+            
 
             if (displayedCards.Count == 0)
             {
@@ -155,6 +155,7 @@ namespace WeekAnkama
             }
             else
             {
+                displayedCards.Clear();
                 for (int i = 0; i < actualPlayer.hand.Count; i++)
                 {
                     
