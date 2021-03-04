@@ -15,9 +15,6 @@ namespace WeekAnkama
         [SerializeField] private Button _actionButtonPrefab;
         [SerializeField] private TurnManager turnManager;
 
-        [SerializeField]
-        private BootstrapperTesting boot;
-
         Grid grid;
 
         private List<Button> displayedCards = new List<Button>();
@@ -65,6 +62,7 @@ namespace WeekAnkama
 
         private void ChangeTextState(bool value)
         {
+            if (actualPlayer == null) return;
             actualPlayer.PAText.enabled = value;
             actualPlayer.PMText.enabled = value;
         }
