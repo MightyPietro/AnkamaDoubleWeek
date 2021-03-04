@@ -38,14 +38,16 @@ namespace WeekAnkama
 
         private void DoSomethingOnTile(Tile targetTile)
         {
-
-            if (actualPlayer.currentAction != null)
+            if (actualPlayer != null)
             {
-                DoAction(targetTile);
-            }
-            else
-            {
-                MoveCharacter(targetTile);
+                if (actualPlayer.currentAction != null)
+                {
+                    DoAction(targetTile);
+                }
+                else
+                {
+                    MoveCharacter(targetTile);
+                }
             }
         }
 
@@ -54,13 +56,14 @@ namespace WeekAnkama
             DeplacementManager.instance.AskToMove(targetTile, actualPlayer.transform);
         }
 
-        public bool TeleportPlayer(Player playerTooTeleport, Vector2Int posToTeleport)
+        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
         {
             Tile tileWanted = default;
             if(boot._grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
             {
-                playerTooTeleport.transform.position = tileWanted.WorldPosition;
-                playerTooTeleport.position = tileWanted.Coords;
+                playerToTeleport.transform.position = tileWanted.WorldPosition;
+                playerToTeleport.position = tileWanted.Coords;
+                tileWanted.SetPlayer(playerToTeleport);
                 return true;
             }
             else
@@ -72,9 +75,13 @@ namespace WeekAnkama
         [Button]
         private void DoAction(Tile targetTile)
         {
-            if(actualPlayer.PA >= actualPlayer.currentAction.paCost)
+            if (actualPlayer.PA >= actualPlayer.currentAction.paCost)
             {
-                actualPlayer.currentAction.Process(targetTile, actualPlayer.currentAction);
+                Tile casterTile = null;
+                boot._grid.TryGetTile(actualPlayer.position, out casterTile);
+
+                Debug.Log(actualPlayer.currentAction);
+                actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
             }
@@ -112,7 +119,6 @@ namespace WeekAnkama
                 Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
                 Action action = actualPlayer.hand[i];
                 _instantiatedActionButton.onClick.AddListener(() => AddCurrentAction(action));
-                Debug.Log(action);
                 _instantiatedActionButton.name = action.name;
                 _instantiatedActionButton.GetComponentInChildren<Text>().text = action.name;
             }

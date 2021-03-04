@@ -23,7 +23,7 @@ public class MouseHandler : MonoBehaviour
 
     private void OnLeftClick(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Click !!!");
+        //Debug.Log("Click !!!");
         OnMouseLeftClick?.Invoke();
     }
 

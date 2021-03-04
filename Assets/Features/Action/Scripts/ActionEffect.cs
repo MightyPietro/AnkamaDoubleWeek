@@ -6,7 +6,7 @@ namespace WeekAnkama
 {
     public abstract class ActionEffect:MonoBehaviour
     {
-        public virtual void Process(Tile targetTile, Action action)
+        public virtual void Process(Tile casterTile, Tile targetTile, Action action)
         {
             
         

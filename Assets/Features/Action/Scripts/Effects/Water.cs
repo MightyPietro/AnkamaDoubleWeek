@@ -6,7 +6,7 @@ namespace WeekAnkama
 {
     public class Water : ActionEffect
     {
-        public override void Process(Tile targetTile, Action action)
+        public override void Process(Tile casterTile, Tile targetTile, Action action)
         {
             Instantiate(action.prefab, targetTile.WorldPosition,Quaternion.identity);
         }
