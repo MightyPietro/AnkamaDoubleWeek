@@ -56,9 +56,17 @@ namespace WeekAnkama
 
             _setActualPlayer.ResetFatigue();
 
+            ChangeTextState(false);
             actualPlayer = _setActualPlayer;
+            ChangeTextState(true);
             DoDraw();
             DisplayCards();
+        }
+
+        private void ChangeTextState(bool value)
+        {
+            actualPlayer.PAText.enabled = value;
+            actualPlayer.PMText.enabled = value;
         }
 
         private void DoSomethingOnTile(Tile targetTile)
