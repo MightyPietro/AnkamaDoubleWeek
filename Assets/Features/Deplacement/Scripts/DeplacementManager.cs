@@ -18,6 +18,8 @@ namespace WeekAnkama
 		float temp = 5;
 		public Transform testT, testMovable;
 
+		bool processDeplacement;
+
         private void Awake()
         {
 			instance = this;
@@ -30,16 +32,20 @@ namespace WeekAnkama
 
 		public void AskToMove(Vector3 wantedPos, Transform objetToMove)
 		{
-			targetToMove = objetToMove;
-			PathRequestManager.RequestPath(objetToMove.position, wantedPos, 500, OnPathFound);
+			if (!processDeplacement)
+			{
+				targetToMove = objetToMove;
+				PathRequestManager.RequestPath(objetToMove.position, wantedPos, 500, OnPathFound);
+			}
 		}
 
 		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
 		{
-			Debug.Log("Path good ?");
 			if (pathSuccessful)
 			{
-				Debug.Log("Yes");
+				//Désactiver les Inputs
+				processDeplacement = true;
+
 				path = newPath;
 				targetIndex = 0;
 				StopCoroutine(FollowPath());
@@ -50,17 +56,21 @@ namespace WeekAnkama
 		IEnumerator FollowPath()
 		{
 			Tile currentWaypoint = path[0];
+
 			while (true)
 			{
-				Debug.Log(targetToMove.gameObject);
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
 
 				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
 				{
 					targetIndex++;
-					if (targetIndex >= path.Count)
+					if (targetIndex >= path.Count) //Fin du déplacement
 					{
+						processDeplacement = false;
+
+						//Réactiver les Inputs
+
 						yield break;
 					}
 
@@ -76,7 +86,7 @@ namespace WeekAnkama
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
 				targetToMove.position += direction * speed * Time.deltaTime;
-				//	Vector3.MoveTowards(transform.position,currentWaypoint,speed * Time.deltaTime);
+
 				yield return null;
 
 			}

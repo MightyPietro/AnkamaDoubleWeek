@@ -33,11 +33,11 @@ namespace WeekAnkama
         private void DoSomethingOnTile(Tile targetTile)
         {
 
-            if (actualPlayer.currentAction != null && targetTile.Player != null)
+            /*if (actualPlayer.currentAction != null)
             {
                 DoAction(targetTile);
             }
-            else
+            else*/
             {
                 MoveCharacter(targetTile);
             }
@@ -91,6 +91,7 @@ namespace WeekAnkama
                 Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
                 Action action = actualPlayer.hand[i];
                 _instantiatedActionButton.onClick.AddListener(() => AddCurrentAction(action));
+                Debug.Log(action);
                 _instantiatedActionButton.name = action.name;
                 _instantiatedActionButton.GetComponentInChildren<Text>().text = action.name;
             }

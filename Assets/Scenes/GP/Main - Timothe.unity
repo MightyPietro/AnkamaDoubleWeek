@@ -516,7 +516,7 @@ MonoBehaviour:
   - {fileID: 830005332}
   - {fileID: 77488810}
   - {fileID: 27136293}
-  secondByTurn: 3
+  secondByTurn: 5
   newTurnText: {fileID: 1486189010}
   turnFeedback:
   - {fileID: 1659441823}
