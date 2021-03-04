@@ -16,6 +16,9 @@ namespace WeekAnkama
         private Bootstrapper boot;
 
         Grid grid;
+
+        private List<Button> displayedCards = new List<Button>();
+        private Button currentCard;
         #endregion
 
         #region Getter/Setter
@@ -27,6 +30,7 @@ namespace WeekAnkama
         {
             grid = boot._grid;
             MouseHandler.OnTileLeftClick += DoSomethingOnTile;
+            MouseHandler.OnMouseLeftClick += () => actualPlayer.currentAction = null;
         }
 
         public void StartPlayerTurn(Player _setActualPlayer)
@@ -84,6 +88,10 @@ namespace WeekAnkama
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
+                currentCard.interactable = false;
+
+                CheckCardsCost();
+
             }
 
         }
@@ -106,25 +114,71 @@ namespace WeekAnkama
             }
         }
 
-        private void AddCurrentAction(Action action)
+        private void AddCurrentAction(Action action, Button button)
         {
             actualPlayer.currentAction = action;
+            currentCard = button;
         }
 
         [Button]
         private void DisplayCards()
         {
-            for (int i = 0; i < actualPlayer.hand.Count; i++)
+            displayedCards.Clear();
+
+            if (displayedCards.Count == 0)
             {
-                Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
-                Action action = actualPlayer.hand[i];
-                _instantiatedActionButton.onClick.AddListener(() => AddCurrentAction(action));
-                _instantiatedActionButton.name = action.name;
-                _instantiatedActionButton.GetComponentInChildren<Text>().text = action.name;
+                for (int i = 0; i < actualPlayer.hand.Count; i++)
+                {
+                    Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
+                    Action action = actualPlayer.hand[i];
+                    ResetCards(_instantiatedActionButton, action);
+
+
+
+                }
             }
+            else
+            {
+                for (int i = 0; i < actualPlayer.hand.Count; i++)
+                {
+                    
+                    Action action = actualPlayer.hand[i];
+                    ResetCards(displayedCards[i], action);
+                    
+                }
+
+            }
+
+
+        }
+        private void ResetCards(Button card, Action action)
+        {
+            card.onClick.AddListener(() => AddCurrentAction(action, card));
+            card.name = action.name;
+            card.transform.FindChild("Name").GetComponent<Text>().text = action.name;
+            card.transform.FindChild("PA").GetComponent<Text>().text = action.paCost.ToString();
+
+            
+            displayedCards.Add(card);
+
+            if (action.paCost <= actualPlayer.PA) { card.interactable = true; }
+            else card.interactable = false;
 
         }
 
+        private void CheckCardsCost()
+        {
+            for (int i = 0; i < actualPlayer.hand.Count; i++)
+            {
+                if (actualPlayer.hand[i].paCost > actualPlayer.PA)
+                {
+                    displayedCards[i].interactable = false;
+                }
+            }
+        }
+
     }
+
+
 }
 
