@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1414925331353671645}
   - component: {fileID: 5075080561931409204}
   - component: {fileID: 5860903597540298317}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 1357945864903705427}
   - component: {fileID: 4236055394275880385}
   - component: {fileID: 5881135596257635729}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 5260241026036321948}
   - component: {fileID: 1696791062376198262}
   - component: {fileID: 8844829867269989378}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: PA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4312154125726209446}
   - component: {fileID: 4312154125726209445}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 4173059475828899811}
   - component: {fileID: 1071314295728206211}
   - component: {fileID: 8343925990358239495}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: PM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 773396905971050376}
   - component: {fileID: 3556504172540467427}
   - component: {fileID: 8167072312484993914}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Fatigue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
