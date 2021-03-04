@@ -10,6 +10,13 @@ namespace WeekAnkama
         {
             base.Process(casterTile, targetTile, action);
 
+            if(targetTile.Player != null)
+            {
+                targetTile.SetTileEffect(null);
+                targetTile.Player.fatigue += action.fatigueDmg;
+                Destroy(instantiatedPrefab);
+            }
+
 
         }
     }
