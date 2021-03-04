@@ -25,17 +25,26 @@ namespace WeekAnkama
 			instance = this;
         }
 
-        public void AskToMove(Tile wantedTile, Transform objetToMove)
+        public void AskToMove(Tile wantedTile, Transform objectToMove)
         {
-			AskToMove(wantedTile.WorldPosition, objetToMove);
+			AskToMove(wantedTile.WorldPosition, objectToMove);
 		}
 
-		public void AskToMove(Vector3 wantedPos, Transform objetToMove)
+		public void AskToMove(Vector3 wantedPos, Transform objectToMove)
 		{
 			if (!processDeplacement)
 			{
-				targetToMove = objetToMove;
-				PathRequestManager.RequestPath(objetToMove.position, wantedPos, 500, OnPathFound);
+				targetToMove = objectToMove;
+				PathRequestManager.RequestPath(objectToMove.position, wantedPos, 500, OnPathFound);
+			}
+		}
+
+		public void AskToMove(Tile wantedTile, Player playerToMove, int movementPoint)
+		{
+			if (!processDeplacement)
+			{
+				targetToMove = playerToMove.transform;
+				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
 			}
 		}
 
@@ -62,7 +71,7 @@ namespace WeekAnkama
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
 
-				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
+				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
 					if (targetIndex >= path.Count) //Fin du déplacement
@@ -81,7 +90,9 @@ namespace WeekAnkama
 					if(targetToMove.gameObject.GetComponent<Player>()!=null)
                     {
 						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
-                    }
+						targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
+
+					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 

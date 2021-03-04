@@ -7,10 +7,21 @@ namespace WeekAnkama
 {
     public class PlayerManager : MonoBehaviour
     {
+        public static PlayerManager instance;
+
         #region Private Variables
         [SerializeField] private Player _actualPlayer;
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
+        [SerializeField] private TurnManager turnManager;
+
+        [SerializeField]
+        private Bootstrapper boot;
+
+        Grid grid;
+
+        private List<Button> displayedCards = new List<Button>();
+        private Button currentCard;
         #endregion
 
         #region Getter/Setter
@@ -18,46 +29,106 @@ namespace WeekAnkama
         public List<Action> actualPlayerHand { get { return actualPlayer.hand; } set { actualPlayer.hand = value; } }
         #endregion
 
+        private void Awake()
+        {
+            instance = this;
+        }
+
         private void Start()
         {
             MouseHandler.OnTileLeftClick += DoSomethingOnTile;
+            MouseHandler.OnNonTileLeftClick += () => actualPlayer.currentAction = null;
+        }
+
+        public void SetPlayerOutArena(Player killedPlayer)
+        {
+            killedPlayer.transform.position = new Vector3(-50, 0, 0);
+            killedPlayer.isOut = true;
         }
 
         public void StartPlayerTurn(Player _setActualPlayer)
         {
+            if (_setActualPlayer.isOut)
+            {
+                _setActualPlayer.isOut = false;
+                TeleportPlayer(_setActualPlayer, turnManager.GetSpawnPoint(_setActualPlayer));
+            }
+
+            _setActualPlayer.ResetFatigue();
+
+            ChangeTextState(false);
             actualPlayer = _setActualPlayer;
+            ChangeTextState(true);
             DoDraw();
             DisplayCards();
         }
 
+        private void ChangeTextState(bool value)
+        {
+            actualPlayer.PAText.enabled = value;
+            actualPlayer.PMText.enabled = value;
+        }
+
         private void DoSomethingOnTile(Tile targetTile)
         {
+            if (actualPlayer != null)
+            {
+                if (actualPlayer.currentAction != null)
+                {
+                    DoAction(targetTile);
+                    //if (targetTile.Player != null)
+                    //{
+                        
+                    //    Debug.Log(targetTile.Player);
+                    //}else actualPlayer.currentAction = null;
 
-            /*if (actualPlayer.currentAction != null)
-            {
-                DoAction(targetTile);
-            }
-            else*/
-            {
-                MoveCharacter(targetTile);
+                }
+                else
+                {
+                    MoveCharacter(targetTile);
+                }
             }
         }
 
         private void MoveCharacter(Tile targetTile)
         {
-            DeplacementManager.instance.AskToMove(targetTile, actualPlayer.transform);
+            DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
+        }
+
+        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
+        {
+            Tile tileWanted = default;
+            if(boot._grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            {
+                playerToTeleport.transform.position = tileWanted.WorldPosition;
+                playerToTeleport.position = tileWanted.Coords;
+                tileWanted.SetPlayer(playerToTeleport);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [Button]
         private void DoAction(Tile targetTile)
         {
-            if(actualPlayer.PA >= actualPlayer.currentAction.paCost)
+            if (actualPlayer.PA >= actualPlayer.currentAction.paCost)
             {
-                actualPlayer.currentAction.Process(targetTile, actualPlayer.currentAction);
+                Tile casterTile = null;
+                boot._grid.TryGetTile(actualPlayer.position, out casterTile);
+
+                actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
-            }
+                currentCard.interactable = false;
 
+                actualPlayer.currentAction = null;
+
+                CheckCardsCost();
+
+            }
         }
 
         [Button]
@@ -78,26 +149,72 @@ namespace WeekAnkama
             }
         }
 
-        private void AddCurrentAction(Action action)
+        private void AddCurrentAction(Action action, Button button)
         {
             actualPlayer.currentAction = action;
+            currentCard = button;
         }
 
         [Button]
         private void DisplayCards()
         {
-            for (int i = 0; i < actualPlayer.hand.Count; i++)
+            
+
+            if (displayedCards.Count == 0)
             {
-                Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
-                Action action = actualPlayer.hand[i];
-                _instantiatedActionButton.onClick.AddListener(() => AddCurrentAction(action));
-                Debug.Log(action);
-                _instantiatedActionButton.name = action.name;
-                _instantiatedActionButton.GetComponentInChildren<Text>().text = action.name;
+                displayedCards.Clear();
+                for (int i = 0; i < actualPlayer.hand.Count; i++)
+                {
+                    Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
+                    displayedCards.Add(_instantiatedActionButton);
+                    Action action = actualPlayer.hand[i];
+                    ResetCards(_instantiatedActionButton, action);
+
+
+
+                }
             }
+            else
+            {
+                
+                for (int i = 0; i < actualPlayer.hand.Count; i++)
+                {
+                    
+                    Action action = actualPlayer.hand[i];
+                    ResetCards(displayedCards[i], action);
+                    
+                }
+
+            }
+
+
+        }
+        private void ResetCards(Button card, Action action)
+        {
+            card.onClick.AddListener(() => AddCurrentAction(action, card));
+            card.name = action.name;
+            card.transform.FindChild("Name").GetComponent<Text>().text = action.name;
+            card.transform.FindChild("PA").GetComponent<Text>().text = action.paCost.ToString();
+
+
+            if (action.paCost <= actualPlayer.PA) { card.interactable = true; }
+            else card.interactable = false;
 
         }
 
+        private void CheckCardsCost()
+        {
+            for (int i = 0; i < actualPlayer.hand.Count; i++)
+            {
+                if (actualPlayer.hand[i].paCost > actualPlayer.PA)
+                {
+                    displayedCards[i].interactable = false;
+                }
+            }
+        }
+
     }
+
+
 }
 

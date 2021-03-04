@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
@@ -230,6 +234,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.87
@@ -439,7 +447,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274969088}
-  - component: {fileID: 274969087}
   m_Layer: 0
   m_Name: Directional Lights
   m_TagString: Untagged
@@ -447,19 +454,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &274969087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274969086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301f68c9326ac344bab71aa0d8d98f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RecordAudio: 1
 --- !u!4 &274969088
 Transform:
   m_ObjectHideFlags: 0
@@ -485,6 +479,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 393725970}
+  - component: {fileID: 393725976}
   - component: {fileID: 393725969}
   - component: {fileID: 393725973}
   - component: {fileID: 393725972}
@@ -516,7 +511,12 @@ MonoBehaviour:
   - {fileID: 830005332}
   - {fileID: 77488810}
   - {fileID: 27136293}
-  secondByTurn: 5
+  spawnPosition:
+  - {x: 1, y: 1}
+  - {x: 5, y: 5}
+  - {x: 5, y: 1}
+  - {x: 1, y: 5}
+  secondByTurn: 6
   newTurnText: {fileID: 1486189010}
   turnFeedback:
   - {fileID: 1659441823}
@@ -615,6 +615,21 @@ MonoBehaviour:
   pointer: {fileID: 439715043}
   text: {fileID: 1772121651}
   pos: {x: 0, y: 0, z: 0}
+  effect: {fileID: 0}
+--- !u!114 &393725976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393725968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f270d88b0f719b42880b59bbba79fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _players: []
+  boot: {fileID: 393725975}
 --- !u!1 &439715043
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +854,10 @@ PrefabInstance:
       propertyPath: _cardsLayoutParent
       value: 
       objectReference: {fileID: 1258462463}
+    - target: {fileID: 459726740817805838, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
+      propertyPath: boot
+      value: 
+      objectReference: {fileID: 393725975}
     - target: {fileID: 459726740817805839, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
       propertyPath: m_Name
       value: P_PlayerManager
@@ -985,6 +1004,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.42
@@ -1148,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.27

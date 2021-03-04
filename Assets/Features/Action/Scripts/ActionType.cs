@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActionType
+namespace WeekAnkama
 {
-    Push,
-    Attract
+    public enum ActionType
+    {
+        Push,
+        Attract,
+        Water,
+        Fire,
+        Earth,
+        Air
+    }
 }
+

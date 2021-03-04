@@ -10,9 +10,12 @@ namespace WeekAnkama
         private Grid _grid;
         private Vector2Int _coords;
         private bool _walkable = true;
+        private bool _crossable = true;
+        private bool _usable = true;
         private TileEffect _effect;
         private Player _player;
         private Vector3 _worldPosition;
+        private TileEffectDisplay _effectVisual;
 
         //Pathfinding
         public int gCost;
@@ -22,8 +25,38 @@ namespace WeekAnkama
 
         public Vector2Int Coords => _coords;
 
-        public bool Walkable => _walkable;
+        public bool Walkable {
+            get
+            {
+                if (_effect != null)
+                {
+                    return _walkable && _effect.Walkable;// && _player == null;
+                }
+                else
+                    return _walkable;// && _player == null;
+            }
+        }
+
+        public bool Crossable
+        {
+            get
+            {
+                if(_effect != null)
+                {
+                    return _crossable && _effect.Crossable;// && _player == null;
+                }
+                else
+                {
+                    return _crossable;// && _player == null;
+                }
+
+            }
+        }
+
+        public bool Usable => _usable;
+
         public Player Player => _player;
+        public TileEffect Effect => _effect;
         public Vector3 WorldPosition => _worldPosition;
 
         public event System.Action<Player> OnEnterCase;
@@ -34,8 +67,7 @@ namespace WeekAnkama
             _grid = grid;
             _coords = coords;
             _worldPosition = worldPosition;
-
-            OnEnterCase += PerformEffect;
+            _walkable = true;
         }
 
 
@@ -52,9 +84,30 @@ namespace WeekAnkama
             _player = null;
         }
 
-        private void PerformEffect(Player player)
+        public void SetTileEffect(TileEffect effect)
         {
-            //_effect.Process(player);
+            if(effect == null)
+            {
+                Debug.LogError("Impossible to set effect, effect is Null !!!");
+                return;
+            }
+            if (_effect == null)
+            {
+                _effectVisual = TileEffectPool.Instance.GetObjectInPool();
+            }
+            _effect = effect;
+            effect.BootUp(this);
+            //OnEnterCase?.Invoke(_player);            
+            _effectVisual.BootUp(WorldPosition, effect);
+        }
+
+        public void UnSetTileEffect()
+        {
+            _effect.ShutDown();
+            _effect = null;
+            _effectVisual.ShutDown();
+            TileEffectPool.Instance.ReturnObject(_effectVisual);
+            _effectVisual = null;
         }
 
 
