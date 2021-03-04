@@ -115,7 +115,7 @@ Material:
     - Base_color_opacity: 0
     - Boolean_AFF7A59F: 0
     - ColorRand: 0.241
-    - ColorVarOpacity: 0
+    - ColorVarOpacity: 0.16
     - Contrast: 1
     - HUE: 0
     - Metallic: 0
