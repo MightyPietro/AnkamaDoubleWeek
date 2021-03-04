@@ -39,11 +39,11 @@ namespace WeekAnkama
         private void DoSomethingOnTile(Tile targetTile)
         {
 
-            /*if (actualPlayer.currentAction != null)
+            if (actualPlayer.currentAction != null)
             {
                 DoAction(targetTile);
             }
-            else*/
+            else
             {
                 MoveCharacter(targetTile);
             }
