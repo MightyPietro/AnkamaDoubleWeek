@@ -36,12 +36,12 @@ namespace WeekAnkama
             DisplayCards();
         }
 
-        private void DoSomethingOnTile(Tile targetTile)
+        private void DoSomethingOnTile(Tile casterTile,Tile targetTile)
         {
 
             if (actualPlayer.currentAction != null)
             {
-                DoAction(targetTile);
+                DoAction(casterTile,targetTile);
             }
             else
             {
@@ -70,11 +70,11 @@ namespace WeekAnkama
         }
 
         [Button]
-        private void DoAction(Tile targetTile)
+        private void DoAction(Tile casterTile,Tile targetTile)
         {
             if(actualPlayer.PA >= actualPlayer.currentAction.paCost)
             {
-                actualPlayer.currentAction.Process(targetTile, actualPlayer.currentAction);
+                actualPlayer.currentAction.Process(casterTile,targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
             }

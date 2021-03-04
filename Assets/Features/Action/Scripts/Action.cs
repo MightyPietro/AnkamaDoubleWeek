@@ -9,12 +9,19 @@ namespace WeekAnkama
     [CreateAssetMenu(menuName = "Assets/Action")]
     public class Action : ScriptableObject
     {
-        
+
+        public bool isTileEffect = false;
+        [ShowIf("isTileEffect")]
+        public TileEffect tileEffect;
+        [HideIf("isTileEffect")]
+        public GameObject prefab;
         [Range(0,10)]
         public int paCost;
         [Range(0, 200)]
         public int fatigueDmg;
-        public GameObject prefab;
+        [Range(0, 7)]
+        public int range;
+
 
         [Header("Action")]
         public List<ActionType> actionTypes;
@@ -30,7 +37,7 @@ namespace WeekAnkama
 
 
         [ContextMenu("Process")]
-        public void Process(Tile targetTile, Action action)
+        public void Process(Tile casterTile,Tile targetTile, Action action)
         {
             FindActionEffectSubClass();
             for (int j = 0; j < actionTypes.Count; j++)
@@ -43,7 +50,7 @@ namespace WeekAnkama
 
                         ActionEffect eff = obj as ActionEffect;
 
-                        eff.Process(targetTile, action);
+                        eff.Process(casterTile, targetTile, action);
 
 
                     }

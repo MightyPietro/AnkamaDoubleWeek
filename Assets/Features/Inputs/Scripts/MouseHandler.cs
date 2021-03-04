@@ -11,7 +11,7 @@ public class MouseHandler : MonoBehaviour
 
     public static event Action<Vector2> OnMouseMove;
     public static event System.Action OnMouseLeftClick;
-    public static event Action<Tile> OnTileLeftClick;
+    public static event Action<Tile,Tile> OnTileLeftClick;
 
     private void Awake()
     {
@@ -27,9 +27,9 @@ public class MouseHandler : MonoBehaviour
         OnMouseLeftClick?.Invoke();
     }
 
-    public static void OnTileClick(Tile clickedTile)
+    public static void OnTileClick(Tile casterTile,Tile clickedTile)
     {
-        OnTileLeftClick?.Invoke(clickedTile);
+        OnTileLeftClick?.Invoke(casterTile,clickedTile);
     }
 
     private void OnMove(InputAction.CallbackContext ctx)
