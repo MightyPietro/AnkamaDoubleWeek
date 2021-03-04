@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73658f53acbf03b489f27e27c3054092, type: 3}
-  m_Name: WaterTileEffect
+  m_Script: {fileID: 11500000, guid: 14e4e965bee3d6748ac831677805d5f0, type: 3}
+  m_Name: EarthTileEffect
   m_EditorClassIdentifier: 
-  TriggerOnEnterCase: 0
+  TriggerOnEnterCase: 1
   TriggerOnLeaveCase: 0
   TriggerOnTurnStart: 0
   TriggerOnTurnEnd: 0
   _walkable: 0
   _crossable: 0
-  _effectPrefab: {fileID: 0}
   _fatigue: 0

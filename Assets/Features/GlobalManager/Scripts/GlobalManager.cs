@@ -34,7 +34,7 @@ namespace WeekAnkama
             for (int i = 1; i <= pushForce; i++)
             {
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
-                boot._grid.TryGetTile(newTilePos, out newTile);
+                GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
                 {
                     isPlayerOut = true;
@@ -76,7 +76,7 @@ namespace WeekAnkama
 
             Tile playerTile = null;
             List<Tile> pushPath = new List<Tile>();
-            if(boot._grid.TryGetTile(playerToPush.position, out playerTile))
+            if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
                 AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut);

@@ -81,7 +81,7 @@ namespace WeekAnkama
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
         {
             Tile tileWanted = default;
-            if(boot._grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            if(GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
@@ -100,7 +100,7 @@ namespace WeekAnkama
             if (actualPlayer.PA >= actualPlayer.currentAction.paCost)
             {
                 Tile casterTile = null;
-                boot._grid.TryGetTile(actualPlayer.position, out casterTile);
+                GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
