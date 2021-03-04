@@ -59,6 +59,7 @@ namespace WeekAnkama
 
             for (int i = 1; i < unblockPath.Count; i++)
             {
+                Debug.Log(!unblockPath[i].Crossable);
                 if(!unblockPath[i].Crossable)
                 {
                     return path;
@@ -71,6 +72,7 @@ namespace WeekAnkama
 
         public void AskPushPlayer(Player playerToPush, Vector2Int pushDirection, int pushForce)
         {
+            Debug.Log("Ask push");
             int damageTaken = 0;
             bool isPlayerOut = false;
 

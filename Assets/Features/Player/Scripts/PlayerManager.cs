@@ -50,7 +50,7 @@ namespace WeekAnkama
         {
             if (_setActualPlayer.isOut)
             {
-                TeleportPlayer(_setActualPlayer, new Vector2Int(3, 3));
+                TeleportPlayer(_setActualPlayer, turnManager.GetSpawnPoint(_setActualPlayer));
             }
 
             actualPlayer = _setActualPlayer;

@@ -11,6 +11,8 @@ namespace WeekAnkama
     {
         [SerializeField]
         private PlayerManager playerManager;
+        [SerializeField]
+        private Bootstrapper boot;
 
         [SerializeField]
         private List<Player> players = new List<Player>();
@@ -76,6 +78,8 @@ namespace WeekAnkama
             currentPlayerTurn = players[turnIndex];
             playerManager.StartPlayerTurn(currentPlayerTurn);
 
+            
+
             newTurnText.text = "Player " + (turnIndex + 1).ToString();
             StartCoroutine(ShowTextNewTurn());
 
@@ -99,7 +103,7 @@ namespace WeekAnkama
             newTurnText.gameObject.SetActive(false);
         }
 
-        /*public Vector2Int GetSpawnPoint(Player playerToSpawn)
+        public Vector2Int GetSpawnPoint(Player playerToSpawn)
         {
             int pIndex = -1;
             for(int i = 0; i < players.Count; i++)
@@ -119,8 +123,18 @@ namespace WeekAnkama
 
             for(int i = 0; i < positionsPosibles.Count;i++)
             {
-                //if()
+                Tile wantedTile = default;
+                if(boot._grid.TryGetTile(positionsPosibles[i], out wantedTile))
+                {
+                    if(wantedTile.Player != null)
+                    {
+                        wantedTile.UnSetTileEffect();
+                        return positionsPosibles[i];
+                    }
+                }
             }
-        }*/
+
+            return Vector2Int.zero;
+        }
     }
 }
