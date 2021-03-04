@@ -60,9 +60,9 @@ namespace WeekAnkama
 
         IEnumerator TestFunc(GameObject obj)
         {
-            obj.transform.position = obj.transform.position + new Vector3(0,1,0);
+            obj.transform.position = new Vector3(obj.transform.position.x, -0.8f, obj.transform.position.z);
             yield return new WaitForSeconds(0.5f);
-            obj.transform.position = obj.transform.position + new Vector3(0, -1, 0);
+            obj.transform.position = new Vector3(obj.transform.position.x, -1, obj.transform.position.z);
         }
 
         private void Update()
