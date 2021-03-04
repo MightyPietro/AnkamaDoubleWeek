@@ -44,7 +44,7 @@ namespace WeekAnkama
                     test.transform.position = GridManager.Grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
 
                     MouseHandler.OnTileClick(currentTile);
-                    StartCoroutine("TestFunc", GridManager.GetVisual(pos));
+                    //StartCoroutine("TestFunc", GridManager.GetVisual(pos));
                 }
                 else
                 {

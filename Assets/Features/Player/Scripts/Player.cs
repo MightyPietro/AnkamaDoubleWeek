@@ -9,7 +9,9 @@ namespace WeekAnkama
     {
         #region Private Variables
         [SerializeField] private int _PA;
+        [SerializeField] private int _basePA;
         [SerializeField] private int _PM;
+        [SerializeField] private int _basePM;
         [SerializeField] private int _fatigue;
         [SerializeField] private Vector2Int _position;
         [SerializeField] private List<Action> _deck;
@@ -43,13 +45,19 @@ namespace WeekAnkama
 
         private void Awake()
         {
-            PA = _PA;
-            PM = _PM;
-            fatigue = _fatigue;
+            ResetDatas();
+            ResetFatigue();
         }
         public void TakeDamage(int amount)
         {
             fatigue += amount;
+        }
+
+        public void ResetDatas()
+        {
+            
+            PA = _basePA;
+            PM = _basePM;
         }
 
         public void ResetFatigue()

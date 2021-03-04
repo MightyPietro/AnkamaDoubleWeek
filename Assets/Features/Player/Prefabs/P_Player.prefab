@@ -321,8 +321,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bde26d871646d543b77ec4f1c89f7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PA: 10
+  _PA: 0
+  _basePA: 10
   _PM: 0
+  _basePM: 10
   _fatigue: 0
   _position: {x: 0, y: 0}
   _deck:
