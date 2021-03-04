@@ -45,16 +45,20 @@ namespace WeekAnkama
 
         public void StartPlayerTurn(Player _setActualPlayer)
         {
-            if (_setActualPlayer.isOut)
-            {
-                _setActualPlayer.isOut = false;
-                TeleportPlayer(_setActualPlayer, turnManager.GetSpawnPoint(_setActualPlayer));
-            }
-
-            _setActualPlayer.ResetFatigue();
 
             ChangeTextState(false);
             actualPlayer = _setActualPlayer;
+
+
+            if (actualPlayer.isOut)
+            {
+                actualPlayer.isOut = false;
+                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer));
+                actualPlayer.ResetFatigue();
+
+            }
+
+            actualPlayer.ResetDatas();
             ChangeTextState(true);
             DoDraw();
             DisplayCards();

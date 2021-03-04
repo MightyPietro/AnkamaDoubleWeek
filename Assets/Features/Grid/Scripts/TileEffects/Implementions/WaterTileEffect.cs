@@ -18,6 +18,8 @@ namespace WeekAnkama
                 return;
             }
 
+            _player.PM--;
+
 
         }
 
