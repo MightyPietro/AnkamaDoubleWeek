@@ -21,7 +21,6 @@ namespace WeekAnkama
         int heapIndex;
 
         public Vector2Int Coords => _coords;
-
         public bool Walkable {
             get
             {

@@ -17,7 +17,7 @@ namespace WeekAnkama
                 Debug.LogError($"Player is Null in { this.GetType().ToString()}");
                 return;
             }
-            _player.fatigue += _fatigue;
+            
         }
 
     }
