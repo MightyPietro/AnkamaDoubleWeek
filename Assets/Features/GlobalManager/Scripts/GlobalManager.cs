@@ -34,14 +34,20 @@ namespace WeekAnkama
             for (int i = 1; i <= pushForce; i++)
             {
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
+                Debug.Log(newTilePos);
                 boot._grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
                 {
+                    Debug.Log("Out player");
                     isPlayerOut = true;
                     return path;
                 }
                 else
                 {
+                    if(newTile.Effect != null && newTile.Effect.name == "AirTileEffect")
+                    {
+                        pushForce++;
+                    }
                     path.Add(newTile);
                 }
             }
@@ -59,20 +65,24 @@ namespace WeekAnkama
 
             for (int i = 1; i < unblockPath.Count; i++)
             {
-                Debug.Log(!unblockPath[i].Crossable);
-                if(!unblockPath[i].Crossable)
+                Debug.Log(unblockPath[i].Coords + " crossable ? " + unblockPath[i].Crossable);
+                if(unblockPath[i].Crossable)
                 {
-                    return path;
+                    pushForceLeft--;
+                    path.Add(unblockPath[i]);
+                    Debug.Log(unblockPath[i].Coords);
                 }
-                pushForceLeft--;
-                path.Add(unblockPath[i]);
+                else
+                {
+                    isPlayerOut = false;
+                    break;
+                }
             }
             return path;
         }
 
         public void AskPushPlayer(Player playerToPush, Vector2Int pushDirection, int pushForce)
         {
-            Debug.Log("Ask push");
             int damageTaken = 0;
             bool isPlayerOut = false;
 
@@ -81,7 +91,7 @@ namespace WeekAnkama
             if(boot._grid.TryGetTile(playerToPush.position, out playerTile))
             {
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
-                playerToPush.TakeDamage(damageTaken);
+                playerToPush.TakeDamage(damageTaken*80);
                 AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut);
             }
         }
@@ -133,6 +143,8 @@ namespace WeekAnkama
                     targetIndex++;
                     if (targetIndex >= path.Count) //Fin du déplacement
                     {
+                        Debug.Log(isPlayerOut);
+
                         if (isPlayerOut && outGridPos == Vector3.zero)
                         {
                             outGridPos = currentWaypoint.WorldPosition + direction;
