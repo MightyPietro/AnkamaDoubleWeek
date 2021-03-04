@@ -7,15 +7,16 @@ namespace WeekAnkama
 {
     public class PlayerManager : MonoBehaviour
     {
+        public static PlayerManager instance;
+
         #region Private Variables
         [SerializeField] private Player _actualPlayer;
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
+        [SerializeField] private TurnManager turnManager;
 
         [SerializeField]
         private Bootstrapper boot;
-
-        Grid grid;
         #endregion
 
         #region Getter/Setter
@@ -23,14 +24,29 @@ namespace WeekAnkama
         public List<Action> actualPlayerHand { get { return actualPlayer.hand; } set { actualPlayer.hand = value; } }
         #endregion
 
+        private void Awake()
+        {
+            instance = this;
+        }
+
         private void Start()
         {
-            grid = boot._grid;
             MouseHandler.OnTileLeftClick += DoSomethingOnTile;
+        }
+
+        public void SetPlayerOutArena(Player killedPlayer)
+        {
+            killedPlayer.transform.position = new Vector3(-50, 0, 0);
+            killedPlayer.isOut = true;
         }
 
         public void StartPlayerTurn(Player _setActualPlayer)
         {
+            if (_setActualPlayer.isOut)
+            {
+                TeleportPlayer(_setActualPlayer, new Vector2Int(3, 3));
+            }
+
             actualPlayer = _setActualPlayer;
             DoDraw();
             DisplayCards();
@@ -80,12 +96,9 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 boot._grid.TryGetTile(actualPlayer.position, out casterTile);
 
-                Debug.Log(actualPlayer.currentAction);
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
-
             }
-
         }
 
         [Button]

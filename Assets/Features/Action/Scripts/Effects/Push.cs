@@ -9,7 +9,13 @@ namespace WeekAnkama
     {
         public override void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            Debug.Log("Push");
+            if (targetTile.Player != null)
+            {
+                Vector2 direction = (targetTile.Coords - casterTile.Coords);
+                direction = direction.normalized;
+
+                GlobalManager.instance.AskPushPlayer(targetTile.Player, new Vector2Int((int)direction.x, (int)direction.y), action.pushCase);
+            }
         }
 
     }

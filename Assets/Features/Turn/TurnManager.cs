@@ -98,5 +98,29 @@ namespace WeekAnkama
             yield return new WaitForSeconds(1f);
             newTurnText.gameObject.SetActive(false);
         }
+
+        /*public Vector2Int GetSpawnPoint(Player playerToSpawn)
+        {
+            int pIndex = -1;
+            for(int i = 0; i < players.Count; i++)
+            {
+                if(players[i]==playerToSpawn)
+                {
+                    pIndex = i;
+                    break;
+                }
+            }
+
+            List<Vector2Int> positionsPosibles = new List<Vector2Int>();
+            positionsPosibles.Add(spawnPosition[pIndex]);
+            positionsPosibles.Add(spawnPosition[(pIndex+2)%4]);
+            positionsPosibles.Add(spawnPosition[(pIndex + 1) % 4]);
+            positionsPosibles.Add(spawnPosition[(pIndex + 3) % 4]);
+
+            for(int i = 0; i < positionsPosibles.Count;i++)
+            {
+                //if()
+            }
+        }*/
     }
 }
