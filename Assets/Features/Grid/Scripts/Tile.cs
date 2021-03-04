@@ -54,7 +54,7 @@ namespace WeekAnkama
 
         private void PerformEffect(Player player)
         {
-            _effect.Process(player);
+            //_effect.Process(player);
         }
 
 

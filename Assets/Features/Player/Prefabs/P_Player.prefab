@@ -147,20 +147,14 @@ MonoBehaviour:
   _deck:
   - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
   - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
   - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
   - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
   _hand:
   - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
   - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
   _currentAction: {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
   _deckReminder:
   - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: cc185b9a8b401ac47a75238fd21bdb03, type: 2}
+  - {fileID: 0}
