@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
-    public class Earth : ActionEffect
+    public class Air : ActionEffect
     {
         public override void Process(Tile casterTile, Tile targetTile, Action action)
         {
             base.Process(casterTile, targetTile, action);
 
-
         }
     }
+
 }
 

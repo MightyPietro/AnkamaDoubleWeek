@@ -14,6 +14,7 @@ namespace WeekAnkama
         public GameObject test;
         public GameObject pointer;
         public Text text;
+        Tile casterTile;
         Tile currentTile;
         public Vector3 pos;
         public FireTileEffect effect;
@@ -38,7 +39,7 @@ namespace WeekAnkama
                     text.transform.position = Camera.main.WorldToScreenPoint(_grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y));
                     test.transform.position = _grid.GetTileWorldPosition(currentTile.Coords.x, currentTile.Coords.y);
 
-                    MouseHandler.OnTileClick(currentTile);
+                    MouseHandler.OnTileClick(casterTile,currentTile);
                 }
                 else
                 {
