@@ -22,7 +22,34 @@ namespace WeekAnkama
 
         public Vector2Int Coords => _coords;
 
-        public bool Walkable => _walkable;
+        public bool Walkable {
+            get
+            {
+                if (_effect != null)
+                {
+                    return _walkable && _effect.Walkable;
+                }
+                else
+                    return _walkable;
+            }
+        }
+
+        public bool Crossable
+        {
+            get
+            {
+                if(_effect != null)
+                {
+                    return _effect.Crossable;
+                }
+                else
+                {
+                    return Walkable;
+                }
+
+            }
+        }
+
         public Player Player => _player;
         public TileEffect Effect => _effect;
         public Vector3 WorldPosition => _worldPosition;
@@ -55,7 +82,7 @@ namespace WeekAnkama
         {
             _effect = effect;
             effect.BootUp(this);
-            OnEnterCase?.Invoke(_player);
+            //OnEnterCase?.Invoke(_player);
         }
 
         public void UnSetTileEffect(TileEffect effect)

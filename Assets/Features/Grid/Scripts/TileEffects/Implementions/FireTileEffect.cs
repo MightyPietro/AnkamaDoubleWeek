@@ -12,7 +12,6 @@ namespace WeekAnkama
 
         public override void Process(Player _player)
         {
-            Debug.Log("Prout " + _fatigue.ToString() + " " + _linkedTile.Coords.ToString());
             if (_player == null) { 
                 Debug.LogError($"Player is Null in { this.GetType().ToString()}");
                 return;

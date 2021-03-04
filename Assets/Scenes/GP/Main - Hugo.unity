@@ -941,6 +941,7 @@ MonoBehaviour:
   pointer: {fileID: 33188102}
   text: {fileID: 2066354978}
   pos: {x: 0, y: 0, z: 0}
+  effect: {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
 --- !u!4 &1099254581
 Transform:
   m_ObjectHideFlags: 0
