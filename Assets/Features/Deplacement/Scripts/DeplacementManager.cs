@@ -65,8 +65,14 @@ namespace WeekAnkama
 		IEnumerator FollowPath()
 		{
 			Tile currentWaypoint = path[0];
+			bool endedPath = true;
 
-			while (true)
+			Debug.Log(path[0].Coords);
+			Debug.Log(path[1].Coords);
+
+			currentWaypoint.UnSetPlayer();
+
+			while (endedPath)
 			{
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
@@ -74,14 +80,16 @@ namespace WeekAnkama
 				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
-					if (targetIndex >= path.Count) //Fin du déplacement
+					if (targetIndex >= path.Count || targetToMove.gameObject.GetComponent<Player>().PM <= 0) //Fin du déplacement
 					{
+						endedPath = false;
+
 						processDeplacement = false;
 
-						//Réactiver les Inputs
-
-						yield break;
+						break;
 					}
+
+					targetToMove.gameObject.GetComponent<Player>().PM -= 1;
 
 					currentWaypoint.UnSetPlayer();
 
@@ -91,7 +99,6 @@ namespace WeekAnkama
                     {
 						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
 						targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
-
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
@@ -99,8 +106,18 @@ namespace WeekAnkama
 				targetToMove.position += direction * speed * Time.deltaTime;
 
 				yield return null;
-
 			}
+
+
+			//Réactiver les Inputs
+		}
+
+		public int GetDistance(Tile nodeA, Tile nodeB)
+		{
+			int dstX = Mathf.Abs(nodeA.Coords.x - nodeB.Coords.x);
+			int dstY = Mathf.Abs(nodeA.Coords.y - nodeB.Coords.y);
+
+			return 10 * (dstY + dstX);
 		}
 	}
 }

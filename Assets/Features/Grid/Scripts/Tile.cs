@@ -30,10 +30,10 @@ namespace WeekAnkama
             {
                 if (_effect != null)
                 {
-                    return _walkable && _effect.Walkable;// && _player == null;
+                    return _walkable && _effect.Walkable && _player == null;
                 }
                 else
-                    return _walkable;// && _player == null;
+                    return _walkable && _player == null;
             }
         }
 
@@ -43,11 +43,11 @@ namespace WeekAnkama
             {
                 if(_effect != null)
                 {
-                    return _crossable && _effect.Crossable;// && _player == null;
+                    return _crossable && _effect.Crossable && _player == null;
                 }
                 else
                 {
-                    return _crossable;// && _player == null;
+                    return _crossable && _player == null;
                 }
 
             }
@@ -103,11 +103,14 @@ namespace WeekAnkama
 
         public void UnSetTileEffect()
         {
-            _effect.ShutDown();
-            _effect = null;
-            _effectVisual.ShutDown();
-            TileEffectPool.Instance.ReturnObject(_effectVisual);
-            _effectVisual = null;
+            if (_effect != null)
+            {
+                _effect.ShutDown();
+                _effect = null;
+                _effectVisual.ShutDown();
+                TileEffectPool.Instance.ReturnObject(_effectVisual);
+                _effectVisual = null;
+            }
         }
 
 
