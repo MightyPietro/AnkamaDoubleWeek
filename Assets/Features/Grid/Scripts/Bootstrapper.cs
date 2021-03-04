@@ -55,6 +55,7 @@ namespace WeekAnkama
 
         private void Update()
         {
+            //MouseHandler.Instance.DisableGameplayInputs();
             _grid.DebugGrid();
 
             _grid.TryGetTile(Vector3.zero, out Tile t);
@@ -67,8 +68,7 @@ namespace WeekAnkama
 
             if (currentTile == null) return;
             //currentTile.value++;
-            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ ";
-
+            text.text = $"{currentTile.Coords.x} - {currentTile.Coords.y} ____ ";    
         }
     }
 }
