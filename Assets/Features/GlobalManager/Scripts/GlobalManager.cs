@@ -42,8 +42,9 @@ namespace WeekAnkama
                 }
                 else
                 {
-                    if(newTile.Effect != null && newTile.Effect.name == "AirTileEffect")
+                    if(newTile.Effect != null)
                     {
+                        Debug.Log(newTile.Effect.name);
                         pushForce++;
                     }
                     path.Add(newTile);

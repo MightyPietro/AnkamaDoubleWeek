@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: WaterTileEffect
   m_EditorClassIdentifier: 
   TriggerOnEnterCase: 0
-  TriggerOnLeaveCase: 0
+  TriggerOnLeaveCase: 1
   TriggerOnTurnStart: 0
   TriggerOnTurnEnd: 0
-  _walkable: 0
-  _crossable: 0
+  _walkable: 1
+  _crossable: 1
   _fatigue: 0

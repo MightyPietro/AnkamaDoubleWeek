@@ -137,6 +137,7 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
+                Debug.Log("Allo ?");
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
