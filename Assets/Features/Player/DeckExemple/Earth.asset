@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Earth
   m_EditorClassIdentifier: 
   isTileEffect: 1
-  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
+  tileEffect: {fileID: 11400000, guid: 675ad80b8c1310f4c8a2f4033879d158, type: 2}
   prefab: {fileID: 0}
-  paCost: 0
-  fatigueDmg: 0
+  paCost: 2
+  fatigueDmg: 80
+  pushCase: 0
   range: 0
-  actionTypes: 02000000
+  actionTypes: 04000000

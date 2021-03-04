@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 539904533}
   - component: {fileID: 539904532}
   m_Layer: 5
-  m_Name: Vertical Layout Group
+  m_Name: Horizontal Layout Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,7 +1061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 119, y: -165}
+  m_AnchoredPosition: {x: -254.3, y: -187.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &539904532
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 539904530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -1553,7 +1553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToMove: {fileID: 0}
-  speed: 2
+  speed: 8
   testT: {fileID: 598187806}
   testMovable: {fileID: 1000788627}
 --- !u!114 &731136663
@@ -1575,7 +1575,7 @@ MonoBehaviour:
   - {fileID: 264717363}
   - {fileID: 93547997}
   spawnPosition: []
-  secondByTurn: 3
+  secondByTurn: 20
   newTurnText: {fileID: 1127806234}
   turnFeedback:
   - {fileID: 1917998577}
@@ -1665,7 +1665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &874092081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2297,6 +2297,10 @@ PrefabInstance:
       propertyPath: _currentAction
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _PA
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.42
@@ -2443,7 +2447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2462,7 +2466,7 @@ Canvas:
   m_GameObject: {fileID: 1505714845}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 41345641}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
