@@ -83,12 +83,10 @@ namespace WeekAnkama
                         if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
                         {
                             DoAction(targetTile);
-                            Debug.Log(targetTile.Player);
                         }
                         else if (actualPlayer.currentAction.isTileEffect)
                         {
                             DoAction(targetTile);
-                            Debug.Log(targetTile.Player);
                         }
                         else
                         {
@@ -116,10 +114,12 @@ namespace WeekAnkama
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
         {
             Tile tileWanted = default;
-            if(GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+
+            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
+                Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
                 return true;
             }

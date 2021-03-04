@@ -33,7 +33,6 @@ namespace WeekAnkama
             for (int i = 1; i <= pushForce; i++)
             {
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
-                Debug.Log(newTilePos);
                 GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
                 {
@@ -142,8 +141,6 @@ namespace WeekAnkama
                     targetIndex++;
                     if (targetIndex >= path.Count) //Fin du déplacement
                     {
-                        Debug.Log(isPlayerOut);
-
                         if (isPlayerOut && outGridPos == Vector3.zero)
                         {
                             outGridPos = currentWaypoint.WorldPosition + direction;

@@ -59,7 +59,6 @@ namespace WeekAnkama
 
         void BeginBattle()
         {
-            Debug.Log("Begin battle");
             for (int i = 0; i < spawnPosition.Count; i++)
             {
                 playerManager.TeleportPlayer(players[i], spawnPosition[i]);
@@ -125,7 +124,7 @@ namespace WeekAnkama
                 //return Vector2Int.zero;
                 if(GridManager.Grid.TryGetTile(positionsPosibles[i], out wantedTile))
                 {
-                    if(wantedTile.Player != null)
+                    if(wantedTile.Player == null)
                     {
                         wantedTile.UnSetTileEffect();
                         return positionsPosibles[i];

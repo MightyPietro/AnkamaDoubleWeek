@@ -27,7 +27,7 @@ namespace WeekAnkama
                 if(Physics.Raycast(ray,out hitData, 100))
                 {
                     pos = hitData.point;                    
-                    Debug.Log("Move !!!" + pos);                    
+                    //Debug.Log("Move !!!" + pos);                    
                 }
                 else
                 {

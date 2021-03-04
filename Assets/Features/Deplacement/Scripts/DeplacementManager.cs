@@ -67,9 +67,6 @@ namespace WeekAnkama
 			Tile currentWaypoint = path[0];
 			bool endedPath = true;
 
-			Debug.Log(path[0].Coords);
-			Debug.Log(path[1].Coords);
-
 			currentWaypoint.UnSetPlayer();
 
 			while (endedPath)
