@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Earth : MonoBehaviour
+namespace WeekAnkama
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Earth : ActionEffect
     {
-        
-    }
+        public override void Process(Tile casterTile, Tile targetTile, Action action)
+        {
+            base.Process(casterTile, targetTile, action);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        }
     }
 }
+

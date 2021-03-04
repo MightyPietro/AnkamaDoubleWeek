@@ -8,7 +8,7 @@ namespace WeekAnkama
     {
         public override void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            Instantiate(action.prefab, targetTile.WorldPosition,Quaternion.identity);
+            base.Process(casterTile, targetTile, action);
         }
     }
 }

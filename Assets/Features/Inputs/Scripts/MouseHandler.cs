@@ -7,18 +7,41 @@ using WeekAnkama;
 
 public class MouseHandler : MonoBehaviour
 {
+    private static MouseHandler _instance;
+
+    public static MouseHandler Instance => _instance;
+
     [SerializeField]private InputActionAsset asset;
 
     public static event Action<Vector2> OnMouseMove;
     public static event System.Action OnMouseLeftClick;
-    public static event Action<Tile> OnTileLeftClick;
+    public static event Action<Tile,Tile> OnTileLeftClick;
 
     private void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
         asset.Enable();
 
-        asset.FindActionMap("Gameplay").FindAction("Cursor").performed += OnMove;
+        asset.FindActionMap("Global").FindAction("Cursor").performed += OnMove;
         asset.FindActionMap("Gameplay").FindAction("Select").performed += OnLeftClick;
+    }
+
+    public void DisableGameplayInputs()
+    {
+        asset.FindActionMap("Gameplay").Disable();
+    }
+
+    public void EnableGameplayInputs()
+    {
+        asset.FindActionMap("Gameplay").Enable();
     }
 
     private void OnLeftClick(InputAction.CallbackContext ctx)
@@ -27,19 +50,20 @@ public class MouseHandler : MonoBehaviour
         OnMouseLeftClick?.Invoke();
     }
 
-    public static void OnTileClick(Tile clickedTile)
+    public static void OnTileClick(Tile casterTile,Tile clickedTile)
     {
-        OnTileLeftClick?.Invoke(clickedTile);
+        OnTileLeftClick?.Invoke(casterTile,clickedTile);
     }
 
     private void OnMove(InputAction.CallbackContext ctx)
     {
+        Debug.Log("Move !!!");
         OnMouseMove?.Invoke(ctx.ReadValue<Vector2>());
     }
 
     private void OnDestroy()
     {
-        asset.FindActionMap("Gameplay").FindAction("Cursor").performed -= OnMove;
+        asset.FindActionMap("Global").FindAction("Cursor").performed -= OnMove;
         asset.FindActionMap("Gameplay").FindAction("Select").performed -= OnLeftClick;
     }
 }

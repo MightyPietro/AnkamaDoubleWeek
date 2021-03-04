@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+namespace WeekAnkama
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Fire : ActionEffect
     {
-        
+        public override void Process(Tile casterTile, Tile targetTile, Action action)
+        {
+            base.Process(casterTile, targetTile, action);
+
+            //if(targetTile.Player != null)
+            //{
+            //    targetTile.Player.fatigue += action.fatigueDmg;
+            //}
+
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
+

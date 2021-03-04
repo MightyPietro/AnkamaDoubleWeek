@@ -9,13 +9,21 @@ namespace WeekAnkama
     [CreateAssetMenu(menuName = "Assets/Action")]
     public class Action : ScriptableObject
     {
-        
+
+        public bool isTileEffect = false;
+        [ShowIf("isTileEffect")]
+        public TileEffect tileEffect;
+        [HideIf("isTileEffect")]
+        public GameObject prefab;
         [Range(0,10)]
         public int paCost;
         [Range(0, 200)]
         public int fatigueDmg;
         public GameObject prefab;
         public int pushCase;
+        [Range(0, 7)]
+        public int range;
+
 
         [Header("Action")]
         public List<ActionType> actionTypes;
