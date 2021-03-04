@@ -37,7 +37,7 @@ namespace WeekAnkama
         private void Start()
         {
             MouseHandler.OnTileLeftClick += DoSomethingOnTile;
-            MouseHandler.OnMouseLeftClick += () => actualPlayer.currentAction = null;
+            MouseHandler.OnNonTileLeftClick += () => actualPlayer.currentAction = null;
         }
 
         public void SetPlayerOutArena(Player killedPlayer)
@@ -64,7 +64,12 @@ namespace WeekAnkama
             {
                 if (actualPlayer.currentAction != null)
                 {
-                    DoAction(targetTile);
+                    if(targetTile.Player != null)
+                    {
+                        DoAction(targetTile);
+                        Debug.Log(targetTile.Player);
+                    }else actualPlayer.currentAction = null;
+
                 }
                 else
                 {
@@ -107,6 +112,8 @@ namespace WeekAnkama
 
                 currentCard.interactable = false;
 
+                actualPlayer.currentAction = null;
+
                 CheckCardsCost();
 
             }
@@ -143,9 +150,11 @@ namespace WeekAnkama
 
             if (displayedCards.Count == 0)
             {
+                displayedCards.Clear();
                 for (int i = 0; i < actualPlayer.hand.Count; i++)
                 {
                     Button _instantiatedActionButton = Instantiate(_actionButtonPrefab, _cardsLayoutParent);
+                    displayedCards.Add(_instantiatedActionButton);
                     Action action = actualPlayer.hand[i];
                     ResetCards(_instantiatedActionButton, action);
 
@@ -155,7 +164,7 @@ namespace WeekAnkama
             }
             else
             {
-                displayedCards.Clear();
+                
                 for (int i = 0; i < actualPlayer.hand.Count; i++)
                 {
                     
@@ -175,8 +184,6 @@ namespace WeekAnkama
             card.transform.FindChild("Name").GetComponent<Text>().text = action.name;
             card.transform.FindChild("PA").GetComponent<Text>().text = action.paCost.ToString();
 
-            
-            displayedCards.Add(card);
 
             if (action.paCost <= actualPlayer.PA) { card.interactable = true; }
             else card.interactable = false;

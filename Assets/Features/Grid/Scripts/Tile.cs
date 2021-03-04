@@ -30,10 +30,10 @@ namespace WeekAnkama
             {
                 if (_effect != null)
                 {
-                    return _walkable && _effect.Walkable && _player == null;
+                    return _walkable && _effect.Walkable /*&& _player == null*/;
                 }
                 else
-                    return _walkable && _player == null;
+                    return _walkable /*&& _player == null*/;
             }
         }
 
@@ -43,11 +43,11 @@ namespace WeekAnkama
             {
                 if(_effect != null)
                 {
-                    return _crossable && _effect.Crossable && _player == null;
+                    return _crossable && _effect.Crossable /*&& _player == null*/;
                 }
                 else
                 {
-                    return _crossable && _player == null;
+                    return _crossable /*&& _player == null*/;
                 }
 
             }

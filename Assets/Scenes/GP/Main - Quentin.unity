@@ -564,6 +564,10 @@ PrefabInstance:
       propertyPath: boot
       value: 
       objectReference: {fileID: 731136659}
+    - target: {fileID: 459726740817805838, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
+      propertyPath: turnManager
+      value: 
+      objectReference: {fileID: 731136663}
     - target: {fileID: 459726740817805839, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
       propertyPath: m_Name
       value: P_PlayerManager
@@ -1475,6 +1479,7 @@ GameObject:
   - component: {fileID: 731136660}
   - component: {fileID: 731136659}
   - component: {fileID: 731136658}
+  - component: {fileID: 731136665}
   m_Layer: 0
   m_Name: TimotheManager
   m_TagString: Untagged
@@ -1515,6 +1520,7 @@ MonoBehaviour:
   text: {fileID: 409766268}
   pos: {x: 0, y: 0, z: 0}
   effect: {fileID: 0}
+  effect2: {fileID: 0}
 --- !u!114 &731136660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1574,8 +1580,12 @@ MonoBehaviour:
   - {fileID: 68419770}
   - {fileID: 264717363}
   - {fileID: 93547997}
-  spawnPosition: []
-  secondByTurn: 20
+  spawnPosition:
+  - {x: 5, y: 5}
+  - {x: 1, y: 5}
+  - {x: 5, y: 1}
+  - {x: 1, y: 1}
+  secondByTurn: 15
   newTurnText: {fileID: 1127806234}
   turnFeedback:
   - {fileID: 1917998577}
@@ -1601,6 +1611,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &731136665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731136657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f270d88b0f719b42880b59bbba79fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _players:
+  - {fileID: 1482591315}
+  - {fileID: 68419770}
+  - {fileID: 264717363}
+  - {fileID: 93547997}
+  boot: {fileID: 731136659}
 --- !u!1 &755636968
 GameObject:
   m_ObjectHideFlags: 0

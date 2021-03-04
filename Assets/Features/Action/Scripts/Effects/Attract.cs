@@ -8,6 +8,7 @@ namespace WeekAnkama
     {
         public override void Process(Tile casterTile, Tile targetTile, Action action)
         {
+            Debug.Log(targetTile.Player);
             if (targetTile.Player != null)
             {
                 Vector2 direction = (casterTile.Coords - targetTile.Coords);
