@@ -15,7 +15,7 @@ namespace WeekAnkama
 		private void Start()
         {
 			requestManager = GetComponent<PathRequestManager>();
-			grid = boot._grid;
+			grid = GridManager.Grid;
         }
 
         public void StartFindPath(Vector3 startPos, Vector3 endPos, int maxDistance)

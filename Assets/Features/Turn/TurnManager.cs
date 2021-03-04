@@ -125,7 +125,7 @@ namespace WeekAnkama
             {
                 Tile wantedTile = default;
                 //return Vector2Int.zero;
-                if(boot._grid.TryGetTile(positionsPosibles[i], out wantedTile))
+                if(GridManager.Grid.TryGetTile(positionsPosibles[i], out wantedTile))
                 {
                     if(wantedTile.Player != null)
                     {

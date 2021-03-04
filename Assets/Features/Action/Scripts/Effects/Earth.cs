@@ -14,7 +14,6 @@ namespace WeekAnkama
             {
                 targetTile.SetTileEffect(null);
                 targetTile.Player.fatigue += action.fatigueDmg;
-                Destroy(instantiatedPrefab);
             }
 
 

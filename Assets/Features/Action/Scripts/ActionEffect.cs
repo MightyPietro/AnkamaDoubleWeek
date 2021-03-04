@@ -6,7 +6,6 @@ namespace WeekAnkama
 {
     public abstract class ActionEffect: MonoBehaviour
     {
-        protected GameObject instantiatedPrefab;
         public virtual void Process(Tile casterTile, Tile targetTile, Action action)
         {
             Debug.Log(action.tileEffect);

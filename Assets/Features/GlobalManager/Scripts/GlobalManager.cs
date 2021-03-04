@@ -88,7 +88,7 @@ namespace WeekAnkama
 
             Tile playerTile = null;
             List<Tile> pushPath = new List<Tile>();
-            if(boot._grid.TryGetTile(playerToPush.position, out playerTile))
+            if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
                 playerToPush.TakeDamage(damageTaken*80);

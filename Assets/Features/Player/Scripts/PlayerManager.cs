@@ -75,16 +75,26 @@ namespace WeekAnkama
             {
                 if (actualPlayer.currentAction != null)
                 {
-                    DoAction(targetTile);
-                    //if (targetTile.Player != null)
-                    //{
-                        
-                    //    Debug.Log(targetTile.Player);
-                    //}else actualPlayer.currentAction = null;
+                    if(!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                    {
+                        DoAction(targetTile);
+                        Debug.Log(targetTile.Player);
+                    }
+                    else if (actualPlayer.currentAction.isTileEffect)
+                    {
+                        DoAction(targetTile);
+                        Debug.Log(targetTile.Player);
+                    }
+                    else
+                    {
+                        actualPlayer.currentAction = null;
+                    }
+
 
                 }
                 else
                 {
+                    
                     MoveCharacter(targetTile);
                 }
             }
@@ -102,7 +112,7 @@ namespace WeekAnkama
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
         {
             Tile tileWanted = default;
-            if(boot._grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            if(GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
@@ -121,7 +131,7 @@ namespace WeekAnkama
             if (actualPlayer.PA >= actualPlayer.currentAction.paCost)
             {
                 Tile casterTile = null;
-                boot._grid.TryGetTile(actualPlayer.position, out casterTile);
+                GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
@@ -197,8 +207,8 @@ namespace WeekAnkama
         {
             card.onClick.AddListener(() => AddCurrentAction(action, card));
             card.name = action.name;
-            card.transform.FindChild("Name").GetComponent<Text>().text = action.name;
-            card.transform.FindChild("PA").GetComponent<Text>().text = action.paCost.ToString();
+            card.transform.Find("Name").GetComponent<Text>().text = action.name;
+            card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
 
 
             if (action.paCost <= actualPlayer.PA) { card.interactable = true; }
