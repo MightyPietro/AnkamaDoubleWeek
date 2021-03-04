@@ -44,6 +44,7 @@ namespace WeekAnkama
                 }
                 else
                 {
+                    MouseHandler.OnNonTileClick();
                     currentTile = oldTile;
                 }
             };
