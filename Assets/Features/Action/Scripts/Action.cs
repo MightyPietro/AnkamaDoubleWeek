@@ -19,7 +19,6 @@ namespace WeekAnkama
         public int paCost;
         [Range(0, 200)]
         public int fatigueDmg;
-        public GameObject prefab;
         public int pushCase;
         [Range(0, 7)]
         public int range;
