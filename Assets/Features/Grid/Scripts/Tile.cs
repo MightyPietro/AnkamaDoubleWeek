@@ -52,7 +52,7 @@ namespace WeekAnkama
 
             }
         }
-
+        public TileEffectDisplay effectVisual => _effectVisual;
         public bool Usable => _usable;
 
         public Player Player => _player;

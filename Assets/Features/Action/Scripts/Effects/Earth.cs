@@ -12,8 +12,8 @@ namespace WeekAnkama
 
             if(targetTile.Player != null)
             {
-                targetTile.SetTileEffect(null);
                 targetTile.Player.fatigue += action.fatigueDmg;
+                action.tileEffect.linkedTile.effectVisual.ShutDown();
             }
 
 

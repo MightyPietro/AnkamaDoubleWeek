@@ -80,18 +80,22 @@ namespace WeekAnkama
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
                     {
-                        if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                        if(targetTile.Player != actualPlayer)
                         {
-                            DoAction(targetTile);
+                            if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else if (actualPlayer.currentAction.isTileEffect)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else
+                            {
+                                actualPlayer.currentAction = null;
+                            }
                         }
-                        else if (actualPlayer.currentAction.isTileEffect)
-                        {
-                            DoAction(targetTile);
-                        }
-                        else
-                        {
-                            actualPlayer.currentAction = null;
-                        }
+
                     }
                 }
                 else
