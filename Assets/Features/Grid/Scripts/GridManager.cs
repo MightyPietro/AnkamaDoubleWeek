@@ -53,8 +53,23 @@ namespace WeekAnkama
             else
             {
                 return null;
-            }
-            
+            }            
+        }
+
+        public static void ChangeColor(Tile tile, Color color)
+        {
+            GameObject obj = GridManager.GetVisual(tile);
+            MeshRenderer rend = obj.GetComponent<MeshRenderer>();
+            rend.material.SetColor( "BaseColor" ,color); 
+            rend.material.SetFloat( "Base_color_opacity" ,1.0f); 
+        }
+
+        public static void Reset(Tile tile, Color color)
+        {
+            GameObject obj = GridManager.GetVisual(tile);
+            MeshRenderer rend = obj.GetComponent<MeshRenderer>();
+            rend.material.SetColor("BaseColor", color);
+            rend.material.SetFloat("Base_color_opacity", 0.0f);
         }
 
 
