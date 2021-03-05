@@ -22,13 +22,13 @@ namespace WeekAnkama
             {
                 GridManager.Grid.TryGetTile(_player.position, out Tile playerTile);
 
-                Vector2 direction = (linkedTile.Coords - playerTile.Coords);
-                direction = direction.normalized;
+                /*Vector2 direction = (linkedTile.Coords - playerTile.Coords);
+                direction = direction.normalized;*/
 
                 linkedTile.UnSetPlayer();
 
-                Debug.Log("Push test effect : " + direction);
-                GlobalManager.instance.AskPushPlayer(_player, new Vector2Int((int)direction.x, (int)direction.y), 1 + Mathf.FloorToInt(_player.fatigue / 100));
+                Debug.Log("Push test effect : " + _player.Direction);
+                GlobalManager.instance.AskPushPlayer(_player, _player.Direction, 1 + Mathf.FloorToInt(_player.fatigue / 100));
             }
         }
 
