@@ -79,7 +79,7 @@ namespace WeekAnkama
 
         public void SetPlayer(Player player)
         {
-            if (player == null) return;
+            if (player == null || player == _player) return;
             _player = player;
             OnEnterCase?.Invoke(player);
         }
@@ -121,11 +121,13 @@ namespace WeekAnkama
 
         private void HandleBeginTurn(Player player)
         {
+            if (player != _player) return;
             OnBeginTurn?.Invoke(_player);
         }
 
         private void HandleEndTurn(Player player)
         {
+            if (player != _player) return;
             OnEndTurn?.Invoke(_player);
         }
 

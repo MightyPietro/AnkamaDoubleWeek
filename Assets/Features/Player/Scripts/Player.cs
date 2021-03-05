@@ -22,6 +22,7 @@ namespace WeekAnkama
         [SerializeField] private Text _PMText;
         private bool _processMovement = false;
         private bool _isOut = false;
+        private Vector2Int _direction;
 
         [HideInInspector]
         public List<Action> _deckReminder;
@@ -33,6 +34,7 @@ namespace WeekAnkama
         public int PM { get { return _PM; } set { _PM = value; _PMText.text = PM.ToString(); } }
         public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); } }
         public Vector2Int position { get { return _position; } set { _position = value; } }
+        public Vector2Int Direction { get { return _direction; } set { _direction = value; } }
         public List<Action> deck { get { return _deck; } set { _deck = value; } }
         public List<Action> hand { get { return _hand; } set { _hand = value; } }
         public Action currentAction { get { return _currentAction; } set { _currentAction = value; } }

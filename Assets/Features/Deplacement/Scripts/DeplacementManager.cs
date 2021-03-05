@@ -72,7 +72,7 @@ namespace WeekAnkama
 		IEnumerator FollowPath()
 		{
 			Tile currentWaypoint = path[0];
-
+			Player player = targetToMove.gameObject.GetComponent<Player>();
 			currentWaypoint.UnSetPlayer();
 
 			while (processDeplacement)
@@ -83,23 +83,28 @@ namespace WeekAnkama
 				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
-					if (targetIndex >= path.Count || targetToMove.gameObject.GetComponent<Player>().PM <= 0) //Fin du déplacement
+					if (targetIndex >= path.Count || player.PM <= 0) //Fin du déplacement
 					{
+						targetToMove.position = posTarget;
 						processDeplacement = false;
 
 						break;
 					}
 
-					targetToMove.gameObject.GetComponent<Player>().PM -= 1;
+					player.PM -= 1;
 
 					currentWaypoint.UnSetPlayer();
 
-					currentWaypoint = path[targetIndex];
+					Tile nextTile = path[targetIndex];
+					Vector2 dir = new Vector2(nextTile.Coords.x - currentWaypoint.Coords.x, nextTile.Coords.y - currentWaypoint.Coords.y).normalized;
+					player.Direction = new Vector2Int((int)dir.x, (int)dir.y);
 
-					if(targetToMove.gameObject.GetComponent<Player>()!=null)
+					currentWaypoint = nextTile;
+
+					if(player != null)
                     {
-						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
-						targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
+						currentWaypoint.SetPlayer(player);
+						player.position = currentWaypoint.Coords;
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
