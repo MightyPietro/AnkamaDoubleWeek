@@ -197,25 +197,28 @@ namespace WeekAnkama
             }
 
             //Preview
-            PreviewRangeAction(_tilesInPreview, true);
+            SetPreviewTiles(_tilesInPreview, true, Color.cyan);
         }
 
-        private void PreviewRangeAction(List<Tile> tilesInPreview, bool enable)
+        private void SetPreviewTiles(List<Tile> tilesInPreview, bool enable, Color color)
         {
             foreach (Tile tile in tilesInPreview)
             {
                 if(enable)
-                    GridManager.ChangeColor(tile, Color.cyan);
+                    GridManager.ChangeColor(tile,color);
                 else
+                {
                     GridManager.Reset(tile, Color.gray);
+                }
             }
+            if (!enable) tilesInPreview.Clear();
         }
 
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
-            PreviewRangeAction(_tilesInPreview, false);
-            _tilesInPreview.Clear();
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            //_tilesInPreview.Clear();
             player.currentAction = null;
         }
 

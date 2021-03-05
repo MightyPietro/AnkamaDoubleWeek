@@ -121,11 +121,13 @@ namespace WeekAnkama
 
         private void HandleBeginTurn(Player player)
         {
+            if (player != _player) return;
             OnBeginTurn?.Invoke(_player);
         }
 
         private void HandleEndTurn(Player player)
         {
+            if (player != _player) return;
             OnEndTurn?.Invoke(_player);
         }
 
