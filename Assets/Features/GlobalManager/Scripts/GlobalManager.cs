@@ -42,9 +42,8 @@ namespace WeekAnkama
                 }
                 else
                 {
-                    if(newTile.Effect != null)
+                    if(newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
                     {
-                        Debug.Log(newTile.Effect.name);
                         pushForce++;
                     }
                     path.Add(newTile);
@@ -60,7 +59,7 @@ namespace WeekAnkama
 
             path.Add(startTile);
 
-            pushForceLeft = unblockPath.Count;
+            pushForceLeft = unblockPath.Count-1;
 
             for (int i = 1; i < unblockPath.Count; i++)
             {
@@ -68,6 +67,7 @@ namespace WeekAnkama
                 if(unblockPath[i].Crossable)
                 {
                     pushForceLeft--;
+                    Debug.Log(pushForceLeft);
                     path.Add(unblockPath[i]);
                     Debug.Log(unblockPath[i].Coords);
                 }
@@ -77,11 +77,20 @@ namespace WeekAnkama
                     break;
                 }
             }
+
+            if(pushForceLeft<0)
+            {
+                pushForceLeft = 0;
+            }
+
             return path;
         }
 
         public void AskPushPlayer(Player playerToPush, Vector2Int pushDirection, int pushForce)
         {
+            DeplacementManager.instance.StopMovement();
+
+            Debug.Log(pushForce);
             int damageTaken = 0;
             bool isPlayerOut = false;
 

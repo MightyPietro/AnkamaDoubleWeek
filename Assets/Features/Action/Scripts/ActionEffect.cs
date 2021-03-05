@@ -8,7 +8,6 @@ namespace WeekAnkama
     {
         public virtual void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            Debug.Log(action.tileEffect);
 
             if (action.isTileEffect)
             {

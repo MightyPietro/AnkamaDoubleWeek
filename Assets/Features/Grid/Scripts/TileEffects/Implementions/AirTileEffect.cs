@@ -11,16 +11,25 @@ namespace WeekAnkama
         [SerializeField] protected int _fatigue;
         public override void Process(Player _player)
         {
+            Debug.Log("Test");
+
             if (_player == null)
             {
                 Debug.LogError($"Player is Null in { this.GetType().ToString()}");
                 return;
             }
+            else
+            {
+                GridManager.Grid.TryGetTile(_player.position, out Tile playerTile);
 
-            Vector2 direction = (linkedTile.Coords - casterTile.Coords);
-            direction = direction.normalized;
+                Vector2 direction = (linkedTile.Coords - playerTile.Coords);
+                direction = direction.normalized;
 
-            GlobalManager.instance.AskPushPlayer(_player, new Vector2Int((int)direction.x, (int)direction.y), 1 + Mathf.FloorToInt(_player.fatigue / 100));
+                linkedTile.UnSetPlayer();
+
+                Debug.Log("Push test effect : " + direction);
+                GlobalManager.instance.AskPushPlayer(_player, new Vector2Int((int)direction.x, (int)direction.y), 1 + Mathf.FloorToInt(_player.fatigue / 100));
+            }
         }
 
        

@@ -62,14 +62,20 @@ namespace WeekAnkama
 			}
 		}
 
+		public void StopMovement()
+        {
+			StopCoroutine(FollowPath());
+			Debug.Log("Movement stop");
+			processDeplacement = false;
+		}
+
 		IEnumerator FollowPath()
 		{
 			Tile currentWaypoint = path[0];
-			bool endedPath = true;
 
 			currentWaypoint.UnSetPlayer();
 
-			while (endedPath)
+			while (processDeplacement)
 			{
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
@@ -79,8 +85,6 @@ namespace WeekAnkama
 					targetIndex++;
 					if (targetIndex >= path.Count || targetToMove.gameObject.GetComponent<Player>().PM <= 0) //Fin du déplacement
 					{
-						endedPath = false;
-
 						processDeplacement = false;
 
 						break;
