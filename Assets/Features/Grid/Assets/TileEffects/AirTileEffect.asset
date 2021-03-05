@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6bbc0d3209cf55469e3c09f224dfda2, type: 3}
   m_Name: AirTileEffect
   m_EditorClassIdentifier: 
-  TriggerOnEnterCase: 0
+  TriggerOnEnterCase: 1
   TriggerOnLeaveCase: 0
   TriggerOnTurnStart: 0
   TriggerOnTurnEnd: 0
-  _walkable: 0
+  _walkable: 1
   _crossable: 1
   _fatigue: 0

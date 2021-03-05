@@ -25,6 +25,10 @@ namespace WeekAnkama
                 {
                     item.SetActive(true);
                 }
+                else
+                {
+                    item.SetActive(false);
+                }
             }
         }
 
