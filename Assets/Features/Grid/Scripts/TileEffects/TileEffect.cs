@@ -32,16 +32,16 @@ namespace WeekAnkama
 
             if (TriggerOnEnterCase) { _linkedTile.OnEnterCase += Process; }
             if (TriggerOnLeaveCase) { _linkedTile.OnEnterCase += Process; }
-            if (TriggerOnTurnStart) { TurnManager.OnBeginPlayerTurn += Process; }
-            if (TriggerOnTurnEnd) { TurnManager.OnEndPlayerTurn += Process; }
+            if (TriggerOnTurnStart) { _linkedTile.OnBeginTurn += Process; }
+            if (TriggerOnTurnEnd) { _linkedTile.OnEndTurn += Process; }
         }
 
         public void ShutDown()
         {
             if (TriggerOnEnterCase) { _linkedTile.OnEnterCase -= Process; }
             if (TriggerOnLeaveCase) { _linkedTile.OnEnterCase -= Process; }
-            if (TriggerOnTurnStart) { TurnManager.OnBeginPlayerTurn -= Process; }
-            if (TriggerOnTurnEnd) { TurnManager.OnEndPlayerTurn -= Process; }
+            if (TriggerOnTurnStart) { _linkedTile.OnBeginTurn -= Process; }
+            if (TriggerOnTurnEnd) { _linkedTile.OnEndTurn -= Process; }
         }
     }
 }
