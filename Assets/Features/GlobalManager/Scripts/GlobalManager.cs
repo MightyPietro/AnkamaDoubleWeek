@@ -92,6 +92,7 @@ namespace WeekAnkama
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
                 playerToPush.TakeDamage(damageTaken*80);
                 AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut);
+                
             }
         }
 

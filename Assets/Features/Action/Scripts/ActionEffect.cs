@@ -12,8 +12,9 @@ namespace WeekAnkama
 
             if (action.isTileEffect)
             {
-                
                 targetTile.SetTileEffect(action.tileEffect);
+                action.tileEffect.linkedTile = targetTile;
+                action.tileEffect.casterTile = casterTile;
             }
 
         }
