@@ -115,13 +115,13 @@ Material:
     - Base_color_opacity: 0
     - Boolean_AFF7A59F: 0
     - ColorRand: 0.241
-    - ColorVarOpacity: 0.16
+    - ColorVarOpacity: 0.744
     - Contrast: 1
     - HUE: 0
     - Metallic: 0
     - NormalPower: 0.438
     - Roughness: 0
-    - Saturation: 0.06
+    - Saturation: 0.65
     - Vector1_6B065809: 0
     - Vector1_79522974: 0
     - Vector1_AC301C23: 0.2
@@ -132,7 +132,7 @@ Material:
     - _SPECULAR_ROUGHNESS: 0
     m_Colors:
     - BaseColor: {r: 0.8584906, g: 0.51845664, b: 0.19842473, a: 1}
-    - ColorVar: {r: 1, g: 1, b: 1, a: 1}
+    - ColorVar: {r: 1, g: 0.7463965, b: 0, a: 1}
     - Color_98C78F3E: {r: 1, g: 1, b: 1, a: 0}
     - Color_A072D5E5: {r: 1, g: 0.6387253, b: 0, a: 0}
     - Tint: {r: 1, g: 1, b: 1, a: 0}
