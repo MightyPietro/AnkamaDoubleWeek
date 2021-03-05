@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5
@@ -230,6 +234,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.87
@@ -471,13 +479,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 393725970}
+  - component: {fileID: 393725976}
   - component: {fileID: 393725969}
   - component: {fileID: 393725973}
   - component: {fileID: 393725972}
   - component: {fileID: 393725971}
   - component: {fileID: 393725975}
   - component: {fileID: 393725974}
-  - component: {fileID: 393725976}
   m_Layer: 0
   m_Name: TimotheManager
   m_TagString: Untagged
@@ -508,7 +516,7 @@ MonoBehaviour:
   - {x: 5, y: 5}
   - {x: 5, y: 1}
   - {x: 1, y: 5}
-  secondByTurn: 9999
+  secondByTurn: 6
   newTurnText: {fileID: 1486189010}
   turnFeedback:
   - {fileID: 1659441823}
@@ -996,6 +1004,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.42
@@ -1159,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4312154125726209445, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: _currentAction
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
     - target: {fileID: 4312154125726209446, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.27

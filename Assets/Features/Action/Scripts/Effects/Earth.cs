@@ -12,9 +12,8 @@ namespace WeekAnkama
 
             if(targetTile.Player != null)
             {
-                targetTile.SetTileEffect(null);
                 targetTile.Player.fatigue += action.fatigueDmg;
-                Destroy(instantiatedPrefab);
+                action.tileEffect.linkedTile.effectVisual.ShutDown();
             }
 
 

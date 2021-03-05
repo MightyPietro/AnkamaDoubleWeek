@@ -39,6 +39,15 @@ namespace WeekAnkama
 			}
 		}
 
+		public void AskToMove(Tile wantedTile, Player playerToMove, int movementPoint)
+		{
+			if (!processDeplacement)
+			{
+				targetToMove = playerToMove.transform;
+				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
+			}
+		}
+
 		public void OnPathFound(List<Tile> newPath, bool pathSuccessful)
 		{
 			if (pathSuccessful)
@@ -53,26 +62,35 @@ namespace WeekAnkama
 			}
 		}
 
+		public void StopMovement()
+        {
+			StopCoroutine(FollowPath());
+			Debug.Log("Movement stop");
+			processDeplacement = false;
+		}
+
 		IEnumerator FollowPath()
 		{
 			Tile currentWaypoint = path[0];
 
-			while (true)
+			currentWaypoint.UnSetPlayer();
+
+			while (processDeplacement)
 			{
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
 
-				if (Vector3.Distance(posUnit, posTarget) < (0.05f * speed))
+				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
-					if (targetIndex >= path.Count) //Fin du déplacement
+					if (targetIndex >= path.Count || targetToMove.gameObject.GetComponent<Player>().PM <= 0) //Fin du déplacement
 					{
 						processDeplacement = false;
 
-						//Réactiver les Inputs
-
-						yield break;
+						break;
 					}
+
+					targetToMove.gameObject.GetComponent<Player>().PM -= 1;
 
 					currentWaypoint.UnSetPlayer();
 
@@ -82,7 +100,6 @@ namespace WeekAnkama
                     {
 						currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
 						targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
-
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
@@ -90,8 +107,18 @@ namespace WeekAnkama
 				targetToMove.position += direction * speed * Time.deltaTime;
 
 				yield return null;
-
 			}
+
+
+			//Réactiver les Inputs
+		}
+
+		public int GetDistance(Tile nodeA, Tile nodeB)
+		{
+			int dstX = Mathf.Abs(nodeA.Coords.x - nodeB.Coords.x);
+			int dstY = Mathf.Abs(nodeA.Coords.y - nodeB.Coords.y);
+
+			return 10 * (dstY + dstX);
 		}
 	}
 }

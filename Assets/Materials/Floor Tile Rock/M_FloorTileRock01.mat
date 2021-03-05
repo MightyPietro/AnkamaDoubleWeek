@@ -115,7 +115,7 @@ Material:
     - Base_color_opacity: 0
     - Boolean_AFF7A59F: 0
     - ColorRand: 0
-    - ColorVarOpacity: 0.153
+    - ColorVarOpacity: 0.946
     - Contrast: 1
     - HUE: -42.6
     - Metallic: 0
@@ -132,7 +132,7 @@ Material:
     - _SPECULAR_ROUGHNESS: 0
     m_Colors:
     - BaseColor: {r: 0.5660378, g: 0.48860806, b: 0.4565682, a: 0}
-    - ColorVar: {r: 1, g: 1, b: 1, a: 1}
+    - ColorVar: {r: 0.50040054, g: 0.5638545, b: 0.6132076, a: 1}
     - Color_98C78F3E: {r: 1, g: 1, b: 1, a: 0}
     - Color_A072D5E5: {r: 1, g: 0.6387253, b: 0, a: 0}
     - Tint: {r: 1, g: 1, b: 1, a: 0}
