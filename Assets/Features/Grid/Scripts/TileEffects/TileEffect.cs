@@ -13,15 +13,16 @@ namespace WeekAnkama
         [SerializeField] protected bool TriggerOnTurnEnd;
 
         protected Tile _linkedTile;
+        protected Tile _casterTile;
 
         [SerializeField] protected bool _walkable;
         [SerializeField] protected bool _crossable;
-        [SerializeField] protected GameObject _effectPrefab;
 
-        public GameObject effectPrefab { get { return _effectPrefab; } set { _effectPrefab = value; } }
+        public bool Walkable => _walkable;
+        public bool Crossable => _crossable;
 
-        public bool Walkable => Walkable;
-        public bool Crossable => Crossable;
+        public Tile linkedTile { get { return _linkedTile; } set { _linkedTile = value; } }
+        public Tile casterTile { get { return _casterTile; } set { _casterTile = value; } }
 
         public abstract void Process(Player _player);
 
@@ -31,16 +32,16 @@ namespace WeekAnkama
 
             if (TriggerOnEnterCase) { _linkedTile.OnEnterCase += Process; }
             if (TriggerOnLeaveCase) { _linkedTile.OnEnterCase += Process; }
-            if (TriggerOnTurnStart) { TurnManager.OnBeginPlayerTurn += Process; }
-            if (TriggerOnTurnEnd) { TurnManager.OnEndPlayerTurn += Process; }
+            if (TriggerOnTurnStart) { _linkedTile.OnBeginTurn += Process; }
+            if (TriggerOnTurnEnd) { _linkedTile.OnEndTurn += Process; }
         }
 
         public void ShutDown()
         {
             if (TriggerOnEnterCase) { _linkedTile.OnEnterCase -= Process; }
             if (TriggerOnLeaveCase) { _linkedTile.OnEnterCase -= Process; }
-            if (TriggerOnTurnStart) { TurnManager.OnBeginPlayerTurn -= Process; }
-            if (TriggerOnTurnEnd) { TurnManager.OnEndPlayerTurn -= Process; }
+            if (TriggerOnTurnStart) { _linkedTile.OnBeginTurn -= Process; }
+            if (TriggerOnTurnEnd) { _linkedTile.OnEndTurn -= Process; }
         }
     }
 }

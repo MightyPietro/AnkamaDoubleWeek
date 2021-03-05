@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
-  paCost: 0
+  isTileEffect: 0
+  tileEffect: {fileID: 0}
+  prefab: {fileID: 0}
+  paCost: 1
   fatigueDmg: 0
+  pushCase: 2
+  range: 5
   actionTypes: 00000000

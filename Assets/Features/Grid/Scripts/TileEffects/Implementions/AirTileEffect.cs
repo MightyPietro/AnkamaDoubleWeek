@@ -9,17 +9,29 @@ namespace WeekAnkama
     public class AirTileEffect : TileEffect
     {
         [SerializeField] protected int _fatigue;
-
         public override void Process(Player _player)
         {
+            Debug.Log("Test");
+
             if (_player == null)
             {
                 Debug.LogError($"Player is Null in { this.GetType().ToString()}");
                 return;
             }
-            
-            // Push le player d'une case par rapport à d'où il arrive
+            else
+            {
+                GridManager.Grid.TryGetTile(_player.position, out Tile playerTile);
+
+                Vector2 direction = (linkedTile.Coords - playerTile.Coords);
+                direction = direction.normalized;
+
+                linkedTile.UnSetPlayer();
+
+                Debug.Log("Push test effect : " + direction);
+                GlobalManager.instance.AskPushPlayer(_player, new Vector2Int((int)direction.x, (int)direction.y), 1 + Mathf.FloorToInt(_player.fatigue / 100));
+            }
         }
 
+       
     }
 }

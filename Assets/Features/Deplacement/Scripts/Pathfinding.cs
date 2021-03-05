@@ -6,16 +6,13 @@ namespace WeekAnkama
 {
     public class Pathfinding : MonoBehaviour
     {
-		[SerializeField]
-		private Bootstrapper boot;
-
 		Grid grid;
 		PathRequestManager requestManager;
 
 		private void Start()
         {
 			requestManager = GetComponent<PathRequestManager>();
-			grid = boot._grid;
+			grid = GridManager.Grid;
         }
 
         public void StartFindPath(Vector3 startPos, Vector3 endPos, int maxDistance)
@@ -27,13 +24,20 @@ namespace WeekAnkama
         {
 			List<Tile> waypoints = new List<Tile>();
             bool pathSuccess = false;
+			maxDistance = 500;
 
             Tile startTile = new Tile(grid, new Vector2Int(0, 0), grid.GetTileWorldPosition(0,0));
             Tile endTile = new Tile(grid, new Vector2Int(0, 0), grid.GetTileWorldPosition(0, 0));
 
             if(grid.TryGetTile(startPos, out startTile) && grid.TryGetTile(endPos, out endTile))
             {
-                if(endTile.Walkable && startTile != endTile)
+				//Debug.Log(GetDistance(startTile, endTile) + " > " + maxDistance);
+				if(GetDistance(startTile, endTile) > maxDistance)
+                {
+					Debug.Log("Allo ?");
+					pathSuccess = false;
+                }
+				else if(endTile.Walkable && startTile != endTile)
                 {
 					pathSuccess = SetAllNodes(startTile, endTile);
                 }
@@ -74,6 +78,9 @@ namespace WeekAnkama
 				path.Add(currentNode);
 				currentNode = currentNode.parent;
 			}
+
+			path.Add(currentNode);
+
 			return path;
 		}
 

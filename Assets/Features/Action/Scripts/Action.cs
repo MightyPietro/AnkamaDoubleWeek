@@ -40,7 +40,6 @@ namespace WeekAnkama
         [ContextMenu("Process")]
         public void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            Debug.Log("Process");
             FindActionEffectSubClass();
             for (int j = 0; j < actionTypes.Count; j++)
             {

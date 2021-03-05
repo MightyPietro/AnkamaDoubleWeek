@@ -6,13 +6,14 @@ namespace WeekAnkama
 {
     public abstract class ActionEffect: MonoBehaviour
     {
-        protected GameObject instantiatedPrefab;
         public virtual void Process(Tile casterTile, Tile targetTile, Action action)
         {
-            if (action.isTileEffect && targetTile.Effect == null)
+
+            if (action.isTileEffect)
             {
                 targetTile.SetTileEffect(action.tileEffect);
-                instantiatedPrefab = Instantiate(action.tileEffect.effectPrefab, targetTile.WorldPosition, Quaternion.identity);
+                action.tileEffect.linkedTile = targetTile;
+                action.tileEffect.casterTile = casterTile;
             }
 
         }
