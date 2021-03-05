@@ -50,6 +50,8 @@ namespace WeekAnkama
         }
         public void TakeDamage(int amount)
         {
+
+            Debug.Log("Allo ?");
             fatigue += amount;
         }
 

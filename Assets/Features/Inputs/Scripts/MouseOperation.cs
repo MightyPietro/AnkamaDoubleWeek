@@ -25,19 +25,19 @@ namespace WeekAnkama
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y));
             if (Physics.Raycast(ray, out hitData, 100))
             {
-                Debug.Log("GOOD MOVE");
+                //Debug.Log("GOOD MOVE");
                 _currentWorldPosition = hitData.point;
             }
             else
             {
-                Debug.Log("WRONG MOVE");
+                //Debug.Log("WRONG MOVE");
                 _currentWorldPosition = Vector3.negativeInfinity;
             }
         }
 
         private void HandleMouseClick()
         {
-            Debug.Log("Click");
+            //Debug.Log("Click");
             if (GridManager.Grid.TryGetTile(_currentWorldPosition, out Tile currentTile))
             {
                 OnLeftClickTile?.Invoke(currentTile);
