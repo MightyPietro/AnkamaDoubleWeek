@@ -61,6 +61,8 @@ namespace WeekAnkama
 
         public event System.Action<Player> OnEnterCase;
         public event System.Action<Player> OnLeaveCase;
+        public event System.Action<Player> OnBeginTurn;
+        public event System.Action<Player> OnEndTurn;
 
         public Tile(Grid grid, Vector2Int coords, Vector3 worldPosition)
         {
@@ -68,6 +70,9 @@ namespace WeekAnkama
             _coords = coords;
             _worldPosition = worldPosition;
             _walkable = true;
+
+            TurnManager.OnBeginPlayerTurn += HandleBeginTurn;
+            TurnManager.OnEndPlayerTurn += HandleEndTurn;
         }
 
 
@@ -111,6 +116,16 @@ namespace WeekAnkama
                 TileEffectPool.Instance.ReturnObject(_effectVisual);
                 _effectVisual = null;
             }
+        }
+
+        private void HandleBeginTurn(Player player)
+        {
+            OnBeginTurn?.Invoke(_player);
+        }
+
+        private void HandleEndTurn(Player player)
+        {
+            OnEndTurn?.Invoke(_player);
         }
 
 
