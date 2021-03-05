@@ -79,7 +79,7 @@ namespace WeekAnkama
 
         public void SetPlayer(Player player)
         {
-            if (player == null) return;
+            if (player == null || player == _player) return;
             _player = player;
             OnEnterCase?.Invoke(player);
         }

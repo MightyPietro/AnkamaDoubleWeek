@@ -32,6 +32,8 @@ namespace WeekAnkama
 
             for (int i = 1; i <= pushForce; i++)
             {
+                if (i > 500) return null; //Avoid infinite loop
+
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
                 GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
