@@ -206,6 +206,7 @@ namespace WeekAnkama
             card.name = action.name;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
+            card.transform.Find("Fatigue").GetComponent<Text>().text = action.fatigueDmg.ToString();
 
 
             if (action.paCost <= actualPlayer.PA) { card.interactable = true; }
