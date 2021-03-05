@@ -19,6 +19,8 @@ namespace WeekAnkama
 
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
+        private List<Tile> _tilesInPreview;
+
         #endregion
 
         #region Getter/Setter
@@ -33,9 +35,13 @@ namespace WeekAnkama
 
         private void Start()
         {
+
             MouseOperation.OnLeftClickTile += DoSomethingOnTile;
-            MouseOperation.OnLeftClickNoTile += () => actualPlayer.currentAction = null;
-        }
+            MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+            TurnManager.OnEndPlayerTurn += HandleUnselectCard;
+
+            _tilesInPreview = new List<Tile>();
+        }        
 
         public void SetPlayerOutArena(Player killedPlayer)
         {
@@ -92,7 +98,7 @@ namespace WeekAnkama
                             }
                             else
                             {
-                                actualPlayer.currentAction = null;
+                                HandleUnselectCard(actualPlayer);
                             }
                         }
 
@@ -146,11 +152,11 @@ namespace WeekAnkama
 
                 currentCard.interactable = false;
 
-                actualPlayer.currentAction = null;
+                HandleUnselectCard(actualPlayer);
 
                 CheckCardsCost();
 
-            }
+            }            
         }
 
         [Button]
@@ -175,6 +181,50 @@ namespace WeekAnkama
         {
             actualPlayer.currentAction = action;
             currentCard = button;
+
+            //Calcul tiles to preview
+            int range = action.range;
+            for (int y = -range; y <= range; y++)
+            {
+                for (int x = -range; x <= range; x++)
+                {
+                    if (x == y || (x != 0 && y!=0)) continue;
+                    if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
+                    {
+                        _tilesInPreview.Add(currentTile);
+                    }
+                }
+            }
+
+            //Preview
+            SetPreviewTiles(_tilesInPreview, true, Color.cyan);
+        }
+
+        private void SetPreviewTiles(List<Tile> tilesInPreview, bool enable, Color color)
+        {
+            foreach (Tile tile in tilesInPreview)
+            {
+                if(enable)
+                    GridManager.ChangeColor(tile,color);
+                else
+                {
+                    GridManager.Reset(tile, Color.gray);
+                }
+            }
+            if (!enable) tilesInPreview.Clear();
+        }
+
+        private void HandleUnselectCard(Player player)
+        {
+            if (player == null) return;
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            //_tilesInPreview.Clear();
+            player.currentAction = null;
+        }
+
+        private void OnLeftClickNoTile()
+        {
+            HandleUnselectCard(actualPlayer);
         }
 
         [Button]
@@ -202,7 +252,8 @@ namespace WeekAnkama
         }
         private void ResetCards(Button card, Action action)
         {
-            card.onClick.AddListener(() => AddCurrentAction(action, card));
+            card.onClick.RemoveAllListeners();
+            card.onClick.AddListener(() => { AddCurrentAction(action, card); });
             card.name = action.name;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
