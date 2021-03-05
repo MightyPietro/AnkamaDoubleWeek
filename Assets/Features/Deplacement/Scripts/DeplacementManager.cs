@@ -85,6 +85,7 @@ namespace WeekAnkama
 					targetIndex++;
 					if (targetIndex >= path.Count || targetToMove.gameObject.GetComponent<Player>().PM <= 0) //Fin du déplacement
 					{
+						targetToMove.position = posTarget;
 						processDeplacement = false;
 
 						break;
