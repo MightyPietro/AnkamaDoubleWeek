@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: I Kick
   m_EditorClassIdentifier: 
-  isTileEffect: 0
-  tileEffect: {fileID: 0}
+  isTileEffect: 1
+  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
   prefab: {fileID: 0}
-  paCost: 9
+  paCost: 4
   fatigueDmg: 0
   pushCase: 0
-  range: 0
-  actionTypes: 0000000002000000
+  range: 2
+  actionTypes: 00000000
