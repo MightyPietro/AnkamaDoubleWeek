@@ -32,7 +32,7 @@ namespace WeekAnkama
         private Text newTurnText;
         [SerializeField]
         private List<Image> turnFeedback;
-        public List<Color> colorTests;
+        public List<Sprite> colorTests;
 
         bool didBattleStart;
 
@@ -82,7 +82,7 @@ namespace WeekAnkama
 
             for (int i = 0; i < players.Count; i++)
             {
-                turnFeedback[i].color = colorTests[(turnIndex + i) % players.Count];
+                turnFeedback[i].sprite = colorTests[(turnIndex + i) % players.Count];
             }
 
             OnBeginPlayerTurn?.Invoke(currentPlayerTurn);

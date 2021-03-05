@@ -80,18 +80,22 @@ namespace WeekAnkama
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
                     {
-                        if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                        if(targetTile.Player != actualPlayer)
                         {
-                            DoAction(targetTile);
+                            if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else if (actualPlayer.currentAction.isTileEffect)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else
+                            {
+                                actualPlayer.currentAction = null;
+                            }
                         }
-                        else if (actualPlayer.currentAction.isTileEffect)
-                        {
-                            DoAction(targetTile);
-                        }
-                        else
-                        {
-                            actualPlayer.currentAction = null;
-                        }
+
                     }
                 }
                 else
@@ -137,7 +141,6 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
-                Debug.Log("Allo ?");
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
@@ -203,6 +206,7 @@ namespace WeekAnkama
             card.name = action.name;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
+            card.transform.Find("Fatigue").GetComponent<Text>().text = action.fatigueDmg.ToString();
 
 
             if (action.paCost <= actualPlayer.PA) { card.interactable = true; }

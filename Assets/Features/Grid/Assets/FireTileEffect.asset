@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TriggerOnEnterCase: 1
   TriggerOnLeaveCase: 0
-  TriggerOnTurnStart: 0
-  TriggerOnTurnEnd: 1
+  TriggerOnTurnStart: 1
+  TriggerOnTurnEnd: 0
   _walkable: 1
   _crossable: 1
   _fatigue: 50

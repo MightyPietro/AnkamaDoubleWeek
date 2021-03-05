@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73658f53acbf03b489f27e27c3054092, type: 3}
   m_Name: WaterTileEffect
   m_EditorClassIdentifier: 
-  TriggerOnEnterCase: 1
-  TriggerOnLeaveCase: 0
+  TriggerOnEnterCase: 0
+  TriggerOnLeaveCase: 1
   TriggerOnTurnStart: 1
   TriggerOnTurnEnd: 0
   _walkable: 1
