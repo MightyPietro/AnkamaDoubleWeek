@@ -14,6 +14,7 @@ namespace WeekAnkama
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
         [SerializeField] private TurnManager turnManager;
+        [SerializeField] private IntVariable _playerValue;
 
         Grid grid;
 
@@ -66,8 +67,11 @@ namespace WeekAnkama
 
             actualPlayer.ResetDatas();
             ChangeTextState(true);
-            DoDraw();
-            DisplayCards();
+            if(_playerValue.Value == TurnManager.instance.turnValue){
+                DoDraw();
+                DisplayCards();
+            }
+
         }
 
         private void ChangeTextState(bool value)
@@ -79,46 +83,54 @@ namespace WeekAnkama
 
         private void DoSomethingOnTile(Tile targetTile)
         {
-            if (actualPlayer != null)
+            if(_playerValue.Value == TurnManager.instance.turnValue)
             {
-                if (actualPlayer.currentAction != null)
+                if (actualPlayer != null)
                 {
-                    GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
-                    if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
+                    if (actualPlayer.currentAction != null)
                     {
-                        if(targetTile.Player != actualPlayer)
+                        GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
+                        if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
                         {
-                            if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                            if (targetTile.Player != actualPlayer)
                             {
-                                DoAction(targetTile);
+                                if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                                {
+                                    DoAction(targetTile);
+                                }
+                                else if (actualPlayer.currentAction.isTileEffect)
+                                {
+                                    DoAction(targetTile);
+                                }
+                                else
+                                {
+                                    HandleUnselectCard(actualPlayer);
+                                }
                             }
-                            else if (actualPlayer.currentAction.isTileEffect)
-                            {
-                                DoAction(targetTile);
-                            }
-                            else
-                            {
-                                HandleUnselectCard(actualPlayer);
-                            }
-                        }
 
+                        }
+                    }
+                    else
+                    {
+
+                        MoveCharacter(targetTile);
                     }
                 }
-                else
-                {
-                    
-                    MoveCharacter(targetTile);
-                }
             }
+            
         }
 
         private void MoveCharacter(Tile targetTile)
         {
-            GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
-            if (DeplacementManager.instance.GetDistance(targetTile, castTile)/10 <= actualPlayer.PM)
+            if(_playerValue.Value == TurnManager.instance.turnValue)
             {
-                DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
+                GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
+                if (DeplacementManager.instance.GetDistance(targetTile, castTile) / 10 <= actualPlayer.PM)
+                {
+                    DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
+                }
             }
+            
         }
 
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
@@ -250,8 +262,10 @@ namespace WeekAnkama
                 }
             }
         }
+
         private void ResetCards(Button card, Action action)
         {
+            card.gameObject.SetActive(true);
             card.onClick.RemoveAllListeners();
             card.onClick.AddListener(() => { AddCurrentAction(action, card); });
             card.name = action.name;

@@ -46,3 +46,5 @@ MonoBehaviour:
   _actualPlayer: {fileID: 0}
   _cardsLayoutParent: {fileID: 0}
   _actionButtonPrefab: {fileID: 598516139735485380, guid: e4a2060130ebcb542a3fc9a8b6386e5a, type: 3}
+  turnManager: {fileID: 0}
+  _playerValue: {fileID: 11400000, guid: 0ac95db73baa426489f07bed16fd1a27, type: 2}

@@ -34,10 +34,25 @@ namespace WeekAnkama
         private List<Image> turnFeedback;
         public List<Sprite> colorTests;
 
+        public static TurnManager instance;
+        private  int _turnValue = 0;
+
+        public int turnValue
+        {
+            get { return _turnValue; }
+            set { _turnValue = value; }
+        }
+
         bool didBattleStart;
 
-        private void Start()
+        private void Awake()
         {
+            instance = this;
+        }
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(2);
+
             OnEndPlayerTurn += BeginTurn;
             BeginBattle();
         }
@@ -57,6 +72,8 @@ namespace WeekAnkama
             }
         }
 
+
+
         void BeginBattle()
         {
             for (int i = 0; i < spawnPosition.Count; i++)
@@ -69,6 +86,24 @@ namespace WeekAnkama
 
         public void BeginTurn(Player oldPlayer)
         {
+            switch (turnValue)
+            {
+                case 0:turnValue = 1;
+                    break;
+                case 1:
+                    turnValue = 2;
+                    break;
+                case 2:
+                    turnValue = 3;
+                    break;
+                case 3:
+                    turnValue = 4;
+                    break;
+                case 4:
+                    turnValue = 1;
+                    break;
+
+            }
             currentTurnTimeLeft = secondByTurn;
             turnIndex = (turnIndex + 1) % players.Count;
 
