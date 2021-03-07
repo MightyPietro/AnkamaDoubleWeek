@@ -39,7 +39,7 @@ namespace WeekAnkama
         public void CreateRoom()
         {
             RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 4 };
-            PhotonNetwork.CreateRoom("1", roomOptions);
+            PhotonNetwork.CreateRoom(PhotonNetwork.NickName, roomOptions);
             OnRoomCreated?.Invoke();
         }
         public void JoinRoom(string roomName)
@@ -47,6 +47,10 @@ namespace WeekAnkama
             PhotonNetwork.JoinRoom(roomName);
         }
 
+        public void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+        }
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             OnRoomsListUpdate?.Invoke();
@@ -89,7 +93,7 @@ namespace WeekAnkama
             OnPlayerLeaveRoom?.Invoke();
         }
 
-
+        public PhotonView pView => photonView;
 
     }
 

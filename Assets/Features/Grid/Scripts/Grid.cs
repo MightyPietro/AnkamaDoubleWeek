@@ -13,12 +13,15 @@ namespace WeekAnkama
         private Vector2 _cellSize;
         private Vector3 _originOffset;
 
+        public static Grid instance;
         public int Width => _width;
         public int Heigth => _height;
         public Vector2 CellSize => _cellSize;
-
+        
         public Grid(int width, int height, Vector2 cellSize, Func<Grid, Vector2Int, Tile> gridObjectFactory, Vector2 normalizedOffset)
         {
+            instance = this;
+
             _width = width;
             _height = height;
             _cellSize = cellSize;

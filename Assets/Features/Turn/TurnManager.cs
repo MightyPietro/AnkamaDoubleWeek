@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Photon.Pun;
 
 namespace WeekAnkama
 {
@@ -20,6 +21,9 @@ namespace WeekAnkama
 
         [SerializeField]
         private int secondByTurn = 15;
+
+        [SerializeField]
+        private PhotonView _photonView;
 
         private int turnIndex = -1;
         private float currentTurnTimeLeft = 0;
@@ -123,7 +127,10 @@ namespace WeekAnkama
             OnBeginPlayerTurn?.Invoke(currentPlayerTurn);
         }
 
-        public void EndTurn()
+        public void EndTurnViaRPC() => _photonView.RPC("EndTurn", RpcTarget.All);
+
+        [PunRPC]
+        private void EndTurn()
         {
             OnEndPlayerTurn?.Invoke(currentPlayerTurn);
         }
