@@ -51,9 +51,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9a834b9921cc2024984da7207da22cdf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 10673e5ae660add4ea9f60701cd935ae, type: 2}
     - target: {fileID: 919132149155446097, guid: 9a834b9921cc2024984da7207da22cdf, type: 3}
       propertyPath: m_Name
-      value: SM_Rail_02
+      value: P_Rail_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a834b9921cc2024984da7207da22cdf, type: 3}
