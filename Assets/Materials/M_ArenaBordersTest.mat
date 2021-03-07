@@ -23,12 +23,60 @@ Material:
         m_Texture: {fileID: 2800000, guid: 95497dced176ed746b532a25c71aaa8e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - SideAlbedo_1:
+        m_Texture: {fileID: 2800000, guid: 95497dced176ed746b532a25c71aaa8e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - SideAlbedo_2:
+        m_Texture: {fileID: 2800000, guid: 892bd83a156d2fa4482449b6b5bb8bf8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - SideAlbedo_3:
+        m_Texture: {fileID: 2800000, guid: 838dd1db9f12c5d40b2a988f4e3e1f05, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - SideAlbedo_4:
+        m_Texture: {fileID: 2800000, guid: 24249029bfcb66f4398e9cc4267ff374, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - SideNormal:
         m_Texture: {fileID: 2800000, guid: 2384190bbc742c7439dabb419281a2e6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - SideNormal_1:
+        m_Texture: {fileID: 2800000, guid: 2384190bbc742c7439dabb419281a2e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - SideNormal_2:
+        m_Texture: {fileID: 2800000, guid: e58bd90bd1ddcbc4aa0d21c1b6f42a7c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - SideNormal_3:
+        m_Texture: {fileID: 2800000, guid: 4475b34a53c153d4891c4e9f8325c040, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - SideNormal_4:
+        m_Texture: {fileID: 2800000, guid: b16a339e8a3b3cb4bbe696098710acde, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - TopAlbedo:
         m_Texture: {fileID: 2800000, guid: 593d503ecf3487f48964f9e6d74ff2b2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - TopAlbedo_1:
+        m_Texture: {fileID: 2800000, guid: 593d503ecf3487f48964f9e6d74ff2b2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - TopAlbedo_2:
+        m_Texture: {fileID: 2800000, guid: 8ee8ef44f3748e2448646b25e259f6dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - TopAlbedo_3:
+        m_Texture: {fileID: 2800000, guid: 66ff1c6d19ff66a4088215db9a3fa53a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - TopAlbedo_4:
+        m_Texture: {fileID: 2800000, guid: 1985036d3d77db74e8d1840929d8da27, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - TopNormal:
@@ -63,29 +111,41 @@ Material:
         m_Texture: {fileID: 2800000, guid: a6748dd5162b0244e8ebea3e1893668b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_E2FD0EF_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 93db03777f1b1ad41a122af7a7515539, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_3824D8A_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 93db03777f1b1ad41a122af7a7515539, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Triplanar_684609A5_Texture_1:
         m_Texture: {fileID: 2800000, guid: d8692c8bdfcfef541a65a7fb2c6a47a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Triplanar_E1E62126_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 93db03777f1b1ad41a122af7a7515539, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - SideBaseColorOpacity: 0
-    - SideColorVarOpacity: 0.3
+    - SideColorVarOpacity: 0.633
     - SideContrast: 1
     - SideHUE: 0
     - SideMetallic: 0
     - SideNormalPower: 0
     - SideRoughness: 0
-    - SideSaturation: 1
+    - SideSaturation: 0.97
     - TopBaseColorOpacity: 0.2
-    - TopColorVarOpacity: 0.1
+    - TopColorVarOpacity: 0.48
     - TopContrast: 1
     - TopHUE: 0
     - TopMetallic: 0
-    - TopNormalPower: 1
+    - TopNormalPower: 0
     - TopRoughness: 0
     - Top_Saturation: 1
     - _AlphaClip: 0
@@ -111,8 +171,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - SideBaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - SideColorVar: {r: 0, g: 0, b: 0, a: 0}
-    - SideOffset: {r: 0, g: 0, b: 0.5, a: 0}
+    - SideColorVar: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
+    - SideOffset: {r: 0.5, g: -2, b: 0.5, a: 0}
     - TopBaseColor: {r: 0.7924528, g: 0.5807069, b: 0.39248842, a: 0}
     - Top_Color_Var: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

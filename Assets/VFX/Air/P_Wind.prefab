@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2594300857528264684}
   - component: {fileID: 2594300857528264686}
   - component: {fileID: 2594300857528264685}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VortexCW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 8595807048665275382}
   - component: {fileID: 7182251741646844342}
   - component: {fileID: 4657680792819825225}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WindTrail_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9877,7 +9877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2594300855449339851}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Wind
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9912,7 +9912,7 @@ GameObject:
   - component: {fileID: 77912188907361248}
   - component: {fileID: 1771850138170836794}
   - component: {fileID: 554002797419283870}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: OrbitCW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
