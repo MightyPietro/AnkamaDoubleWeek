@@ -21,5 +21,5 @@ MonoBehaviour:
   pushCase: 0
   range: 3
   hasSightView: 0
-  isLinedRange: 0
+  isLinedRange: 1
   actionTypes: 20000000
