@@ -162,6 +162,30 @@ namespace WeekAnkama
 
             return neighbours;
         }
+
+        public List<Tile> GetHeighNeighbours(Tile tile)
+        {
+            List<Tile> neighbours = new List<Tile>();
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if ((x == 0 && y == 0))
+                    {
+                        int checkX = tile.Coords.x + x;
+                        int checkY = tile.Coords.y + y;
+
+                        if (checkX >= 0 && checkX < Width && checkY >= 0 && checkY < Heigth)
+                        {
+                            neighbours.Add(_tiles[checkX, checkY]);
+                        }
+                    }
+                }
+            }
+
+            return neighbours;
+        }
         #endregion
 
     }
