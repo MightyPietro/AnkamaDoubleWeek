@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,21 @@ namespace WeekAnkama
 
         public static GlobalManager instance;
 
+        public static event Action<Player,float,bool> OnPushFinished;
+
         private void Awake()
         {
             instance = this;
+
+            OnPushFinished += (Player p, float speed, bool isPlayerOut) =>
+            {
+                if (!p.processMovement && queuedMovement.Count > 0)
+                {
+                    p.processMovement = true;
+                    StartCoroutine(FollowPushMovementPathh(new List<Tile>(queuedMovement), p, speed, isPlayerOut));
+                    queuedMovement.Clear();
+                }
+            };
         }
 
         public List<Tile> GetPushPath(Tile startTile, Vector2Int pushDirection, int pushForce, out bool isPlayerOut)
@@ -119,11 +132,18 @@ namespace WeekAnkama
         }
 
         public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
+        private List<Tile> queuedMovement = new List<Tile>();
+
+        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
         {
             if(!playerToMove.processMovement)
             {
                 playerToMove.processMovement = true;
                 StartCoroutine(FollowPushMovementPathh(path, playerToMove, playerToDamage, speed, isPlayerOut, damages));
+            }
+            else
+            {
+                queuedMovement.AddRange(path);
             }
         }
 
@@ -163,7 +183,7 @@ namespace WeekAnkama
                         else
                         {
                             playerToMove.processMovement = false;
-                            //Réactiver les Inputs
+                            //Réactiver les Inputs                            
 
                             playerToMove.TakeDamage(damages * 80);
 
@@ -176,7 +196,7 @@ namespace WeekAnkama
                             {
                                 PlayerManager.instance.SetPlayerOutArena(playerToMove);
                             }
-
+                            OnPushFinished?.Invoke(playerToMove, speed, isPlayerOut);
                             yield break;
                         }
                     }

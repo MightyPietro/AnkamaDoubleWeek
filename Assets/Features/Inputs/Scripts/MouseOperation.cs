@@ -15,7 +15,6 @@ namespace WeekAnkama
         private void Awake()
         {
             MouseHandler.OnMouseMove += HandleMouseMove;
-
             MouseHandler.OnMouseLeftClick += HandleMouseClick;
         }
 
