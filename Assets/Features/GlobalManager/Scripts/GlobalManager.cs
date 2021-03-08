@@ -67,13 +67,10 @@ namespace WeekAnkama
 
             for (int i = 1; i < unblockPath.Count; i++)
             {
-                Debug.Log(unblockPath[i].Coords + " crossable ? " + unblockPath[i].Crossable);
                 if(unblockPath[i].Crossable)
                 {
                     pushForceLeft--;
-                    Debug.Log(pushForceLeft);
                     path.Add(unblockPath[i]);
-                    Debug.Log(unblockPath[i].Coords);
                 }
                 else
                 {

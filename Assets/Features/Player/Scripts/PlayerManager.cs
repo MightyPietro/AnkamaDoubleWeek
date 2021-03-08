@@ -280,6 +280,10 @@ namespace WeekAnkama
                 }
             }
 
+            GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
+
+            _tilesInPreview = GetUsableTiles(playerTile, action);
+
             //Preview
             SetPreviewTiles(_tilesInPreview, true, Color.cyan);
         }
@@ -366,18 +370,24 @@ namespace WeekAnkama
         {
             int rangeNeeded = actionToCheck.range;
 
-            List<Tile> usableTiles = GetUsableTiles(castTile, rangeNeeded);
+            List<Tile> usableTiles = GetUsableTiles(castTile, actionToCheck);
 
-            if ((!actionToCheck.isLinedRange || castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y))// && usableTiles.Contains(targetTile))
+            /*if ((!actionToCheck.isLinedRange || castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y) && usableTiles.Contains(targetTile))
             {
                 return (Mathf.Abs(targetTile.Coords.x - castTile.Coords.x) + Mathf.Abs(targetTile.Coords.y - castTile.Coords.y) <= rangeNeeded);
+            }*/
+
+            if (usableTiles.Contains(targetTile))
+            {
+                return true;
             }
+
             return false;
         }
 
-        private List<Tile> GetUsableTiles(Tile castTile, int range)
+        private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
         {
-            return PathRequestManager.GetTilesWithRange(castTile, range * 10);
+            return PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange, actionToCheck.hasSightView);
         }
 
     }
