@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
     private static Vector2Int score;
+    
+    private static TextMeshProUGUI redTxt, blueTxt;
 
     [SerializeField]
     private static int maxScore;
@@ -12,9 +15,14 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     private int scoreWanted;
 
+    [SerializeField]
+    private TextMeshProUGUI redScoreTxt, blueScoreTxt;
+
     private void Awake()
     {
         maxScore = scoreWanted;
+        redTxt = redScoreTxt;
+        blueTxt = blueScoreTxt;
     }
 
     public static void AddScore(int team)
@@ -26,6 +34,7 @@ public class ScoreManager : MonoBehaviour
             {
                 WinGame(team);
             }
+            redTxt.text = score.y.ToString();
         }
         else
         {
@@ -34,6 +43,7 @@ public class ScoreManager : MonoBehaviour
             {
                 WinGame(team);
             }
+            blueTxt.text = score.x.ToString();
         }
 
     }

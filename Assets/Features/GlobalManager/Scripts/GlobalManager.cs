@@ -110,9 +110,9 @@ namespace WeekAnkama
         {
             DeplacementManager.instance.StopMovement();
 
+            bool isPlayerOut = false;
             Debug.Log(pushForce);
             int damageTaken = 0;
-            bool isPlayerOut = false;
 
             Tile playerTile = null;
             List<Tile> pushPath = new List<Tile>();
