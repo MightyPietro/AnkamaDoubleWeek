@@ -13,12 +13,15 @@ namespace WeekAnkama
         private Vector2 _cellSize;
         private Vector3 _originOffset;
 
+        public static Grid instance;
         public int Width => _width;
         public int Heigth => _height;
         public Vector2 CellSize => _cellSize;
-
+        
         public Grid(int width, int height, Vector2 cellSize, Func<Grid, Vector2Int, Tile> gridObjectFactory, Vector2 normalizedOffset)
         {
+            instance = this;
+
             _width = width;
             _height = height;
             _cellSize = cellSize;
@@ -150,6 +153,30 @@ namespace WeekAnkama
                         int checkY = tile.Coords.y + y;
 
                         if(checkX>= 0 && checkX < Width && checkY>=0 && checkY < Heigth)
+                        {
+                            neighbours.Add(_tiles[checkX, checkY]);
+                        }
+                    }
+                }
+            }
+
+            return neighbours;
+        }
+
+        public List<Tile> GetHeighNeighbours(Tile tile)
+        {
+            List<Tile> neighbours = new List<Tile>();
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if ((x == 0 && y == 0))
+                    {
+                        int checkX = tile.Coords.x + x;
+                        int checkY = tile.Coords.y + y;
+
+                        if (checkX >= 0 && checkX < Width && checkY >= 0 && checkY < Heigth)
                         {
                             neighbours.Add(_tiles[checkX, checkY]);
                         }

@@ -32,6 +32,8 @@ namespace WeekAnkama
 
             for (int i = 1; i <= pushForce; i++)
             {
+                if (i > 500) return null; //Avoid infinite loop
+
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
                 GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
@@ -52,7 +54,7 @@ namespace WeekAnkama
             return path;
         }
 
-        private List<Tile> GetPushDestination(Tile startTile, Vector2Int pushDirection, int pushForce, out int pushForceLeft, out bool isPlayerOut)
+        private List<Tile> GetPushDestination(Tile startTile, Vector2Int pushDirection, int pushForce, out Player playerToDamage, out int pushForceLeft, out bool isPlayerOut)
         {
             List<Tile> unblockPath = GetPushPath(startTile, pushDirection, pushForce, out isPlayerOut);
             List<Tile> path = new List<Tile>();
@@ -61,18 +63,21 @@ namespace WeekAnkama
 
             pushForceLeft = unblockPath.Count-1;
 
+            playerToDamage = null;
+
             for (int i = 1; i < unblockPath.Count; i++)
             {
-                Debug.Log(unblockPath[i].Coords + " crossable ? " + unblockPath[i].Crossable);
                 if(unblockPath[i].Crossable)
                 {
                     pushForceLeft--;
-                    Debug.Log(pushForceLeft);
                     path.Add(unblockPath[i]);
-                    Debug.Log(unblockPath[i].Coords);
                 }
                 else
                 {
+                    if(unblockPath[i].Player != null)
+                    {
+                        playerToDamage = unblockPath[i].Player;
+                    }
                     isPlayerOut = false;
                     break;
                 }
@@ -98,9 +103,8 @@ namespace WeekAnkama
             List<Tile> pushPath = new List<Tile>();
             if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
-                pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
-                playerToPush.TakeDamage(damageTaken*80);
-                AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut);
+                pushPath = GetPushDestination(playerTile, pushDirection, pushForce,out Player playerToDamage, out damageTaken, out isPlayerOut);
+                AskPlayerToFollowPath(pushPath, playerToPush, playerToDamage, 5, isPlayerOut, damageTaken);
                 
             }
         }
@@ -114,16 +118,16 @@ namespace WeekAnkama
             }
         }
 
-        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
         {
             if(!playerToMove.processMovement)
             {
                 playerToMove.processMovement = true;
-                StartCoroutine(FollowPushMovementPathh(path, playerToMove, speed, isPlayerOut));
+                StartCoroutine(FollowPushMovementPathh(path, playerToMove, playerToDamage, speed, isPlayerOut, damages));
             }
         }
 
-        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
         {
             Tile currentWaypoint = path[0];
             Transform targetToMove = playerToMove.transform;
@@ -160,6 +164,13 @@ namespace WeekAnkama
                         {
                             playerToMove.processMovement = false;
                             //Réactiver les Inputs
+
+                            playerToMove.TakeDamage(damages * 80);
+
+                            if (playerToDamage != null)
+                            {
+                                playerToDamage.TakeDamage(damages * 40);
+                            }
 
                             if(isPlayerOut)
                             {

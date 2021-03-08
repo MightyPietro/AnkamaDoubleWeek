@@ -11,7 +11,6 @@ namespace WeekAnkama
         private Vector2Int _coords;
         private bool _walkable = true;
         private bool _crossable = true;
-        private bool _usable = true;
         private TileEffect _effect;
         private Player _player;
         private Vector3 _worldPosition;
@@ -54,7 +53,7 @@ namespace WeekAnkama
             }
         }
         public TileEffectDisplay effectVisual => _effectVisual;
-        public bool Usable => _usable;
+        public bool Usable { get; set; } = true;
 
         public Player Player => _player;
         public TileEffect Effect => _effect;
@@ -79,7 +78,7 @@ namespace WeekAnkama
 
         public void SetPlayer(Player player)
         {
-            if (player == null) return;
+            if (player == null || player == _player) return;
             _player = player;
             OnEnterCase?.Invoke(player);
         }
@@ -121,11 +120,13 @@ namespace WeekAnkama
 
         private void HandleBeginTurn(Player player)
         {
+            if (player != _player) return;
             OnBeginTurn?.Invoke(_player);
         }
 
         private void HandleEndTurn(Player player)
         {
+            if (player != _player) return;
             OnEndTurn?.Invoke(_player);
         }
 
