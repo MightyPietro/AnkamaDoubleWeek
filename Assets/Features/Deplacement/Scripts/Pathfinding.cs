@@ -48,7 +48,6 @@ namespace WeekAnkama
                 }
 				requestManager.FinishedProcessingPath(waypoints, pathSuccess);
 			}
-
         }
 
 		List<Tile> RetracePath(Tile startNode, Tile endNode, int maxDistance)
@@ -82,17 +81,6 @@ namespace WeekAnkama
 			path.Add(currentNode);
 
 			return path;
-		}
-
-		Vector3[] GetVectorPath(List<Tile> path)
-		{
-			List<Vector3> waypoints = new List<Vector3>();
-
-			for (int i = 0; i < path.Count; i++)
-			{
-				waypoints.Add(grid.GetTileWorldPosition(path[i].Coords.x, path[i].Coords.y));
-			}
-			return waypoints.ToArray();
 		}
 
 		public bool SetAllNodes(Tile startNode, Tile targetNode)
@@ -135,6 +123,58 @@ namespace WeekAnkama
 				}
 			}
 			return false;
+		}
+
+		public List<Tile> GetNodesWithRange(Tile startNode, int maxDistance)
+		{
+			Heap<Tile> openSet = new Heap<Tile>(grid.Width * grid.Heigth);
+			HashSet<Tile> closedSet = new HashSet<Tile>();
+			openSet.Add(startNode);
+
+			startNode.parent = null;
+
+			List<Tile> toReturn = new List<Tile>();
+
+			while (openSet.Count > 0)
+			{
+				Tile currentNode = openSet.RemoveFirst();
+				toReturn.Add(currentNode);
+				closedSet.Add(currentNode);
+
+				foreach (Tile neighbour in grid.GetNeighbours(currentNode))
+				{
+					if(closedSet.Contains(neighbour))
+                    {
+						continue;
+                    }
+
+					if (currentNode.gCost > maxDistance)
+					{
+						return toReturn;
+					}
+
+					int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+					if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+					{
+						neighbour.gCost = newMovementCostToNeighbour;
+						neighbour.parent = currentNode;
+
+						if ((!neighbour.Walkable && (neighbour.parent == null || neighbour.parent.Walkable)))
+						{
+							closedSet.Add(neighbour);
+							toReturn.Add(neighbour);
+						}
+						else
+						{
+							if (!openSet.Contains(neighbour))
+							{
+								openSet.Add(neighbour);
+							}
+						}
+					}
+				}
+			}
+			return toReturn;
 		}
 
 		public int GetDistance(Tile nodeA, Tile nodeB)
