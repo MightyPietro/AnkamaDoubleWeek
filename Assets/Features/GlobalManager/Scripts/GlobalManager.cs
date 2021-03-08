@@ -29,8 +29,10 @@ namespace WeekAnkama
                 if (!p.processMovement && queuedMovement.Count > 0)
                 {
                     p.processMovement = true;
-                    StartCoroutine(FollowPushMovementPathh(new List<Tile>(queuedMovement), p, speed, isPlayerOut));
+                    StartCoroutine(FollowPushMovementPathh(queuedMovement, p, queuedPlayerToDamage, speed, isPlayerOut, queuedDamages));
                     queuedMovement.Clear();
+                    queuedDamages = 0;
+                    queuedPlayerToDamage = null;
                 }
             };
         }
@@ -131,10 +133,12 @@ namespace WeekAnkama
             }
         }
 
-        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
+        
         private List<Tile> queuedMovement = new List<Tile>();
+        private int queuedDamages = 0;
+        private Player queuedPlayerToDamage;
 
-        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
         {
             if(!playerToMove.processMovement)
             {
@@ -144,6 +148,8 @@ namespace WeekAnkama
             else
             {
                 queuedMovement.AddRange(path);
+                queuedDamages = damages;
+                queuedPlayerToDamage = playerToDamage;
             }
         }
 
