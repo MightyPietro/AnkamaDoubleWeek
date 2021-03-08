@@ -36,6 +36,22 @@ namespace WeekAnkama
         private void Awake()
         {
             instance = this;
+
+            DeplacementManager.OnPlayerMovement += (Player p) =>
+            {
+                foreach (var item in displayedCards)
+                {
+                    item.enabled = false;
+                }
+            };
+
+            DeplacementManager.OnPlayerMovementFinished += (Player p) =>
+            {
+                foreach (var item in displayedCards)
+                {
+                    item.enabled = true;
+                }
+            };
         }
 
         private void Start()

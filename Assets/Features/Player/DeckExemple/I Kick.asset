@@ -17,7 +17,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   paCost: 4
   fatigueDmg: 50
-  pushCase: 1
-  range: 3
+  pushCase: 3
+  range: 5
   onSelf: 0
   actionTypes: 00000000010000000200000003000000

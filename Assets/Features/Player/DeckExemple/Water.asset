@@ -19,4 +19,5 @@ MonoBehaviour:
   fatigueDmg: 0
   pushCase: 0
   range: 7
-  actionTypes: 02000000
+  onSelf: 0
+  actionTypes: 03000000

@@ -62,6 +62,7 @@ namespace WeekAnkama
 
                         if (!eff.Process(casterTile, targetTile, action)) // on essaye l effet sur la case ciblé
                         {
+                            if (player == null) continue;
                             if (GridManager.Grid.TryGetTile(player.position, out playerTile))
                             {
                                 eff.Process(casterTile, playerTile, action); // le player a peut être été déplacé donc on essaye
