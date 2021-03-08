@@ -101,8 +101,7 @@ namespace WeekAnkama
             if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
-                playerToPush.TakeDamage(damageTaken*80);
-                AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut);
+                AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut, damageTaken);
                 
             }
         }
@@ -116,16 +115,16 @@ namespace WeekAnkama
             }
         }
 
-        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut, int damages)
         {
             if(!playerToMove.processMovement)
             {
                 playerToMove.processMovement = true;
-                StartCoroutine(FollowPushMovementPathh(path, playerToMove, speed, isPlayerOut));
+                StartCoroutine(FollowPushMovementPathh(path, playerToMove, speed, isPlayerOut, damages));
             }
         }
 
-        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut, int damages)
         {
             Tile currentWaypoint = path[0];
             Transform targetToMove = playerToMove.transform;
@@ -162,6 +161,13 @@ namespace WeekAnkama
                         {
                             playerToMove.processMovement = false;
                             //Réactiver les Inputs
+
+                            playerToMove.TakeDamage(damages * 80);
+
+                            if (GridManager.Grid.TryGetTile(new Vector2Int((int)direction.x+ currentWaypoint.Coords.x, (int)direction.y + currentWaypoint.Coords.y), out Tile checkTile) && checkTile.Player != null)
+                            {
+                                checkTile.Player.TakeDamage(damages * 40);
+                            }
 
                             if(isPlayerOut)
                             {
