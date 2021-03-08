@@ -133,7 +133,7 @@ namespace WeekAnkama
                 if (actualPlayer.currentAction != null)
                 {
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
-                    if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
+                    if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
                         if (targetTile.Player != actualPlayer)
                         {
@@ -150,6 +150,10 @@ namespace WeekAnkama
                                 HandleUnselectCard(actualPlayer);
                             }
                         }
+                    }
+                    else
+                    {
+                        HandleUnselectCard(actualPlayer);
                     }
                 }
                 else
@@ -198,6 +202,7 @@ namespace WeekAnkama
 
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
+                actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
                 if(currentCard != null) currentCard.interactable = false;
 
@@ -207,6 +212,12 @@ namespace WeekAnkama
                 CheckCardsCost();
 
             }            
+        }
+
+        public void UsePaStock()
+        {
+            actualPlayer.PA += actualPlayer.stockPA;
+            actualPlayer.stockPA = 0;
         }
 
         [Button]
@@ -351,13 +362,22 @@ namespace WeekAnkama
             }
         }
 
-        private bool IsTargetValid(Tile castTile, Tile targetTile, int rangeNeeded)
+        private bool IsTargetValid(Tile castTile, Tile targetTile, Action actionToCheck)
         {
-            if(castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y)
+            int rangeNeeded = actionToCheck.range;
+
+            List<Tile> usableTiles = GetUsableTiles(castTile, rangeNeeded);
+
+            if ((!actionToCheck.isLinedRange || castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y))// && usableTiles.Contains(targetTile))
             {
                 return (Mathf.Abs(targetTile.Coords.x - castTile.Coords.x) + Mathf.Abs(targetTile.Coords.y - castTile.Coords.y) <= rangeNeeded);
             }
             return false;
+        }
+
+        private List<Tile> GetUsableTiles(Tile castTile, int range)
+        {
+            return PathRequestManager.GetTilesWithRange(castTile, range * 10);
         }
 
     }

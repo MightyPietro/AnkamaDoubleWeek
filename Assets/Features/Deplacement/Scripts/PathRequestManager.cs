@@ -21,6 +21,11 @@ namespace WeekAnkama
             pathfinding = GetComponent<Pathfinding>();
         }
 
+        public static List<Tile> GetTilesWithRange(Tile startTile, int maxDistance)
+        {
+            return instance.pathfinding.GetNodesWithRange(startTile, maxDistance);
+        }
+
         public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, int maxDistance, Action<List<Tile>, bool> callback)
         {
             PathRequest newRequest = new PathRequest(pathStart, pathEnd, maxDistance, callback);
