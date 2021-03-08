@@ -44,7 +44,7 @@ Material:
     - Vector1_C75DBFC1: 0.829
     m_Colors:
     - Color_280B8743: {r: 4, g: 0, b: 0.038404465, a: 0}
-    - Color_6CB87102: {r: 0.7830189, g: 0.24007656, b: 0.24007656, a: 0}
+    - Color_6CB87102: {r: 1, g: 1, b: 1, a: 0}
     - RimColor: {r: 0.9803922, g: 0.8941177, b: 0.5215687, a: 0}
     - unity_4LightPosX0: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
