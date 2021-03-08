@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToMove: {fileID: 0}
-  speed: 1
+  speed: 10
   testT: {fileID: 0}
   testMovable: {fileID: 0}
 --- !u!114 &8277579943716956977

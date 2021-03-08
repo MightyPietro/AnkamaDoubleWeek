@@ -1,8 +1,12 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+guid: a23c89b6f98c80e47a02945676401fe9
+=======
+<<<<<<< HEAD
 guid: 040c302eeabb3b4468ad5a6648c9ad66
 =======
 guid: 805adbcccd2f38748be930e5c61a0023
+>>>>>>> develop
 >>>>>>> develop
 folderAsset: yes
 DefaultImporter:

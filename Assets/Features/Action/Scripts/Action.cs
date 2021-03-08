@@ -17,12 +17,14 @@ namespace WeekAnkama
         public GameObject prefab;
         [Range(0,10)]
         public int paCost;
+        public int bonusPA;
         [Range(0, 200)]
         public int fatigueDmg;
         public int pushCase;
         [Range(0, 7)]
         public int range;
 
+        public bool hasSightView, isLinedRange;
 
         [Header("Action")]
         public List<ActionType> actionTypes;
@@ -52,8 +54,6 @@ namespace WeekAnkama
                         ActionEffect eff = obj as ActionEffect;
 
                         eff.Process(casterTile, targetTile, action);
-
-
                     }
 
                 }

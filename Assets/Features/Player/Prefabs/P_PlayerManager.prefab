@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 459726740817805837}
   - component: {fileID: 459726740817805838}
+  - component: {fileID: 2066244388213483621}
   m_Layer: 0
   m_Name: P_PlayerManager
   m_TagString: Untagged
@@ -46,3 +47,29 @@ MonoBehaviour:
   _actualPlayer: {fileID: 0}
   _cardsLayoutParent: {fileID: 0}
   _actionButtonPrefab: {fileID: 598516139735485380, guid: e4a2060130ebcb542a3fc9a8b6386e5a, type: 3}
+  turnManager: {fileID: 0}
+  _playerValue: {fileID: 11400000, guid: 0ac95db73baa426489f07bed16fd1a27, type: 2}
+  _photonView: {fileID: 2066244388213483621}
+  _actionsList: {fileID: 11400000, guid: 6adf90d7e67596b45bb7897dd1e79480, type: 2}
+--- !u!114 &2066244388213483621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459726740817805839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

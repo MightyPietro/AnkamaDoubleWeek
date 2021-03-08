@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using Photon.Realtime;
+using Photon.Pun;
 namespace WeekAnkama
 {
     public class PlayerManager : MonoBehaviour
@@ -14,11 +16,16 @@ namespace WeekAnkama
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
         [SerializeField] private TurnManager turnManager;
+        [SerializeField] private IntVariable _playerValue;
+        [SerializeField] private PhotonView _photonView;
+        [SerializeField] private ActionsList _actionsList;
 
         Grid grid;
 
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
+        private List<Tile> _tilesInPreview;
+
         #endregion
 
         #region Getter/Setter
@@ -33,12 +40,21 @@ namespace WeekAnkama
 
         private void Start()
         {
-            MouseOperation.OnLeftClickTile += DoSomethingOnTile;
-            MouseOperation.OnLeftClickNoTile += () => actualPlayer.currentAction = null;
-        }
+            if (!PhotonNetwork.IsConnected)
+            {
+                MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
+                MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+            }
+            TurnManager.OnEndPlayerTurn += HandleUnselectCard;
+
+            _tilesInPreview = new List<Tile>();
+        }        
+
+
 
         public void SetPlayerOutArena(Player killedPlayer)
         {
+            ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
             killedPlayer.isOut = true;
         }
@@ -60,8 +76,29 @@ namespace WeekAnkama
 
             actualPlayer.ResetDatas();
             ChangeTextState(true);
-            DoDraw();
-            DisplayCards();
+
+            if(_playerValue.Value == TurnManager.instance.turnValue){
+                DoDraw();
+                DisplayCards();
+                MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
+                MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+            }
+            else
+            {
+                if (PhotonNetwork.IsConnected)
+                {
+
+                    MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
+                    MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
+                }
+                else
+                {
+                    DoDraw();
+                    DisplayCards();
+                }
+
+            }
+
         }
 
         private void ChangeTextState(bool value)
@@ -70,17 +107,35 @@ namespace WeekAnkama
             actualPlayer.PAText.enabled = value;
             actualPlayer.PMText.enabled = value;
         }
-
-        private void DoSomethingOnTile(Tile targetTile)
+        private void DoSomethinOnTileViaRPC(Tile targetTile)
         {
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("DoSomethingOnTile", RpcTarget.All, targetTile.Coords.x, targetTile.Coords.y);
+            }
+            else
+            {
+                DoSomethingOnTile(targetTile.Coords.x, targetTile.Coords.y);
+            }
+            
+        }
+
+
+        [PunRPC]
+        private void DoSomethingOnTile(int x,int y)
+        {
+            Tile targetTile;
+            Grid.instance.TryGetTile(new Vector2Int(x,y), out targetTile);
+
+
             if (actualPlayer != null)
             {
                 if (actualPlayer.currentAction != null)
                 {
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
-                    if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
+                    if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
-                        if(targetTile.Player != actualPlayer)
+                        if (targetTile.Player != actualPlayer)
                         {
                             if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
                             {
@@ -92,15 +147,18 @@ namespace WeekAnkama
                             }
                             else
                             {
-                                actualPlayer.currentAction = null;
+                                HandleUnselectCard(actualPlayer);
                             }
                         }
-
+                    }
+                    else
+                    {
+                        HandleUnselectCard(actualPlayer);
                     }
                 }
                 else
                 {
-                    
+
                     MoveCharacter(targetTile);
                 }
             }
@@ -109,10 +167,11 @@ namespace WeekAnkama
         private void MoveCharacter(Tile targetTile)
         {
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
-            if (DeplacementManager.instance.GetDistance(targetTile, castTile)/10 <= actualPlayer.PM)
+            if (DeplacementManager.instance.GetDistance(targetTile, castTile) / 10 <= actualPlayer.PM)
             {
                 DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
             }
+
         }
 
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
@@ -143,14 +202,22 @@ namespace WeekAnkama
 
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
+                actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
-                currentCard.interactable = false;
+                if(currentCard != null) currentCard.interactable = false;
 
-                actualPlayer.currentAction = null;
+
+                HandleUnselectCard(actualPlayer);
 
                 CheckCardsCost();
 
-            }
+            }            
+        }
+
+        public void UsePaStock()
+        {
+            actualPlayer.PA += actualPlayer.stockPA;
+            actualPlayer.stockPA = 0;
         }
 
         [Button]
@@ -171,10 +238,81 @@ namespace WeekAnkama
             }
         }
 
+        [PunRPC]
+        private void AddCurrentActionToAll(int actionID)
+        {
+
+            actualPlayer.currentAction = _actionsList.Value[actionID];
+        }
+
         private void AddCurrentAction(Action action, Button button)
         {
-            actualPlayer.currentAction = action;
+            for (int i = 0; i < _actionsList.Value.Count; i++)
+            {
+                if(action == _actionsList.Value[i])
+                {
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        _photonView.RPC("AddCurrentActionToAll", RpcTarget.All, i);
+                    }
+                    else
+                    {
+                        AddCurrentActionToAll(i);
+                    }
+
+                    break;
+                }
+            }
+
             currentCard = button;
+
+            //Calcul tiles to preview
+            int range = action.range;
+            for (int y = -range; y <= range; y++)
+            {
+                for (int x = -range; x <= range; x++)
+                {
+                    if (x == y || (x != 0 && y!=0)) continue;
+                    if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
+                    {
+                        _tilesInPreview.Add(currentTile);
+                    }
+                }
+            }
+
+            GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
+
+            _tilesInPreview = GetUsableTiles(playerTile, action);
+
+            //Preview
+            SetPreviewTiles(_tilesInPreview, true, Color.cyan);
+        }
+
+        private void SetPreviewTiles(List<Tile> tilesInPreview, bool enable, Color color)
+        {
+            foreach (Tile tile in tilesInPreview)
+            {
+                if(enable)
+                    GridManager.ChangeColor(tile,color);
+                else
+                {
+                    GridManager.Reset(tile, Color.gray);
+                }
+            }
+            if (!enable) tilesInPreview.Clear();
+        }
+
+        private void HandleUnselectCard(Player player)
+        {
+            if (player == null) return;
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            //_tilesInPreview.Clear();
+            player.currentAction = null;
+        }
+
+        private void OnLeftClickNoTile()
+        {
+            HandleUnselectCard(actualPlayer);
         }
 
         [Button]
@@ -200,12 +338,16 @@ namespace WeekAnkama
                 }
             }
         }
+
         private void ResetCards(Button card, Action action)
         {
-            card.onClick.AddListener(() => AddCurrentAction(action, card));
+            card.gameObject.SetActive(true);
+            card.onClick.RemoveAllListeners();
+            card.onClick.AddListener(() => { AddCurrentAction(action, card); });
             card.name = action.name;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
+            card.transform.Find("Fatigue").GetComponent<Text>().text = action.fatigueDmg.ToString();
 
 
             if (action.paCost <= actualPlayer.PA) { card.interactable = true; }
@@ -224,13 +366,28 @@ namespace WeekAnkama
             }
         }
 
-        private bool IsTargetValid(Tile castTile, Tile targetTile, int rangeNeeded)
+        private bool IsTargetValid(Tile castTile, Tile targetTile, Action actionToCheck)
         {
-            if(castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y)
+            int rangeNeeded = actionToCheck.range;
+
+            List<Tile> usableTiles = GetUsableTiles(castTile, actionToCheck);
+
+            /*if ((!actionToCheck.isLinedRange || castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y) && usableTiles.Contains(targetTile))
             {
                 return (Mathf.Abs(targetTile.Coords.x - castTile.Coords.x) + Mathf.Abs(targetTile.Coords.y - castTile.Coords.y) <= rangeNeeded);
+            }*/
+
+            if (usableTiles.Contains(targetTile))
+            {
+                return true;
             }
+
             return false;
+        }
+
+        private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
+        {
+            return PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange, actionToCheck.hasSightView);
         }
 
     }
