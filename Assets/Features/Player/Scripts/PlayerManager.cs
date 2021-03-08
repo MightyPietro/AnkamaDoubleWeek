@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using Photon.Realtime;
+using Photon.Pun;
 namespace WeekAnkama
 {
     public class PlayerManager : MonoBehaviour
@@ -14,6 +16,9 @@ namespace WeekAnkama
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
         [SerializeField] private TurnManager turnManager;
+        [SerializeField] private IntVariable _playerValue;
+        [SerializeField] private PhotonView _photonView;
+        [SerializeField] private ActionsList _actionsList;
 
         Grid grid;
 
@@ -36,12 +41,13 @@ namespace WeekAnkama
         private void Start()
         {
 
-            MouseOperation.OnLeftClickTile += DoSomethingOnTile;
-            MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+            
             TurnManager.OnEndPlayerTurn += HandleUnselectCard;
 
             _tilesInPreview = new List<Tile>();
         }        
+
+
 
         public void SetPlayerOutArena(Player killedPlayer)
         {
@@ -66,8 +72,18 @@ namespace WeekAnkama
 
             actualPlayer.ResetDatas();
             ChangeTextState(true);
-            DoDraw();
-            DisplayCards();
+            if(_playerValue.Value == TurnManager.instance.turnValue){
+                DoDraw();
+                DisplayCards();
+                MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
+                MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+            }
+            else
+            {
+                MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
+                MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
+            }
+
         }
 
         private void ChangeTextState(bool value)
@@ -76,9 +92,19 @@ namespace WeekAnkama
             actualPlayer.PAText.enabled = value;
             actualPlayer.PMText.enabled = value;
         }
-
-        private void DoSomethingOnTile(Tile targetTile)
+        private void DoSomethinOnTileViaRPC(Tile targetTile)
         {
+
+            _photonView.RPC("DoSomethingOnTile", RpcTarget.All, targetTile.Coords.x,targetTile.Coords.y);
+        }
+
+        [PunRPC]
+        private void DoSomethingOnTile(int x,int y)
+        {
+            Tile targetTile;
+            Grid.instance.TryGetTile(new Vector2Int(x,y), out targetTile);
+
+
             if (actualPlayer != null)
             {
                 if (actualPlayer.currentAction != null)
@@ -86,7 +112,7 @@ namespace WeekAnkama
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction.range))
                     {
-                        if(targetTile.Player != actualPlayer)
+                        if (targetTile.Player != actualPlayer)
                         {
                             if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
                             {
@@ -106,7 +132,7 @@ namespace WeekAnkama
                 }
                 else
                 {
-                    
+
                     MoveCharacter(targetTile);
                 }
             }
@@ -115,10 +141,11 @@ namespace WeekAnkama
         private void MoveCharacter(Tile targetTile)
         {
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
-            if (DeplacementManager.instance.GetDistance(targetTile, castTile)/10 <= actualPlayer.PM)
+            if (DeplacementManager.instance.GetDistance(targetTile, castTile) / 10 <= actualPlayer.PM)
             {
                 DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
             }
+
         }
 
         public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
@@ -150,7 +177,8 @@ namespace WeekAnkama
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
 
-                currentCard.interactable = false;
+                if(currentCard != null) currentCard.interactable = false;
+
 
                 HandleUnselectCard(actualPlayer);
 
@@ -177,9 +205,24 @@ namespace WeekAnkama
             }
         }
 
+        [PunRPC]
+        private void AddCurrentActionToAll(int actionID)
+        {
+
+            actualPlayer.currentAction = _actionsList.Value[actionID];
+        }
+
         private void AddCurrentAction(Action action, Button button)
         {
-            actualPlayer.currentAction = action;
+            for (int i = 0; i < _actionsList.Value.Count; i++)
+            {
+                if(action == _actionsList.Value[i])
+                {
+                    _photonView.RPC("AddCurrentActionToAll", RpcTarget.All, i);
+                    break;
+                }
+            }
+
             currentCard = button;
 
             //Calcul tiles to preview
@@ -250,8 +293,10 @@ namespace WeekAnkama
                 }
             }
         }
+
         private void ResetCards(Button card, Action action)
         {
+            card.gameObject.SetActive(true);
             card.onClick.RemoveAllListeners();
             card.onClick.AddListener(() => { AddCurrentAction(action, card); });
             card.name = action.name;
