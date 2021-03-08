@@ -15,8 +15,8 @@ MonoBehaviour:
   isTileEffect: 1
   tileEffect: {fileID: 11400000, guid: 6f878a336e45489489ed346844eb48b5, type: 2}
   prefab: {fileID: 0}
-  paCost: 1
+  paCost: 4
   fatigueDmg: 0
   pushCase: 0
-  range: 2
+  range: 3
   actionTypes: 05000000

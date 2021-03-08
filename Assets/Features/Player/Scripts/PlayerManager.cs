@@ -15,6 +15,7 @@ namespace WeekAnkama
         [SerializeField] private Player _actualPlayer;
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
+        [SerializeField] private GameObject _endTurnButton;
         [SerializeField] private TurnManager turnManager;
         [SerializeField] private IntVariable _playerValue;
         [SerializeField] private PhotonView _photonView;
@@ -80,6 +81,7 @@ namespace WeekAnkama
             if(_playerValue.Value == TurnManager.instance.turnValue){
                 DoDraw();
                 DisplayCards();
+                _endTurnButton.SetActive(true);
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
@@ -90,6 +92,8 @@ namespace WeekAnkama
 
                     MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
                     MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
+                    _endTurnButton.SetActive(false);
+                    HideCards();
                 }
                 else
                 {
@@ -204,7 +208,7 @@ namespace WeekAnkama
 
                 HandleUnselectCard(actualPlayer);
 
-                CheckCardsCost();
+                //CheckCardsCost();
 
             }            
         }
@@ -339,13 +343,23 @@ namespace WeekAnkama
             else card.interactable = false;
 
         }
+        
 
+        private void HideCards()
+        {
+            for (int i = 0; i < _cardsLayoutParent.childCount; i++)
+            {
+                _cardsLayoutParent.GetChild(i).gameObject.SetActive(false);
+            }
+
+        }
         private void CheckCardsCost()
         {
             for (int i = 0; i < actualPlayer.hand.Count; i++)
             {
                 if (actualPlayer.hand[i].paCost > actualPlayer.PA)
                 {
+                    if(displayedCards[i] != null)
                     displayedCards[i].interactable = false;
                 }
             }

@@ -15,8 +15,8 @@ MonoBehaviour:
   isTileEffect: 0
   tileEffect: {fileID: 0}
   prefab: {fileID: 0}
-  paCost: 1
-  fatigueDmg: 0
-  pushCase: 2
-  range: 5
-  actionTypes: 00000000
+  paCost: 3
+  fatigueDmg: 50
+  pushCase: 1
+  range: 1
+  actionTypes: 0000000006000000

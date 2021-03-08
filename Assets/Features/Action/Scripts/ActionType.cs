@@ -11,7 +11,8 @@ namespace WeekAnkama
         Water,
         Fire,
         Earth,
-        Air
+        Air,
+        Damage
     }
 }
 
