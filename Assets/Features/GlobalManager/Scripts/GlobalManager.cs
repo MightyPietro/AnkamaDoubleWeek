@@ -18,9 +18,21 @@ namespace WeekAnkama
 
         public static GlobalManager instance;
 
+        public static event Action<Player,float,bool> OnPushFinished;
+
         private void Awake()
         {
             instance = this;
+
+            OnPushFinished += (Player p, float speed, bool isPlayerOut) =>
+            {
+                if (!p.processMovement && queuedMovement.Count > 0)
+                {
+                    p.processMovement = true;
+                    StartCoroutine(FollowPushMovementPathh(new List<Tile>(queuedMovement), p, speed, isPlayerOut));
+                    queuedMovement.Clear();
+                }
+            };
         }
 
         public List<Tile> GetPushPath(Tile startTile, Vector2Int pushDirection, int pushForce, out bool isPlayerOut)
@@ -117,6 +129,8 @@ namespace WeekAnkama
             }
         }
 
+        private List<Tile> queuedMovement = new List<Tile>();
+
         public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
         {
             if(!playerToMove.processMovement)
@@ -124,10 +138,14 @@ namespace WeekAnkama
                 playerToMove.processMovement = true;
                 StartCoroutine(FollowPushMovementPathh(path, playerToMove, speed, isPlayerOut));
             }
+            else
+            {
+                queuedMovement.AddRange(path);
+            }
         }
 
         IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
-        {
+        {            
             Tile currentWaypoint = path[0];
             Transform targetToMove = playerToMove.transform;
             int targetIndex = 0;
@@ -162,13 +180,13 @@ namespace WeekAnkama
                         else
                         {
                             playerToMove.processMovement = false;
-                            //Réactiver les Inputs
+                            //Réactiver les Inputs                            
 
-                            if(isPlayerOut)
+                            if (isPlayerOut)
                             {
                                 PlayerManager.instance.SetPlayerOutArena(playerToMove);
                             }
-
+                            OnPushFinished?.Invoke(playerToMove, speed, isPlayerOut);
                             yield break;
                         }
                     }

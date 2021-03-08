@@ -4,15 +4,16 @@ using UnityEngine;
 
 namespace WeekAnkama
 {
+    [System.Flags]
     public enum ActionType
     {
-        Attract = 0,
-        Damage = 1,
-        Push = 2,        
-        Water = 4,
-        Fire = 8,
-        Earth = 16,
-        Air = 32
+        Attract = (1 << 0),
+        Damage = (1 << 1),
+        Push = (1 << 2),        
+        Water = (1 << 3),
+        Fire = (1 << 4),
+        Earth = (1 << 5),
+        Air = (1 << 6)
     }
 }
 
