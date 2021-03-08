@@ -6,15 +6,15 @@ public class ScoreManager : MonoBehaviour
 {
     private static Vector2Int score;
 
+    [SerializeField]
     private static int maxScore;
 
     [SerializeField]
-    private int scoreWanted
+    private int scoreWanted;
+
+    private void Awake()
     {
-        set
-        {
-            maxScore = value;
-        }
+        maxScore = scoreWanted;
     }
 
     public static void AddScore(int team)
@@ -35,10 +35,12 @@ public class ScoreManager : MonoBehaviour
                 WinGame(team);
             }
         }
+
+        Debug.Log("Score : " + score);
     }
 
     private static void WinGame(int team)
     {
-
+        
     }
 }
