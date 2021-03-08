@@ -19,18 +19,19 @@ namespace WeekAnkama
         public static event Action OnRoomsListUpdate;
 
         public bool isSolo;
+        [SerializeField] private IntVariable _playerValue;
 
         private void Awake()
         {
             instance = this;
-
+            if (!PhotonNetwork.IsConnected)
+            {
+                if (!isSolo)
+                    ConnectToServer();
+                else _playerValue.Value = -1;
+            }
         }
 
-        private void Start()
-        {
-            if(!isSolo)
-            ConnectToServer();
-        }
 
         public void ConnectToServer()
         {
