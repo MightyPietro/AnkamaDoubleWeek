@@ -51,6 +51,7 @@ namespace WeekAnkama
 
         public void SetPlayerOutArena(Player killedPlayer)
         {
+            ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
             killedPlayer.isOut = true;
         }
@@ -127,7 +128,6 @@ namespace WeekAnkama
                                 HandleUnselectCard(actualPlayer);
                             }
                         }
-
                     }
                 }
                 else

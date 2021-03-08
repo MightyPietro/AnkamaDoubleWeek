@@ -176,5 +176,29 @@ namespace WeekAnkama
 
             return Vector2Int.zero;
         }
+
+        public int GetPlayerTeam(Player wantedPlayer)
+        {
+            for(int i = 0; i < players.Count; i++)
+            {
+                if(players[i]==wantedPlayer)
+                {
+                    return i % 2;
+                }
+            }
+            return -1;
+        }
+
+        public int GetPlayerEnemyTeam(Player wantedPlayer)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i] == wantedPlayer)
+                {
+                    return (i+1) % 2;
+                }
+            }
+            return -1;
+        }
     }
 }
