@@ -52,8 +52,6 @@ namespace WeekAnkama
                         ActionEffect eff = obj as ActionEffect;
 
                         eff.Process(casterTile, targetTile, action);
-
-
                     }
 
                 }

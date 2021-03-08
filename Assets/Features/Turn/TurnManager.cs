@@ -55,7 +55,7 @@ namespace WeekAnkama
         }
         private IEnumerator Start()
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(.5f);
 
             OnEndPlayerTurn += BeginTurn;
             BeginBattle();
@@ -127,7 +127,17 @@ namespace WeekAnkama
             OnBeginPlayerTurn?.Invoke(currentPlayerTurn);
         }
 
-        public void EndTurnViaRPC() => _photonView.RPC("EndTurn", RpcTarget.All);
+        public void EndTurnViaRPC()
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("EndTurn", RpcTarget.All);
+            }else
+            {
+                EndTurn();
+            }
+
+        }
 
         [PunRPC]
         private void EndTurn()
