@@ -18,6 +18,7 @@ namespace WeekAnkama
         public static event Action OnLobbyJoined;
         public static event Action OnRoomsListUpdate;
 
+        public bool isSolo;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace WeekAnkama
 
         private void Start()
         {
+            if(!isSolo)
             ConnectToServer();
         }
 

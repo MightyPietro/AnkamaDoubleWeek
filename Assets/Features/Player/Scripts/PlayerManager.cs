@@ -40,8 +40,11 @@ namespace WeekAnkama
 
         private void Start()
         {
-
-            
+            if (!PhotonNetwork.IsConnected)
+            {
+                MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
+                MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+            }
             TurnManager.OnEndPlayerTurn += HandleUnselectCard;
 
             _tilesInPreview = new List<Tile>();
@@ -72,6 +75,7 @@ namespace WeekAnkama
 
             actualPlayer.ResetDatas();
             ChangeTextState(true);
+
             if(_playerValue.Value == TurnManager.instance.turnValue){
                 DoDraw();
                 DisplayCards();
@@ -80,8 +84,18 @@ namespace WeekAnkama
             }
             else
             {
-                MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
-                MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
+                if (PhotonNetwork.IsConnected)
+                {
+
+                    MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
+                    MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
+                }
+                else
+                {
+                    DoDraw();
+                    DisplayCards();
+                }
+
             }
 
         }
@@ -94,9 +108,17 @@ namespace WeekAnkama
         }
         private void DoSomethinOnTileViaRPC(Tile targetTile)
         {
-
-            _photonView.RPC("DoSomethingOnTile", RpcTarget.All, targetTile.Coords.x,targetTile.Coords.y);
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("DoSomethingOnTile", RpcTarget.All, targetTile.Coords.x, targetTile.Coords.y);
+            }
+            else
+            {
+                DoSomethingOnTile(targetTile.Coords.x, targetTile.Coords.y);
+            }
+            
         }
+
 
         [PunRPC]
         private void DoSomethingOnTile(int x,int y)
@@ -218,7 +240,15 @@ namespace WeekAnkama
             {
                 if(action == _actionsList.Value[i])
                 {
-                    _photonView.RPC("AddCurrentActionToAll", RpcTarget.All, i);
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        _photonView.RPC("AddCurrentActionToAll", RpcTarget.All, i);
+                    }
+                    else
+                    {
+                        AddCurrentActionToAll(i);
+                    }
+
                     break;
                 }
             }
