@@ -20,4 +20,4 @@ MonoBehaviour:
   pushCase: 0
   range: 7
   onSelf: 0
-  actionTypes: 03000000
+  actionTypes: 08000000
