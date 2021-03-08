@@ -324,6 +324,16 @@ namespace WeekAnkama
             if (!enable) tilesInPreview.Clear();
         }
 
+        [PunRPC]
+        private void HandleUnselectCard()
+        {
+            if (actualPlayer == null) return;
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            //_tilesInPreview.Clear();
+            actualPlayer.currentAction = null;
+        }
+
+
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
@@ -334,7 +344,15 @@ namespace WeekAnkama
 
         private void OnLeftClickNoTile()
         {
-            HandleUnselectCard(actualPlayer);
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("HandleUnselectCard", RpcTarget.All);
+            }
+            else
+            {
+                HandleUnselectCard(actualPlayer);
+            }
+
         }
 
         [Button]

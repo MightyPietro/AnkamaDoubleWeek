@@ -16,7 +16,10 @@ MonoBehaviour:
   tileEffect: {fileID: 0}
   prefab: {fileID: 0}
   paCost: 3
+  bonusPA: 0
   fatigueDmg: 50
   pushCase: 2
   range: 3
-  actionTypes: 0100000006000000
+  hasSightView: 0
+  isLinedRange: 1
+  actionTypes: 01000000
