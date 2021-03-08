@@ -6,11 +6,16 @@ namespace WeekAnkama
 {
     public class Damage : ActionEffect
     {
-        public override void Process(Tile casterTile, Tile targetTile, Action action)
+        public override bool Process(Tile casterTile, Tile targetTile, Action action)
         {
-            Debug.Log(targetTile.Player.fatigue += action.fatigueDmg);
+            if(targetTile.Player != null)
+            {
+                targetTile.Player.fatigue += action.fatigueDmg;
+                return true;
+            }
+            return false;
         }
 
-    }
+    }    
 }
 

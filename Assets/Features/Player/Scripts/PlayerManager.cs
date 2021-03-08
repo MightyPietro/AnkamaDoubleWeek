@@ -218,7 +218,9 @@ namespace WeekAnkama
             {
                 actualPlayer._deckReminder.Add(actualPlayer.deck[i]);
             }
-            for (int i = 0; i < 4; i++)
+
+            int maxCard = actualPlayer._deckReminder.Count >= 4 ? 4 : actualPlayer._deckReminder.Count;
+            for (int i = 0; i < maxCard; i++)
             {
                 int rand = Random.Range(0, actualPlayer._deckReminder.Count);
                 actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);

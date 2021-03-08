@@ -6,8 +6,9 @@ namespace WeekAnkama
 {
     public enum ActionType
     {
-        Push,
         Attract,
+        Damage,
+        Push,        
         Water,
         Fire,
         Earth,
