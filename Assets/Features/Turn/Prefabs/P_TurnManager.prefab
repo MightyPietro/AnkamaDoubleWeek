@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2812746738597132887}
   - component: {fileID: 2812746738597132884}
+  - component: {fileID: 4425648624728326620}
   m_Layer: 0
   m_Name: P_TurnManager
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MonoBehaviour:
   - {x: 6, y: 0}
   - {x: 6, y: 6}
   secondByTurn: 10
+  _photonView: {fileID: 0}
   newTurnText: {fileID: 0}
   turnFeedback:
   - {fileID: 0}
@@ -66,3 +68,25 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fc60d529f775f0243bf26552b430b23b, type: 3}
   - {fileID: 21300000, guid: b54f3108861176c4f8a9df15d284eb68, type: 3}
   - {fileID: 21300000, guid: 929ca2eaaf8cc5743993056f2174e61d, type: 3}
+--- !u!114 &4425648624728326620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812746738597132885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
