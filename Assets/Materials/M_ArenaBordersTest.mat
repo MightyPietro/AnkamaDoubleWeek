@@ -133,7 +133,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - SideBaseColorOpacity: 0
-    - SideColorVarOpacity: 0.633
+    - SideColorVarOpacity: 1
     - SideContrast: 1
     - SideHUE: 0
     - SideMetallic: 0
@@ -171,7 +171,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - SideBaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - SideColorVar: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
+    - SideColorVar: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0}
     - SideOffset: {r: 0.5, g: -2, b: 0.5, a: 0}
     - TopBaseColor: {r: 0.7924528, g: 0.5807069, b: 0.39248842, a: 0}
     - Top_Color_Var: {r: 0, g: 0, b: 0, a: 0}

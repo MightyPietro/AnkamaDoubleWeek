@@ -6,21 +6,17 @@ namespace WeekAnkama
 {
     public class Earth : ActionEffect
     {
-        public override void Process(Tile casterTile, Tile targetTile, Action action)
+        public override bool Process(Tile casterTile, Tile targetTile, Action action)
         {
-
-
             if(targetTile.Player != null)
             {
                 targetTile.Player.fatigue += action.fatigueDmg;
-
+                return true;
             }
             else
             {
-                base.Process(casterTile, targetTile, action);
+                return base.Process(casterTile, targetTile, action);                
             }
-
-
         }
     }
 }

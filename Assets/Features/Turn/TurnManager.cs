@@ -55,8 +55,7 @@ namespace WeekAnkama
         }
         private IEnumerator Start()
         {
-            yield return new WaitForSeconds(.5f);
-
+            yield return new WaitForSeconds(.25f);
             OnEndPlayerTurn += BeginTurn;
             BeginBattle();
         }

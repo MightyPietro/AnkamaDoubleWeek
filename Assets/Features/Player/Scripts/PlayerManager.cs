@@ -15,6 +15,7 @@ namespace WeekAnkama
         [SerializeField] private Player _actualPlayer;
         [SerializeField] private Transform _cardsLayoutParent;
         [SerializeField] private Button _actionButtonPrefab;
+        [SerializeField] private GameObject _endTurnButton;
         [SerializeField] private TurnManager turnManager;
         [SerializeField] private IntVariable _playerValue;
         [SerializeField] private PhotonView _photonView;
@@ -36,6 +37,22 @@ namespace WeekAnkama
         private void Awake()
         {
             instance = this;
+
+            DeplacementManager.OnPlayerMovement += (Player p) =>
+            {
+                foreach (var item in displayedCards)
+                {
+                    item.enabled = false;
+                }
+            };
+
+            DeplacementManager.OnPlayerMovementFinished += (Player p) =>
+            {
+                foreach (var item in displayedCards)
+                {
+                    item.enabled = true;
+                }
+            };
         }
 
         private void Start()
@@ -80,6 +97,7 @@ namespace WeekAnkama
             if(_playerValue.Value == TurnManager.instance.turnValue){
                 DoDraw();
                 DisplayCards();
+                _endTurnButton.SetActive(true);
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
@@ -90,6 +108,8 @@ namespace WeekAnkama
 
                     MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
                     MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
+                    _endTurnButton.SetActive(false);
+                    HideCards();
                 }
                 else
                 {
@@ -209,7 +229,7 @@ namespace WeekAnkama
 
                 HandleUnselectCard(actualPlayer);
 
-                CheckCardsCost();
+                //CheckCardsCost();
 
             }            
         }
@@ -229,7 +249,9 @@ namespace WeekAnkama
             {
                 actualPlayer._deckReminder.Add(actualPlayer.deck[i]);
             }
-            for (int i = 0; i < 4; i++)
+
+            int maxCard = actualPlayer._deckReminder.Count >= 4 ? 4 : actualPlayer._deckReminder.Count;
+            for (int i = 0; i < maxCard; i++)
             {
                 int rand = Random.Range(0, actualPlayer._deckReminder.Count);
                 actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
@@ -354,13 +376,23 @@ namespace WeekAnkama
             else card.interactable = false;
 
         }
+        
 
+        private void HideCards()
+        {
+            for (int i = 0; i < _cardsLayoutParent.childCount; i++)
+            {
+                _cardsLayoutParent.GetChild(i).gameObject.SetActive(false);
+            }
+
+        }
         private void CheckCardsCost()
         {
             for (int i = 0; i < actualPlayer.hand.Count; i++)
             {
                 if (actualPlayer.hand[i].paCost > actualPlayer.PA)
                 {
+                    if(displayedCards[i] != null)
                     displayedCards[i].interactable = false;
                 }
             }

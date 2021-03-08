@@ -26,6 +26,7 @@ namespace WeekAnkama
 
         public bool hasSightView, isLinedRange;
 
+
         [Header("Action")]
         public List<ActionType> actionTypes;
         public System.Type[] actionEffects;
@@ -36,12 +37,19 @@ namespace WeekAnkama
         {
             System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
             actionEffects = (from System.Type type in types where type.IsSubclassOf(typeof(ActionEffect)) select type).ToArray();
+
+            //Sort
+            actionTypes.Sort((eff1, eff2) => { return eff1.CompareTo(eff2); });
         }
 
 
         [ContextMenu("Process")]
         public void Process(Tile casterTile, Tile targetTile, Action action)
         {
+            Player player;
+
+            player = targetTile.Player;
+            Tile playerTile;
             FindActionEffectSubClass();
             for (int j = 0; j < actionTypes.Count; j++)
             {
@@ -53,9 +61,15 @@ namespace WeekAnkama
 
                         ActionEffect eff = obj as ActionEffect;
 
-                        eff.Process(casterTile, targetTile, action);
+                        if (!eff.Process(casterTile, targetTile, action)) // on essaye l effet sur la case ciblé
+                        {
+                            if (player == null) continue;
+                            if (GridManager.Grid.TryGetTile(player.position, out playerTile))
+                            {
+                                eff.Process(casterTile, playerTile, action); // le player a peut être été déplacé donc on essaye
+                            }
+                        }
                     }
-
                 }
             }
            
