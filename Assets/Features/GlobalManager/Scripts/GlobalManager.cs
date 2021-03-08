@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,23 @@ namespace WeekAnkama
 
         public static GlobalManager instance;
 
+        public static event Action<Player,float,bool> OnPushFinished;
+
         private void Awake()
         {
             instance = this;
+
+            OnPushFinished += (Player p, float speed, bool isPlayerOut) =>
+            {
+                if (!p.processMovement && queuedMovement.Count > 0)
+                {
+                    p.processMovement = true;
+                    StartCoroutine(FollowPushMovementPathh(queuedMovement, p, queuedPlayerToDamage, speed, isPlayerOut, queuedDamages));
+                    queuedMovement.Clear();
+                    queuedDamages = 0;
+                    queuedPlayerToDamage = null;
+                }
+            };
         }
 
         public List<Tile> GetPushPath(Tile startTile, Vector2Int pushDirection, int pushForce, out bool isPlayerOut)
@@ -54,7 +69,7 @@ namespace WeekAnkama
             return path;
         }
 
-        private List<Tile> GetPushDestination(Tile startTile, Vector2Int pushDirection, int pushForce, out int pushForceLeft, out bool isPlayerOut)
+        private List<Tile> GetPushDestination(Tile startTile, Vector2Int pushDirection, int pushForce, out Player playerToDamage, out int pushForceLeft, out bool isPlayerOut)
         {
             List<Tile> unblockPath = GetPushPath(startTile, pushDirection, pushForce, out isPlayerOut);
             List<Tile> path = new List<Tile>();
@@ -63,18 +78,21 @@ namespace WeekAnkama
 
             pushForceLeft = unblockPath.Count-1;
 
+            playerToDamage = null;
+
             for (int i = 1; i < unblockPath.Count; i++)
             {
-                Debug.Log(unblockPath[i].Coords + " crossable ? " + unblockPath[i].Crossable);
                 if(unblockPath[i].Crossable)
                 {
                     pushForceLeft--;
-                    Debug.Log(pushForceLeft);
                     path.Add(unblockPath[i]);
-                    Debug.Log(unblockPath[i].Coords);
                 }
                 else
                 {
+                    if(unblockPath[i].Player != null)
+                    {
+                        playerToDamage = unblockPath[i].Player;
+                    }
                     isPlayerOut = false;
                     break;
                 }
@@ -100,9 +118,8 @@ namespace WeekAnkama
             List<Tile> pushPath = new List<Tile>();
             if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
-                pushPath = GetPushDestination(playerTile, pushDirection, pushForce, out damageTaken, out isPlayerOut);
-                playerToPush.TakeDamage(damageTaken*80);
-                AskPlayerToFollowPath(pushPath, playerToPush, 5, isPlayerOut);
+                pushPath = GetPushDestination(playerTile, pushDirection, pushForce,out Player playerToDamage, out damageTaken, out isPlayerOut);
+                AskPlayerToFollowPath(pushPath, playerToPush, playerToDamage, 5, isPlayerOut, damageTaken);
                 
             }
         }
@@ -116,16 +133,27 @@ namespace WeekAnkama
             }
         }
 
-        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        
+        private List<Tile> queuedMovement = new List<Tile>();
+        private int queuedDamages = 0;
+        private Player queuedPlayerToDamage;
+
+        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
         {
             if(!playerToMove.processMovement)
             {
                 playerToMove.processMovement = true;
-                StartCoroutine(FollowPushMovementPathh(path, playerToMove, speed, isPlayerOut));
+                StartCoroutine(FollowPushMovementPathh(path, playerToMove, playerToDamage, speed, isPlayerOut, damages));
+            }
+            else
+            {
+                queuedMovement.AddRange(path);
+                queuedDamages = damages;
+                queuedPlayerToDamage = playerToDamage;
             }
         }
 
-        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, float speed, bool isPlayerOut)
+        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
         {
             Tile currentWaypoint = path[0];
             Transform targetToMove = playerToMove.transform;
@@ -161,13 +189,20 @@ namespace WeekAnkama
                         else
                         {
                             playerToMove.processMovement = false;
-                            //Réactiver les Inputs
+                            //Réactiver les Inputs                            
+
+                            playerToMove.TakeDamage(damages * 80);
+
+                            if (playerToDamage != null)
+                            {
+                                playerToDamage.TakeDamage(damages * 40);
+                            }
 
                             if(isPlayerOut)
                             {
                                 PlayerManager.instance.SetPlayerOutArena(playerToMove);
                             }
-
+                            OnPushFinished?.Invoke(playerToMove, speed, isPlayerOut);
                             yield break;
                         }
                     }

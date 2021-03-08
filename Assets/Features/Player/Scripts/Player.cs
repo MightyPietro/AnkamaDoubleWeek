@@ -9,7 +9,7 @@ namespace WeekAnkama
     {
         #region Private Variables
         [SerializeField] private int _PA;
-        [SerializeField] private int _basePA;
+        [SerializeField] private int _basePA, _stockPA;
         [SerializeField] private int _PM;
         [SerializeField] private int _basePM;
         [SerializeField] private int _fatigue;
@@ -31,6 +31,7 @@ namespace WeekAnkama
 
         #region Getter/Setter
         public int PA { get { return _PA; } set { _PA = value; PAText.text = PA.ToString() + "/"; } }
+        public int stockPA { get { return _stockPA; } set { _stockPA = value;} }
         public int PM { get { return _PM; } set { _PM = value; _PMText.text = PM.ToString(); } }
         public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); } }
         public Vector2Int position { get { return _position; } set { _position = value; } }

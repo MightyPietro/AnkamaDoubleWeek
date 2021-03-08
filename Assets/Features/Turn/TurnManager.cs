@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Photon.Pun;
 
 namespace WeekAnkama
 {
@@ -21,6 +22,9 @@ namespace WeekAnkama
         [SerializeField]
         private int secondByTurn = 15;
 
+        [SerializeField]
+        private PhotonView _photonView;
+
         private int turnIndex = -1;
         private float currentTurnTimeLeft = 0;
 
@@ -34,10 +38,24 @@ namespace WeekAnkama
         private List<Image> turnFeedback;
         public List<Sprite> colorTests;
 
+        public static TurnManager instance;
+        private  int _turnValue = 0;
+
+        public int turnValue
+        {
+            get { return _turnValue; }
+            set { _turnValue = value; }
+        }
+
         bool didBattleStart;
 
-        private void Start()
+        private void Awake()
         {
+            instance = this;
+        }
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(.25f);
             OnEndPlayerTurn += BeginTurn;
             BeginBattle();
         }
@@ -57,6 +75,8 @@ namespace WeekAnkama
             }
         }
 
+
+
         void BeginBattle()
         {
             for (int i = 0; i < spawnPosition.Count; i++)
@@ -69,6 +89,24 @@ namespace WeekAnkama
 
         public void BeginTurn(Player oldPlayer)
         {
+            switch (turnValue)
+            {
+                case 0:turnValue = 1;
+                    break;
+                case 1:
+                    turnValue = 2;
+                    break;
+                case 2:
+                    turnValue = 3;
+                    break;
+                case 3:
+                    turnValue = 4;
+                    break;
+                case 4:
+                    turnValue = 1;
+                    break;
+
+            }
             currentTurnTimeLeft = secondByTurn;
             turnIndex = (turnIndex + 1) % players.Count;
 
@@ -88,7 +126,20 @@ namespace WeekAnkama
             OnBeginPlayerTurn?.Invoke(currentPlayerTurn);
         }
 
-        public void EndTurn()
+        public void EndTurnViaRPC()
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("EndTurn", RpcTarget.All);
+            }else
+            {
+                EndTurn();
+            }
+
+        }
+
+        [PunRPC]
+        private void EndTurn()
         {
             OnEndPlayerTurn?.Invoke(currentPlayerTurn);
         }
@@ -133,6 +184,30 @@ namespace WeekAnkama
             }
 
             return Vector2Int.zero;
+        }
+
+        public int GetPlayerTeam(Player wantedPlayer)
+        {
+            for(int i = 0; i < players.Count; i++)
+            {
+                if(players[i]==wantedPlayer)
+                {
+                    return i % 2;
+                }
+            }
+            return -1;
+        }
+
+        public int GetPlayerEnemyTeam(Player wantedPlayer)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i] == wantedPlayer)
+                {
+                    return (i+1) % 2;
+                }
+            }
+            return -1;
         }
     }
 }
