@@ -36,7 +36,6 @@ public class ScoreManager : MonoBehaviour
             }
         }
 
-        Debug.Log("Score : " + score);
     }
 
     private static void WinGame(int team)
