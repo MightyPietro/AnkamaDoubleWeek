@@ -15,6 +15,7 @@ namespace WeekAnkama
                 direction = direction.normalized;
 
                 GlobalManager.instance.AskPushPlayer(targetTile.Player, new Vector2Int((int)direction.x,(int)direction.y), action.pushCase + Mathf.FloorToInt(targetTile.Player.fatigue/100));
+
             }
         }
     }

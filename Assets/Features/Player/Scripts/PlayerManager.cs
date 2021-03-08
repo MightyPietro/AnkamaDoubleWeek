@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
+
 namespace WeekAnkama
 {
     public class PlayerManager : MonoBehaviour
@@ -22,6 +24,7 @@ namespace WeekAnkama
 
         Grid grid;
 
+        [SerializeField]
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
         private List<Tile> _tilesInPreview;
@@ -103,9 +106,9 @@ namespace WeekAnkama
 
         private void ChangeTextState(bool value)
         {
-            if (actualPlayer == null) return;
+            /*if (actualPlayer == null) return;
             actualPlayer.PAText.enabled = value;
-            actualPlayer.PMText.enabled = value;
+            actualPlayer.PMText.enabled = value;*/
         }
         private void DoSomethinOnTileViaRPC(Tile targetTile)
         {
@@ -229,13 +232,22 @@ namespace WeekAnkama
             {
                 actualPlayer._deckReminder.Add(actualPlayer.deck[i]);
             }
-            for (int i = 0; i < 4; i++)
+            /*for (int i = 0; i < 4; i++)
             {
                 int rand = Random.Range(0, actualPlayer._deckReminder.Count);
                 actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
                 actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
 
-            }
+            }*/
+
+            DrawCard();
+        }
+
+        public void DrawCard()
+        {
+            int rand = Random.Range(0, actualPlayer._deckReminder.Count);
+            actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
+            actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
         }
 
         [PunRPC]
@@ -318,7 +330,20 @@ namespace WeekAnkama
         [Button]
         private void DisplayCards()
         {
-            if (displayedCards.Count == 0)
+            for(int i = 0; i < displayedCards.Count; i++)
+            {
+                if(i < actualPlayer.hand.Count)
+                {
+                    ResetCards(displayedCards[i], actualPlayer.hand[i]);
+                    displayedCards[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    displayedCards[i].gameObject.SetActive(false);
+                }
+            }
+
+            /*if (displayedCards.Count == 0)
             {
                 displayedCards.Clear();
                 for (int i = 0; i < actualPlayer.hand.Count; i++)
@@ -336,7 +361,7 @@ namespace WeekAnkama
                     Action action = actualPlayer.hand[i];
                     ResetCards(displayedCards[i], action);
                 }
-            }
+            }*/
         }
 
         private void ResetCards(Button card, Action action)
@@ -388,6 +413,24 @@ namespace WeekAnkama
         private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
         {
             return PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange, actionToCheck.hasSightView);
+        }
+
+        [SerializeField]
+        private TextMeshProUGUI spellTitle, spellDescription;
+        [SerializeField]
+        private GameObject spellDetailObject;
+
+        public void DisplaySpellDetail(int index)
+        {
+            spellDetailObject.transform.position = new Vector3(700+75*index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
+            spellTitle.text = actualPlayerHand[index].name;
+            spellDescription.text = actualPlayerHand[index].description;
+            spellDetailObject.SetActive(true);
+        }
+
+        public void HideSpellDetail()
+        {
+            spellDetailObject.SetActive(false);
         }
 
     }

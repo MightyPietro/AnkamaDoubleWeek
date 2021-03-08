@@ -17,7 +17,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   paCost: 1
   bonusPA: 0
-  fatigueDmg: 0
+  fatigueDmg: 62
   pushCase: 2
   range: 1
   hasSightView: 0
