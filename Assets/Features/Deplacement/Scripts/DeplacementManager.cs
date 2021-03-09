@@ -115,7 +115,7 @@ namespace WeekAnkama
 
 					if(player != null)
                     {
-						FeedbackManager.instance.Feedback(_moveFeedback, previousWaypoint.WorldPosition, .5f);
+						FeedbackManager.instance.Feedback(_moveFeedback, previousWaypoint.WorldPosition, 1.5f);
 						currentWaypoint.SetPlayer(player);
 						player.position = currentWaypoint.Coords;
 						
