@@ -76,6 +76,8 @@ namespace WeekAnkama
 
         public void SetPlayerOutArena(Player killedPlayer)
         {
+            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),killedPlayer.transform.position, Quaternion.identity) as GameObject;
+            Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
             killedPlayer.isOut = true;

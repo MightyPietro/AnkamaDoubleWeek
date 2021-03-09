@@ -8,7 +8,7 @@ namespace WeekAnkama
     public class Feedback : ScriptableObject
     {
         public GameObject VFX;
-        public AudioClip clip;
+        public AudioClip[] clips;
     }
 
 }
