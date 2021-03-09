@@ -28,7 +28,9 @@ namespace WeekAnkama
         public TileEffect tileEffect;
         public bool hasSightView, isLinedRange;
 
-        public bool isTargettingTile = false; 
+        public bool isTargettingTile = false;
+
+        public bool canBePlayedOnself = false;
         
         [Space]
         public bool isAreaAction;
