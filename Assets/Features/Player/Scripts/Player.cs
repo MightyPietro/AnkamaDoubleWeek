@@ -22,6 +22,7 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _PAText;
         [SerializeField] private TextMeshProUGUI _PMText;
         [SerializeField] private Feedback _playerFatigueDmg;
+
         private bool _processMovement = false;
         private bool _isOut = false;
         private Vector2Int _direction;
