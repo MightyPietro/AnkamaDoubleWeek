@@ -22,6 +22,7 @@ namespace WeekAnkama
         [SerializeField] private IntVariable _playerValue;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
+        [SerializeField] private Feedback _teleportPlayer;
 
 
         Grid grid;
@@ -210,6 +211,7 @@ namespace WeekAnkama
                 playerToTeleport.position = tileWanted.Coords;
                 Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
+                FeedbackManager.instance.Feedback(_teleportPlayer, tileWanted.WorldPosition, 2.1f);
                 return true;
             }
             else
