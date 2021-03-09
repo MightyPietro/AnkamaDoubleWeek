@@ -14,7 +14,7 @@ namespace WeekAnkama
         public string description;
 
         public bool isTileEffect = false;
-        public bool targetTileEffect = false;
+        public bool isTargettingTile = false;
         [ShowIf("isTileEffect")]
         public TileEffect tileEffect;
         [HideIf("isTileEffect")]
@@ -48,9 +48,10 @@ namespace WeekAnkama
 
 
         [ContextMenu("Process")]
-        public void Process(Tile casterTile, Tile targetTile, Action action)
+        public bool Process(Tile casterTile, Tile targetTile, Action action)
         {
             Player player;
+            bool res = true;
 
             player = targetTile.Player;
             Tile playerTile;
@@ -67,20 +68,20 @@ namespace WeekAnkama
 
                         if (!eff.Process(casterTile, targetTile, action)) // on essaye l effet sur la case ciblé
                         {
-                            if (player == null) continue;
+                            if (player == null)
+                            {
+                                return false;                                
+                            }
                             if (GridManager.Grid.TryGetTile(player.position, out playerTile))
                             {
-                                eff.Process(casterTile, playerTile, action); // le player a peut être été déplacé donc on essaye
+                                res = eff.Process(casterTile, playerTile, action); // le player a peut être été déplacé donc on essaye
                             }
                         }
                     }
                 }
             }
-           
-
+            return res;
         }
-
-
     }
 
 }

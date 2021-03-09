@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ActionsList
   m_EditorClassIdentifier: 
   Value:
+  - {fileID: 11400000, guid: 1161169cecf755d408b917ef6e54a7c1, type: 2}
   - {fileID: 11400000, guid: d91abb48c7c567e4e91974941750aba1, type: 2}
   - {fileID: 11400000, guid: c119837774e8c3145b675cba3f687530, type: 2}
   - {fileID: 11400000, guid: 87ed7c37b71b9ed41b4f810d72912adb, type: 2}

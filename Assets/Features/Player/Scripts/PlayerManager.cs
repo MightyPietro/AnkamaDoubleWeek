@@ -170,7 +170,7 @@ namespace WeekAnkama
                             {
                                 DoAction(targetTile);
                             }
-                            else if (actualPlayer.currentAction.targetTileEffect && targetTile.Effect != null)
+                            else if (actualPlayer.currentAction.isTargettingTile)
                             {
                                 DoAction(targetTile);
                             }
@@ -230,16 +230,23 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
-                actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
-                actualPlayer.PA -= actualPlayer.currentAction.paCost;
-                actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
+                if(actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction))
+                {
+                    actualPlayer.PA -= actualPlayer.currentAction.paCost;
+                    actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
-                if(currentCard != null) currentCard.interactable = false;
+                    if (currentCard != null) currentCard.interactable = false;
 
 
-                HandleUnselectCard(actualPlayer);
+                    HandleUnselectCard(actualPlayer);
 
-                //CheckCardsCost();
+                    //CheckCardsCost();
+                }
+                else
+                {
+                    HandleUnselectCard();
+                }
+
 
             }            
         }
