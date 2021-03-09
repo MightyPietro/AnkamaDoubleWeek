@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_BasicToon
+  m_Name: M_TeamBleu
   m_Shader: {fileID: -6465566751694194690, guid: f99dd49bd83be4e42ab35482976c9046, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -24,24 +24,29 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_7B9350DC:
-        m_Texture: {fileID: 2800000, guid: e58bd90bd1ddcbc4aa0d21c1b6f42a7c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5ff446ffcd9f6b54c95b2ef68e96ae2e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_C92931F:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 63f8a72e8da4e7146aeb9401343be304, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2C529A56_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 365f87672682f7749b144775a3373c58, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - BOOLEAN_F925A6F7: 0
-    - Vector1_79BC2641: 0.19
-    - Vector1_8D4C4F8C: 0.951
+    - Vector1_79BC2641: 0.5
+    - Vector1_8D4C4F8C: 1
+    - Vector1_90A2BD7D: 0.61
     - Vector1_A6BD782B: 10
     - Vector1_C357EA81: 0.06
-    - Vector1_C75DBFC1: 0.829
+    - Vector1_C75DBFC1: 1
     m_Colors:
     - Color_280B8743: {r: 4, g: 0, b: 0.038404465, a: 0}
     - Color_6CB87102: {r: 1, g: 1, b: 1, a: 0}
