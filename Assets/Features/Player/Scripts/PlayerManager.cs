@@ -261,6 +261,9 @@ namespace WeekAnkama
             }*/
 
             DrawCard();
+            DrawCard();
+            DrawCard();
+            DrawCard();
         }
 
         public void DrawCard()
@@ -460,7 +463,116 @@ namespace WeekAnkama
 
         private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
         {
-            return PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange, actionToCheck.hasSightView);
+            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange);
+
+            List<Tile> obstacles = new List<Tile>();
+            foreach(Tile t in tilesInRange)
+            {
+                if(!t.Walkable)
+                {
+                    obstacles.Add(t);
+                }
+            }
+
+            for(int i = 0; i < tilesInRange.Count; i++)
+            {
+                if(!IsTileVisible(castTile, tilesInRange[i]) && tilesInRange[i].Player == null)
+                {
+                    tilesInRange.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            return tilesInRange;
+        }
+
+        private bool IsTileVisible(Tile startTile, Tile targetTile)
+        {
+            int x = targetTile.Coords.x;
+            int y = targetTile.Coords.y;
+            int j = y;
+
+            float realJ = y;
+
+            int diffX = targetTile.Coords.x - startTile.Coords.x;
+            int diffY = targetTile.Coords.y - startTile.Coords.y;
+
+            float absX = Mathf.Abs((float)diffX);
+            float absY = Mathf.Abs((float)diffY);
+
+            int xCoef = 1;
+            int yCoef = 1;
+
+            if (diffX < 0)
+            {
+                xCoef = -1;
+            }
+            else if (diffX == 0)
+            {
+                xCoef = 0;
+            }
+
+            if (diffY < 0)
+            {
+                yCoef = -1;
+            }
+            else if (diffY == 0)
+            {
+                yCoef = 0;
+            }
+
+
+
+            if (absX == absY)
+            {
+                for (int i = x; i != startTile.Coords.x; i -= xCoef)
+                {
+
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i,j), out Tile t) || !t.Walkable)
+                    {
+                        return false;
+                    }
+
+                    realJ -= yCoef;
+                    j = Mathf.RoundToInt(realJ);
+                }
+            }
+            else if (absX > absY)
+            {
+                for (int i = x; i != startTile.Coords.x; i -= xCoef)
+                {
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i, j), out Tile t) || !t.Walkable)
+                    {
+                        return false;
+                    }
+
+                    if (yCoef != 0 && diffY != 0)
+                    {
+                        realJ -= (absY / absX) * (float)yCoef;
+                        j = Mathf.RoundToInt(realJ);
+                    }
+                }
+            }
+            else if (absX < absY)
+            {
+                realJ = x;
+                j = x;
+                for (int i = y; i != startTile.Coords.y; i -= yCoef)
+                {
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i, j), out Tile t) || !t.Walkable)
+                    {
+                        return false;
+                    }
+
+                    if (xCoef != 0 && diffX != 0)
+                    {
+                        realJ -= (absX / absY) * (float)xCoef;
+                        j = Mathf.RoundToInt(realJ);
+                    }
+                }
+            }
+
+            return true;
         }
 
         [SerializeField]
