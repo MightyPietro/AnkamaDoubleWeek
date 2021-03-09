@@ -49,6 +49,7 @@ MonoBehaviour:
   speed: 10
   testT: {fileID: 0}
   testMovable: {fileID: 0}
+  _testFeeback: {fileID: 11400000, guid: 075b008f0b8a6bb4f911eda1a50cd843, type: 2}
 --- !u!114 &8277579943716956977
 MonoBehaviour:
   m_ObjectHideFlags: 0

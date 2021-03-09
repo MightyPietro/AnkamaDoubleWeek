@@ -138,9 +138,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: EarthEffect
       objectReference: {fileID: 0}
-    - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
+    - target: {fileID: 4756577318610380307, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -155,10 +155,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -169,6 +165,14 @@ PrefabInstance:
     - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
