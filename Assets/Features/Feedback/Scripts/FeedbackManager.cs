@@ -48,7 +48,7 @@ namespace WeekAnkama
                 Destroy(VFX, time);
             }
 
-            if (feedback.clips != null)
+            if (feedback.clips.Length > 0)
             {
                 for (int i = 0; i < _sources.Length; i++)
                 {
