@@ -21,6 +21,7 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _fatigueText;
         [SerializeField] private TextMeshProUGUI _PAText;
         [SerializeField] private TextMeshProUGUI _PMText;
+        [SerializeField] private Feedback _playerFatigueDmg;
         private bool _processMovement = false;
         private bool _isOut = false;
         private Vector2Int _direction;
@@ -34,7 +35,7 @@ namespace WeekAnkama
         public int PA { get { return _PA; } set { _PA = value; } }// PAText.text = PA.ToString() + "/"; } }
         public int stockPA { get { return _stockPA; } set { _stockPA = value;} }
         public int PM { get { return _PM; } set { _PM = value; } }// _PMText.text = PM.ToString(); } }
-        public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); Debug.Log("Allo"); } }
+        public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); FeedbackManager.instance.Feedback(_playerFatigueDmg,transform.position +transform.localScale ,1f); } }
         public Vector2Int position { get { return _position; } set { _position = value; } }
         public Vector2Int Direction { get { return _direction; } set { _direction = value; } }
         public List<Action> deck { get { return _deck; } set { _deck = value; } }

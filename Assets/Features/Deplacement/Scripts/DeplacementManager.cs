@@ -22,7 +22,7 @@ namespace WeekAnkama
 		bool processDeplacement;
 		public static event Action<Player> OnPlayerMovement;
 		public static event Action<Player> OnPlayerMovementFinished;
-
+		[SerializeField] private Feedback _moveFeedback;
 
 		private void Awake()
         {
@@ -87,9 +87,10 @@ namespace WeekAnkama
 
 			while (processDeplacement)
 			{
+
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
-
+				
 				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
@@ -109,12 +110,15 @@ namespace WeekAnkama
 					Vector2 dir = new Vector2(nextTile.Coords.x - currentWaypoint.Coords.x, nextTile.Coords.y - currentWaypoint.Coords.y).normalized;
 					player.Direction = new Vector2Int((int)dir.x, (int)dir.y);
 
+					Tile previousWaypoint = currentWaypoint;
 					currentWaypoint = nextTile;
 
 					if(player != null)
                     {
+						FeedbackManager.instance.Feedback(_moveFeedback, previousWaypoint.WorldPosition, .5f);
 						currentWaypoint.SetPlayer(player);
 						player.position = currentWaypoint.Coords;
+						
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
