@@ -23,6 +23,7 @@ namespace WeekAnkama
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
 
+
         Grid grid;
 
         [SerializeField]
@@ -139,6 +140,7 @@ namespace WeekAnkama
             else
             {
                 DoSomethingOnTile(targetTile.Coords.x, targetTile.Coords.y);
+                
             }
             
         }
@@ -193,6 +195,7 @@ namespace WeekAnkama
             if (DeplacementManager.instance.GetDistance(targetTile, castTile) / 10 <= actualPlayer.PM)
             {
                 DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
+                
             }
 
         }
@@ -260,10 +263,11 @@ namespace WeekAnkama
 
             }*/
 
-            DrawCard();
-            DrawCard();
-            DrawCard();
-            DrawCard();
+            for (int i = 0; i < 4; i++)
+            {
+                DrawCard();
+            }
+
         }
 
         public void DrawCard()
