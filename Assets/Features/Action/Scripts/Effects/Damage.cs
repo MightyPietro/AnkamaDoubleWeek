@@ -10,7 +10,7 @@ namespace WeekAnkama
         {
             if(targetTile.Player != null)
             {
-                targetTile.Player.fatigue += action.fatigueDmg;
+                targetTile.Player.TakeDamage(casterTile.Player, action.fatigueDmg);
                 return true;
             }
             return false;

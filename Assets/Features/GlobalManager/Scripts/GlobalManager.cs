@@ -194,11 +194,11 @@ namespace WeekAnkama
 
                             //Réactiver les Inputs                            
 
-                            playerToMove.TakeDamage(damages * 80);
+                            playerToMove.TakeDamage(null, damages * 80);
 
                             if (playerToDamage != null)
                             {
-                                playerToDamage.TakeDamage(damages * 40);
+                                playerToDamage.TakeDamage(null, damages * 40);
                             }
 
                             if(isPlayerOut)

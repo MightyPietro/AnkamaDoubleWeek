@@ -15,8 +15,8 @@ namespace WeekAnkama
         [SerializeField] private int _basePM;
         [SerializeField] private int _fatigue;
         [SerializeField] private Vector2Int _position;
-        [SerializeField] private List<Action> _deck;
-        [SerializeField] private List<Action> _hand;
+        [SerializeField] private List<Action> _deck = new List<Action>();
+        [SerializeField] private List<Action> _hand = new List<Action>();
         [SerializeField] private Action _currentAction;
         [SerializeField] private TextMeshProUGUI _fatigueText;
         [SerializeField] private TextMeshProUGUI _PAText;
@@ -26,16 +26,37 @@ namespace WeekAnkama
         private bool _isOut = false;
         private Vector2Int _direction;
 
+        private Image icone;
+        private TextMeshProUGUI mainFatigueTxt, pmTxt, paTxt, stockPaTxt;
+
         [HideInInspector]
-        public List<Action> _deckReminder;
+        public List<Action> discardPile = new List<Action>();
+
+        private PlayerPassive passive;
+
+        private System.Action<Player, Player> beginTurn, takeDamage, doDamage, passEnemyExhaust, passSelfExhaust;
         #endregion
 
 
         #region Getter/Setter
-        public int PA { get { return _PA; } set { _PA = value; } }// PAText.text = PA.ToString() + "/"; } }
-        public int stockPA { get { return _stockPA; } set { _stockPA = value;} }
-        public int PM { get { return _PM; } set { _PM = value; } }// _PMText.text = PM.ToString(); } }
-        public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); FeedbackManager.instance.Feedback(_playerFatigueDmg,transform.position + new Vector3(0, transform.localScale.y+1,0) ,1f); } }
+        public int PA { get { return _PA; } set { _PA = value; if (paTxt != null) { paTxt.text = PA.ToString(); } } }
+        public int stockPA { get { return _stockPA; } set { _stockPA = value; if (stockPaTxt != null) { stockPaTxt.text = stockPA.ToString(); } } }
+        public int PM { get { return _PM; } set { _PM = value; if (pmTxt != null) { pmTxt.text = PM.ToString(); } } }
+        public int fatigue
+        {
+            get { return _fatigue; }
+            set
+            {
+                _fatigue = value;
+                fatigueText.text = fatigue.ToString();
+
+                FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position + new Vector3(0, transform.localScale.y + 1, 0), 1f);
+                if (mainFatigueTxt != null)
+                {
+                    Debug.Log("Allo ???????"); mainFatigueTxt.text = fatigue.ToString();
+                }
+            }
+        }
         public Vector2Int position { get { return _position; } set { _position = value; } }
         public Vector2Int Direction { get { return _direction; } set { _direction = value; } }
         public List<Action> deck { get { return _deck; } set { _deck = value; } }
@@ -48,23 +69,36 @@ namespace WeekAnkama
         public bool isOut { get { return _isOut; } set { _isOut = value; } }
         #endregion
 
+
         private void Awake()
         {
             ResetDatas();
             ResetFatigue();
         }
-        public void TakeDamage(int amount)
+
+        public int TakeDamage(Player attacker, int amount)
         {
+            int lastFatigue = fatigue;
 
             Debug.Log("Allo ?");
             fatigue += amount;
 
-            Debug.Log(fatigue);
+            if(amount>0)
+            {
+                takeDamage?.Invoke(attacker, this);
+            }
+
+            if (Mathf.FloorToInt(_fatigue / 100) > Mathf.FloorToInt(lastFatigue / 100))
+            {
+                passSelfExhaust?.Invoke(this, this);
+            }
+
+            return fatigue;
         }
 
         public void ResetDatas()
         {
-            
+            beginTurn?.Invoke(this, this);
             PA = _basePA;
             PM = _basePM;
         }
@@ -74,6 +108,14 @@ namespace WeekAnkama
             fatigue = 0;
         }
 
+        public void SetPlayerUI(Image _icone, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)
+        {
+            icone = _icone;
+            mainFatigueTxt = _mainFatigueTxt;
+            pmTxt = _pmTxt;
+            paTxt = _paTxt;
+            stockPaTxt = _stockPaTxt;
+        }
     }
 }
 
