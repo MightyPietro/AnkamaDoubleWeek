@@ -47,6 +47,7 @@ public class MouseHandler : MonoBehaviour
     {
         //Debug.Log("Click !!!");
         OnMouseLeftClick?.Invoke();
+        
     }
 
     private void OnMove(InputAction.CallbackContext ctx)

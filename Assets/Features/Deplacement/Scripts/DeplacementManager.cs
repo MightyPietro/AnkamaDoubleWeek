@@ -7,6 +7,7 @@ namespace WeekAnkama
     public class DeplacementManager : MonoBehaviour
     {
         public static DeplacementManager instance;
+
 		public Transform targetToMove;
 		[SerializeField]
 		float speed = 1;
@@ -19,11 +20,18 @@ namespace WeekAnkama
 		public Transform testT, testMovable;
 
 		bool processDeplacement;
+		public static event Action<Player> OnPlayerMovement;
+		public static event Action<Player> OnPlayerMovementFinished;
+		[SerializeField] private Feedback _moveFeedback;
 
-        private void Awake()
+		private void Awake()
         {
 			instance = this;
-        }
+
+			OnPlayerMovement += DisableInputs;
+			OnPlayerMovementFinished += EnableInputs;
+			TurnManager.OnBeginPlayerTurn += EnableInputs;
+        }		
 
         public void AskToMove(Tile wantedTile, Transform objectToMove)
         {
@@ -54,6 +62,7 @@ namespace WeekAnkama
 			{
 				//Désactiver les Inputs
 				processDeplacement = true;
+				OnPlayerMovement?.Invoke(targetToMove.gameObject.GetComponent<Player>());
 
 				path = newPath;
 				targetIndex = 0;
@@ -67,6 +76,7 @@ namespace WeekAnkama
 			StopCoroutine(FollowPath());
 			Debug.Log("Movement stop");
 			processDeplacement = false;
+			OnPlayerMovementFinished?.Invoke(targetToMove.gameObject.GetComponent<Player>());
 		}
 
 		IEnumerator FollowPath()
@@ -77,9 +87,10 @@ namespace WeekAnkama
 
 			while (processDeplacement)
 			{
+
 				posUnit = targetToMove.position;
 				posTarget = currentWaypoint.WorldPosition;
-
+				
 				if (Vector3.Distance(posUnit, posTarget) < (speed * Time.deltaTime))
 				{
 					targetIndex++;
@@ -99,12 +110,15 @@ namespace WeekAnkama
 					Vector2 dir = new Vector2(nextTile.Coords.x - currentWaypoint.Coords.x, nextTile.Coords.y - currentWaypoint.Coords.y).normalized;
 					player.Direction = new Vector2Int((int)dir.x, (int)dir.y);
 
+					Tile previousWaypoint = currentWaypoint;
 					currentWaypoint = nextTile;
 
 					if(player != null)
                     {
+						FeedbackManager.instance.Feedback(_moveFeedback, previousWaypoint.WorldPosition, .5f);
 						currentWaypoint.SetPlayer(player);
 						player.position = currentWaypoint.Coords;
+						
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
@@ -116,6 +130,7 @@ namespace WeekAnkama
 
 
 			//Réactiver les Inputs
+			OnPlayerMovementFinished?.Invoke(player);
 		}
 
 		public int GetDistance(Tile nodeA, Tile nodeB)
@@ -124,6 +139,22 @@ namespace WeekAnkama
 			int dstY = Mathf.Abs(nodeA.Coords.y - nodeB.Coords.y);
 
 			return 10 * (dstY + dstX);
+		}
+
+		private void DisableInputs(Player player)
+        {
+            if (player == PlayerManager.instance.actualPlayer)
+            {
+				MouseHandler.Instance.DisableGameplayInputs();
+			}
+		}
+
+		private void EnableInputs(Player player)
+		{
+			if (player == PlayerManager.instance.actualPlayer)
+			{
+				MouseHandler.Instance.EnableGameplayInputs();
+			}
 		}
 	}
 }
