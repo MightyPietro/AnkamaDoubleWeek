@@ -230,6 +230,12 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
+
+                if (actualPlayer.currentAction.range == 1)
+                {
+                    actualPlayer.Punch();
+                }
+
                 actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
                 actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
