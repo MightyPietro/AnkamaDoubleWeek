@@ -116,9 +116,8 @@ namespace WeekAnkama
 					if(player != null)
                     {
 						FeedbackManager.instance.Feedback(_moveFeedback, previousWaypoint.WorldPosition, .5f);
-						currentWaypoint.SetPlayer(player);
 						player.position = currentWaypoint.Coords;
-						
+						currentWaypoint.SetPlayer(player);
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;

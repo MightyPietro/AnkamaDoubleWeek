@@ -8,7 +8,9 @@ namespace WeekAnkama
     {
         public override bool Process(Tile casterTile, Tile targetTile, Action action)
         {
+            FeedbackManager.instance.WaterFeedback(targetTile.WorldPosition, 1.5f);
             return base.Process(casterTile, targetTile, action);
+
         }
     }
 }

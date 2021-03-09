@@ -17,7 +17,7 @@ namespace WeekAnkama
                 return;
             } 
             _player.fatigue += _fatigue;
-            FeedbackManager.instance.CharaFireFeedback(_player.transform.position + _player.transform.localScale, 3f);
+            FeedbackManager.instance.CharaFireFeedback(_player.transform.position + _player.transform.localScale, 3f,_player.transform);
         }
 
     }

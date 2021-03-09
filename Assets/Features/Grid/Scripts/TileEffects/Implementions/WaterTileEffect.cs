@@ -19,7 +19,7 @@ namespace WeekAnkama
             }
 
             _player.PM--;
-
+            FeedbackManager.instance.WaterFeedback(_linkedTile.WorldPosition, 1.5f);
 
         }
 
