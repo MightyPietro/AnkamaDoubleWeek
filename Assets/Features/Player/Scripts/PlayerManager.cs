@@ -239,10 +239,10 @@ namespace WeekAnkama
                     actualPlayer.PA -= actualPlayer.currentAction.paCost;
                     actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
-                if (actualPlayer.currentAction.range == 1)
-                {
-                    actualPlayer.Punch();
-                }
+                    if (actualPlayer.currentAction.range == 1)
+                    {
+                        actualPlayer.Punch();
+                    }
 
                     if (currentCard != null) currentCard.interactable = false;
 
