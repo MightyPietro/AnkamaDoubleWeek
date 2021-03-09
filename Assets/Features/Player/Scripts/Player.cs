@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace WeekAnkama
 {
@@ -17,9 +18,10 @@ namespace WeekAnkama
         [SerializeField] private List<Action> _deck;
         [SerializeField] private List<Action> _hand;
         [SerializeField] private Action _currentAction;
-        [SerializeField] private Text _fatigueText;
-        [SerializeField] private Text _PAText;
-        [SerializeField] private Text _PMText;
+        [SerializeField] private TextMeshProUGUI _fatigueText;
+        [SerializeField] private TextMeshProUGUI _PAText;
+        [SerializeField] private TextMeshProUGUI _PMText;
+        [SerializeField] private Feedback _playerFatigueDmg;
         private bool _processMovement = false;
         private bool _isOut = false;
         private Vector2Int _direction;
@@ -30,18 +32,18 @@ namespace WeekAnkama
 
 
         #region Getter/Setter
-        public int PA { get { return _PA; } set { _PA = value; PAText.text = PA.ToString() + "/"; } }
+        public int PA { get { return _PA; } set { _PA = value; } }// PAText.text = PA.ToString() + "/"; } }
         public int stockPA { get { return _stockPA; } set { _stockPA = value;} }
-        public int PM { get { return _PM; } set { _PM = value; _PMText.text = PM.ToString(); } }
-        public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); } }
+        public int PM { get { return _PM; } set { _PM = value; } }// _PMText.text = PM.ToString(); } }
+        public int fatigue { get { return _fatigue; } set { _fatigue = value; fatigueText.text = fatigue.ToString(); FeedbackManager.instance.Feedback(_playerFatigueDmg,transform.position + new Vector3(0, transform.localScale.y+1,0) ,1f); } }
         public Vector2Int position { get { return _position; } set { _position = value; } }
         public Vector2Int Direction { get { return _direction; } set { _direction = value; } }
         public List<Action> deck { get { return _deck; } set { _deck = value; } }
         public List<Action> hand { get { return _hand; } set { _hand = value; } }
         public Action currentAction { get { return _currentAction; } set { _currentAction = value; } }
-        public Text fatigueText { get { return _fatigueText; } set { _fatigueText = value; } }
-        public Text PAText { get { return _PAText; } set { _PAText = value; } }
-        public Text PMText { get { return _PMText; } set { _PMText = value; } }
+        public TextMeshProUGUI fatigueText { get { return _fatigueText; } set { _fatigueText = value; } }
+        public TextMeshProUGUI PAText { get { return _PAText; } set { _PAText = value; } }
+        public TextMeshProUGUI PMText { get { return _PMText; } set { _PMText = value; } }
         public bool processMovement { get { return _processMovement; } set { _processMovement = value; } }
         public bool isOut { get { return _isOut; } set { _isOut = value; } }
         #endregion
@@ -56,6 +58,8 @@ namespace WeekAnkama
 
             Debug.Log("Allo ?");
             fatigue += amount;
+
+            Debug.Log(fatigue);
         }
 
         public void ResetDatas()

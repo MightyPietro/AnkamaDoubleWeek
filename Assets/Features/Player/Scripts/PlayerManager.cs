@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
+
 namespace WeekAnkama
 {
     public class PlayerManager : MonoBehaviour
@@ -20,9 +22,12 @@ namespace WeekAnkama
         [SerializeField] private IntVariable _playerValue;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
+        [SerializeField] private Feedback _teleportPlayer;
+
 
         Grid grid;
 
+        [SerializeField]
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
         private List<Tile> _tilesInPreview;
@@ -123,9 +128,9 @@ namespace WeekAnkama
 
         private void ChangeTextState(bool value)
         {
-            if (actualPlayer == null) return;
+            /*if (actualPlayer == null) return;
             actualPlayer.PAText.enabled = value;
-            actualPlayer.PMText.enabled = value;
+            actualPlayer.PMText.enabled = value;*/
         }
         private void DoSomethinOnTileViaRPC(Tile targetTile)
         {
@@ -136,6 +141,7 @@ namespace WeekAnkama
             else
             {
                 DoSomethingOnTile(targetTile.Coords.x, targetTile.Coords.y);
+                
             }
             
         }
@@ -190,6 +196,7 @@ namespace WeekAnkama
             if (DeplacementManager.instance.GetDistance(targetTile, castTile) / 10 <= actualPlayer.PM)
             {
                 DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
+                
             }
 
         }
@@ -204,6 +211,7 @@ namespace WeekAnkama
                 playerToTeleport.position = tileWanted.Coords;
                 Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
+                FeedbackManager.instance.Feedback(_teleportPlayer, tileWanted.WorldPosition, 2.1f);
                 return true;
             }
             else
@@ -249,15 +257,26 @@ namespace WeekAnkama
             {
                 actualPlayer._deckReminder.Add(actualPlayer.deck[i]);
             }
-
-            int maxCard = actualPlayer._deckReminder.Count >= 4 ? 4 : actualPlayer._deckReminder.Count;
-            for (int i = 0; i < maxCard; i++)
+            /*for (int i = 0; i < 4; i++)
             {
                 int rand = Random.Range(0, actualPlayer._deckReminder.Count);
                 actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
                 actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
 
+            }*/
+
+            for (int i = 0; i < 4; i++)
+            {
+                DrawCard();
             }
+
+        }
+
+        public void DrawCard()
+        {
+            int rand = Random.Range(0, actualPlayer._deckReminder.Count);
+            actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
+            actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
         }
 
         [PunRPC]
@@ -324,6 +343,16 @@ namespace WeekAnkama
             if (!enable) tilesInPreview.Clear();
         }
 
+        [PunRPC]
+        private void HandleUnselectCard()
+        {
+            if (actualPlayer == null) return;
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            //_tilesInPreview.Clear();
+            actualPlayer.currentAction = null;
+        }
+
+
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
@@ -334,13 +363,34 @@ namespace WeekAnkama
 
         private void OnLeftClickNoTile()
         {
-            HandleUnselectCard(actualPlayer);
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("HandleUnselectCard", RpcTarget.All);
+            }
+            else
+            {
+                HandleUnselectCard(actualPlayer);
+            }
+
         }
 
         [Button]
         private void DisplayCards()
         {
-            if (displayedCards.Count == 0)
+            for(int i = 0; i < displayedCards.Count; i++)
+            {
+                if(i < actualPlayer.hand.Count)
+                {
+                    ResetCards(displayedCards[i], actualPlayer.hand[i]);
+                    displayedCards[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    displayedCards[i].gameObject.SetActive(false);
+                }
+            }
+
+            /*if (displayedCards.Count == 0)
             {
                 displayedCards.Clear();
                 for (int i = 0; i < actualPlayer.hand.Count; i++)
@@ -358,7 +408,7 @@ namespace WeekAnkama
                     Action action = actualPlayer.hand[i];
                     ResetCards(displayedCards[i], action);
                 }
-            }
+            }*/
         }
 
         private void ResetCards(Button card, Action action)
@@ -419,7 +469,134 @@ namespace WeekAnkama
 
         private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
         {
-            return PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange, actionToCheck.hasSightView);
+            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange);
+
+            List<Tile> obstacles = new List<Tile>();
+            foreach(Tile t in tilesInRange)
+            {
+                if(!t.Walkable)
+                {
+                    obstacles.Add(t);
+                }
+            }
+
+            for(int i = 0; i < tilesInRange.Count; i++)
+            {
+                if(!IsTileVisible(castTile, tilesInRange[i]) && tilesInRange[i].Player == null)
+                {
+                    tilesInRange.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            return tilesInRange;
+        }
+
+        private bool IsTileVisible(Tile startTile, Tile targetTile)
+        {
+            int x = targetTile.Coords.x;
+            int y = targetTile.Coords.y;
+            int j = y;
+
+            float realJ = y;
+
+            int diffX = targetTile.Coords.x - startTile.Coords.x;
+            int diffY = targetTile.Coords.y - startTile.Coords.y;
+
+            float absX = Mathf.Abs((float)diffX);
+            float absY = Mathf.Abs((float)diffY);
+
+            int xCoef = 1;
+            int yCoef = 1;
+
+            if (diffX < 0)
+            {
+                xCoef = -1;
+            }
+            else if (diffX == 0)
+            {
+                xCoef = 0;
+            }
+
+            if (diffY < 0)
+            {
+                yCoef = -1;
+            }
+            else if (diffY == 0)
+            {
+                yCoef = 0;
+            }
+
+
+
+            if (absX == absY)
+            {
+                for (int i = x; i != startTile.Coords.x; i -= xCoef)
+                {
+
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i,j), out Tile t) || !t.Walkable)
+                    {
+                        return false;
+                    }
+
+                    realJ -= yCoef;
+                    j = Mathf.RoundToInt(realJ);
+                }
+            }
+            else if (absX > absY)
+            {
+                for (int i = x; i != startTile.Coords.x; i -= xCoef)
+                {
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i, j), out Tile t) || !t.Walkable)
+                    {
+                        return false;
+                    }
+
+                    if (yCoef != 0 && diffY != 0)
+                    {
+                        realJ -= (absY / absX) * (float)yCoef;
+                        j = Mathf.RoundToInt(realJ);
+                    }
+                }
+            }
+            else if (absX < absY)
+            {
+                realJ = x;
+                j = x;
+                for (int i = y; i != startTile.Coords.y; i -= yCoef)
+                {
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i, j), out Tile t) || !t.Walkable)
+                    {
+                        return false;
+                    }
+
+                    if (xCoef != 0 && diffX != 0)
+                    {
+                        realJ -= (absX / absY) * (float)xCoef;
+                        j = Mathf.RoundToInt(realJ);
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        [SerializeField]
+        private TextMeshProUGUI spellTitle, spellDescription;
+        [SerializeField]
+        private GameObject spellDetailObject;
+
+        public void DisplaySpellDetail(int index)
+        {
+            spellDetailObject.transform.position = new Vector3(700+75*index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
+            spellTitle.text = actualPlayerHand[index].name;
+            spellDescription.text = actualPlayerHand[index].description;
+            spellDetailObject.SetActive(true);
+        }
+
+        public void HideSpellDetail()
+        {
+            spellDetailObject.SetActive(false);
         }
 
     }

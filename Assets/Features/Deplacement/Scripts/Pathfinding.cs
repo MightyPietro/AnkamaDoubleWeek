@@ -68,7 +68,6 @@ namespace WeekAnkama
 			{
 				i++;
 				currentNode = currentNode.parent;
-				//Debug.Log(currentNode.gCost + " + " + currentNode.hCost + " > " + maxDistance);
 			}
 
 			while (currentNode != startNode)
@@ -98,7 +97,7 @@ namespace WeekAnkama
 
 				foreach (Tile neighbour in grid.GetNeighbours(currentNode))
 				{
-					if (/*!neighbour.Walkable || */closedSet.Contains(neighbour))
+					if (!neighbour.Walkable || closedSet.Contains(neighbour))
 					{
 						continue;
 					}
@@ -127,7 +126,7 @@ namespace WeekAnkama
 			return false;
 		}
 
-		public List<Tile> GetNodesWithRange(Tile startNode, int maxDistance, bool isInLine, bool hasSightView)
+		public List<Tile> GetNodesWithRange(Tile startNode, int maxDistance, bool isInLine)
 		{
 			ResetTiles();
 
@@ -214,23 +213,9 @@ namespace WeekAnkama
 
 							if (!openSet.Contains(neighbour))
 							{
-								if ((!neighbour.Walkable && (neighbour.parent == startNode || neighbour.parent.Walkable)))
-								{
-									closedSet.Add(neighbour);
-									toReturn.Add(neighbour);
-								}
-								else
-								{
-									openSet.Add(neighbour);
-									toReturn.Add(neighbour);
-								}
-							}
-
-							/*if (!openSet.Contains(neighbour))
-							{
 								openSet.Add(neighbour);
 								toReturn.Add(neighbour);
-							}*/
+							}
 						}
 				}
 			}

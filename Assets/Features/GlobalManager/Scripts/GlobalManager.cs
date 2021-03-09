@@ -9,7 +9,11 @@ namespace WeekAnkama
     {
         #region Private Variables
         [SerializeField] private List<Player> _players;
-        [SerializeField]
+
+        private bool pushingSomething = false;
+        private bool queuedPush = false;
+        private Vector2Int queuedDir;
+        private int queuedPushForce = 0;
         #endregion
 
         #region Getter/Setter
@@ -18,21 +22,19 @@ namespace WeekAnkama
 
         public static GlobalManager instance;
 
-        public static event Action<Player,float,bool> OnPushFinished;
+        public static event Action<Player> OnPushFinished;
 
         private void Awake()
         {
             instance = this;
 
-            OnPushFinished += (Player p, float speed, bool isPlayerOut) =>
+            OnPushFinished += (Player p) =>
             {
-                if (!p.processMovement && queuedMovement.Count > 0)
+                pushingSomething = false;
+                if (!p.processMovement && queuedPush)
                 {
-                    p.processMovement = true;
-                    StartCoroutine(FollowPushMovementPathh(queuedMovement, p, queuedPlayerToDamage, speed, isPlayerOut, queuedDamages));
-                    queuedMovement.Clear();
-                    queuedDamages = 0;
-                    queuedPlayerToDamage = null;
+                    queuedPush = false;
+                    AskPushPlayer(p, queuedDir, queuedPushForce);
                 }
             };
         }
@@ -110,17 +112,23 @@ namespace WeekAnkama
         {
             DeplacementManager.instance.StopMovement();
 
+            if (pushingSomething && !queuedPush)
+            {
+                queuedPush = true;
+                queuedDir = pushDirection;
+                queuedPushForce = pushForce;
+                return;
+            }
+            bool isPlayerOut = false;
             Debug.Log(pushForce);
             int damageTaken = 0;
-            bool isPlayerOut = false;
 
             Tile playerTile = null;
             List<Tile> pushPath = new List<Tile>();
             if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce,out Player playerToDamage, out damageTaken, out isPlayerOut);
-                AskPlayerToFollowPath(pushPath, playerToPush, playerToDamage, 5, isPlayerOut, damageTaken);
-                
+                AskPlayerToFollowPath(pushPath, playerToPush, playerToDamage, 5, isPlayerOut, damageTaken);                
             }
         }
 
@@ -133,23 +141,13 @@ namespace WeekAnkama
             }
         }
 
-        
-        private List<Tile> queuedMovement = new List<Tile>();
-        private int queuedDamages = 0;
-        private Player queuedPlayerToDamage;
-
         public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
         {
             if(!playerToMove.processMovement)
             {
                 playerToMove.processMovement = true;
                 StartCoroutine(FollowPushMovementPathh(path, playerToMove, playerToDamage, speed, isPlayerOut, damages));
-            }
-            else
-            {
-                queuedMovement.AddRange(path);
-                queuedDamages = damages;
-                queuedPlayerToDamage = playerToDamage;
+                pushingSomething = true;
             }
         }
 
@@ -189,6 +187,11 @@ namespace WeekAnkama
                         else
                         {
                             playerToMove.processMovement = false;
+                            if(currentWaypoint.Player == null)// If player not set, means path was only one and dont need trigger, already on tile
+                            {
+                                currentWaypoint.SetPlayerNoTrigger(playerToMove);
+                            }
+
                             //Réactiver les Inputs                            
 
                             playerToMove.TakeDamage(damages * 80);
@@ -201,12 +204,17 @@ namespace WeekAnkama
                             if(isPlayerOut)
                             {
                                 PlayerManager.instance.SetPlayerOutArena(playerToMove);
+                                currentWaypoint.UnSetPlayer();
                             }
-                            OnPushFinished?.Invoke(playerToMove, speed, isPlayerOut);
+                            else
+                            {
+                                OnPushFinished?.Invoke(playerToMove);
+                            }
                             yield break;
                         }
                     }
 
+                    Debug.Log(currentWaypoint.Player + "___ toMove :" + playerToMove);
                     currentWaypoint.UnSetPlayer();
 
                     if (targetIndex < path.Count)
@@ -217,7 +225,6 @@ namespace WeekAnkama
                         {
                             currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
                             targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
-
                         }
                     }
                 }
@@ -234,7 +241,7 @@ namespace WeekAnkama
 
                     targetToMove.position += direction * speed * Time.deltaTime;
                 }
-
+                
                 yield return null;
 
             }

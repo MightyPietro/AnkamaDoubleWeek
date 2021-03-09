@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
+  description: 
   isTileEffect: 1
   tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
   prefab: {fileID: 0}
@@ -19,7 +20,7 @@ MonoBehaviour:
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 0
-  range: 3
+  range: 7
   hasSightView: 0
   isLinedRange: 0
   actionTypes: 08000000

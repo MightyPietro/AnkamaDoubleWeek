@@ -10,6 +10,9 @@ namespace WeekAnkama
     public class Action : ScriptableObject
     {
 
+        [TextArea(2, 5)]
+        public string description;
+
         public bool isTileEffect = false;
         [ShowIf("isTileEffect")]
         public TileEffect tileEffect;
