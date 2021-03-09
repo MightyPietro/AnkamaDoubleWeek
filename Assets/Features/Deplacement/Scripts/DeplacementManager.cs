@@ -53,6 +53,9 @@ namespace WeekAnkama
 			{
 				targetToMove = playerToMove.transform;
 				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
+				playerToMove.anim.SetBool("isIDLE", false);
+				playerToMove.anim.SetBool("isRun",true);
+
 			}
 		}
 
@@ -77,7 +80,9 @@ namespace WeekAnkama
 			Debug.Log("Movement stop");
 			processDeplacement = false;
 			OnPlayerMovementFinished?.Invoke(targetToMove.gameObject.GetComponent<Player>());
-		}
+
+
+        }
 
 		IEnumerator FollowPath()
 		{
@@ -130,6 +135,7 @@ namespace WeekAnkama
 
 			//Réactiver les Inputs
 			OnPlayerMovementFinished?.Invoke(player);
+
 		}
 
 		public int GetDistance(Tile nodeA, Tile nodeB)
