@@ -163,13 +163,17 @@ namespace WeekAnkama
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
-                        if (targetTile.Player != actualPlayer)
+                        if (targetTile.Player != actualPlayer || actualPlayer.currentAction.canBePlayedOnself)
                         {
                             if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
                             {
                                 DoAction(targetTile);
                             }
                             else if (actualPlayer.currentAction.isTileEffect)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else if (actualPlayer.currentAction.isTargettingTile)
                             {
                                 DoAction(targetTile);
                             }
@@ -230,22 +234,28 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
+                if(actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction))
+                {
+                    actualPlayer.PA -= actualPlayer.currentAction.paCost;
+                    actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
                 if (actualPlayer.currentAction.range == 1)
                 {
                     actualPlayer.Punch();
                 }
 
-                actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
-                actualPlayer.PA -= actualPlayer.currentAction.paCost;
-                actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
-
-                if(currentCard != null) currentCard.interactable = false;
+                    if (currentCard != null) currentCard.interactable = false;
 
 
-                HandleUnselectCard(actualPlayer);
+                    HandleUnselectCard(actualPlayer);
 
-                //CheckCardsCost();
+                    //CheckCardsCost();
+                }
+                else
+                {
+                    HandleUnselectCard();
+                }
+
 
             }            
         }
@@ -279,12 +289,27 @@ namespace WeekAnkama
             }
 
         }
-
-        public void DrawCard()
+        /// <summary>
+        /// Draw card for Actual Player, in this class to fill player hands
+        /// </summary>
+        private void DrawCard()
         {
             int rand = Random.Range(0, actualPlayer._deckReminder.Count);
             actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
             actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
+        }
+
+        /// <summary>
+        /// Draw card by using an action
+        /// </summary>
+        /// <param name="player"></param>
+        public void DrawCard(Player player)
+        {
+            int rand = Random.Range(0, player._deckReminder.Count);
+            player.hand.Add(player._deckReminder[rand]);
+            player._deckReminder.Remove(player._deckReminder[rand]);
+            DisplayCards();
+
         }
 
         [PunRPC]
@@ -317,17 +342,17 @@ namespace WeekAnkama
 
             //Calcul tiles to preview
             int range = action.range;
-            for (int y = -range; y <= range; y++)
+            /*for (int y = -range; y <= range; y++)
             {
                 for (int x = -range; x <= range; x++)
                 {
-                    if (x == y || (x != 0 && y!=0)) continue;
+                    if ( (x == y && x == 0 && !action.canBePlayedOnself) || (x == y && x != 0)|| (x != 0 && y!=0)) continue;
                     if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
                     {
                         _tilesInPreview.Add(currentTile);
                     }
                 }
-            }
+            }*/
 
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
 
@@ -494,6 +519,13 @@ namespace WeekAnkama
                 {
                     tilesInRange.RemoveAt(i);
                     i--;
+                }
+            }
+            if (actionToCheck.canBePlayedOnself)
+            {
+                if (!tilesInRange.Contains(castTile))
+                {
+                    tilesInRange.Add(castTile);
                 }
             }
 
