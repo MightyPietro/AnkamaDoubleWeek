@@ -187,6 +187,11 @@ namespace WeekAnkama
                         else
                         {
                             playerToMove.processMovement = false;
+                            if(currentWaypoint.Player == null)// If player not set, means path was only one and dont need trigger, already on tile
+                            {
+                                currentWaypoint.SetPlayerNoTrigger(playerToMove);
+                            }
+
                             //Réactiver les Inputs                            
 
                             playerToMove.TakeDamage(damages * 80);
@@ -199,6 +204,7 @@ namespace WeekAnkama
                             if(isPlayerOut)
                             {
                                 PlayerManager.instance.SetPlayerOutArena(playerToMove);
+                                currentWaypoint.UnSetPlayer();
                             }
                             else
                             {
@@ -208,6 +214,7 @@ namespace WeekAnkama
                         }
                     }
 
+                    Debug.Log(currentWaypoint.Player + "___ toMove :" + playerToMove);
                     currentWaypoint.UnSetPlayer();
 
                     if (targetIndex < path.Count)
@@ -218,7 +225,6 @@ namespace WeekAnkama
                         {
                             currentWaypoint.SetPlayer(targetToMove.gameObject.GetComponent<Player>());
                             targetToMove.gameObject.GetComponent<Player>().position = currentWaypoint.Coords;
-
                         }
                     }
                 }

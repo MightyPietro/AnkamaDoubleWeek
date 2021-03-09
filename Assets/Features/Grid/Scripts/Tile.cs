@@ -83,6 +83,12 @@ namespace WeekAnkama
             OnEnterCase?.Invoke(player);
         }
 
+        public void SetPlayerNoTrigger(Player player)
+        {
+            if (player == null || player == _player) return;
+            _player = player;
+        }
+
         public void UnSetPlayer()
         {            
             OnLeaveCase?.Invoke(_player);

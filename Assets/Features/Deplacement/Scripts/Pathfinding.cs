@@ -98,7 +98,7 @@ namespace WeekAnkama
 
 				foreach (Tile neighbour in grid.GetNeighbours(currentNode))
 				{
-					if (/*!neighbour.Walkable || */closedSet.Contains(neighbour))
+					if (!neighbour.Walkable || closedSet.Contains(neighbour))
 					{
 						continue;
 					}

@@ -113,8 +113,8 @@ namespace WeekAnkama
 
 					if(player != null)
                     {
-						currentWaypoint.SetPlayer(player);
 						player.position = currentWaypoint.Coords;
+						currentWaypoint.SetPlayer(player);
 					}
 				}
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
