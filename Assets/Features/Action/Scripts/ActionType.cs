@@ -8,14 +8,15 @@ namespace WeekAnkama
     public enum ActionType
     {
         Attract = (1 << 0),
-        Teleportation = (1 << 1),
-        Damage = (1 << 2),
-        Push = (1 << 3),        
-        Water = (1 << 4),
-        Fire = (1 << 5),
-        Earth = (1 << 6),
-        Air = (1 << 7),
-        DestroyTerraforming = (1 << 8),        
+        Charge = (1 << 1),
+        Teleportation = (1 << 2),
+        Damage = (1 << 3),
+        Push = (1 << 4),        
+        Water = (1 << 5),
+        Fire = (1 << 6),
+        Earth = (1 << 7),
+        Air = (1 << 8),
+        DestroyTerraforming = (1 << 9),        
     }
 }
 

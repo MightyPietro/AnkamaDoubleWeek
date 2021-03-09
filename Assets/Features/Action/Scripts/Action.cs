@@ -9,27 +9,35 @@ namespace WeekAnkama
     [CreateAssetMenu(menuName = "Assets/Action")]
     public class Action : ScriptableObject
     {
-
+        [Header("Common Values")]
         [TextArea(2, 5)]
         public string description;
-
-        public bool isTileEffect = false;
-        public bool isTargettingTile = false;
-        [ShowIf("isTileEffect")]
-        public TileEffect tileEffect;
-        [HideIf("isTileEffect")]
-        public GameObject prefab;
-        [Range(0,10)]
+        [Range(0, 10)]
         public int paCost;
         public int bonusPA;
         [Range(0, 200)]
         public int fatigueDmg;
+        [Range(0,10)]
         public int pushCase;
         [Range(0, 7)]
         public int range;
 
+        [Space, Header("Action type")]
+        public bool isTileEffect = false;
+        [ShowIf("isTileEffect"), PropertySpace(0, 20.0f)]
+        public TileEffect tileEffect;
         public bool hasSightView, isLinedRange;
 
+        public bool isTargettingTile = false; 
+        
+        [Space]
+        public bool isAreaAction;
+        [ShowIfGroup("isAreaAction")]
+        public int areaRange;
+        [ShowIfGroup("isAreaAction")]public bool hasLineArea = true;
+        [HideIfGroup("hasLineArea")] public List<Vector2> customArea;
+        [Space]           
+       
 
         [Header("Action")]
         public List<ActionType> actionTypes;
@@ -50,12 +58,15 @@ namespace WeekAnkama
         [ContextMenu("Process")]
         public bool Process(Tile casterTile, Tile targetTile, Action action)
         {
-            Player player;
+            Player playerTargeted;
+            Player playerCaster;
             bool res = true;
+            playerTargeted = targetTile.Player;
+            playerCaster = casterTile.Player;
+            Tile targetedPlayerTile, casterPlayerTile;
 
-            player = targetTile.Player;
-            Tile playerTile;
             FindActionEffectSubClass();
+
             for (int j = 0; j < actionTypes.Count; j++)
             {
                 foreach (System.Type item in actionEffects)
@@ -68,13 +79,17 @@ namespace WeekAnkama
 
                         if (!eff.Process(casterTile, targetTile, action)) // on essaye l effet sur la case ciblé
                         {
-                            if (player == null)
+                            if (playerTargeted == null)
                             {
                                 return false;                                
                             }
-                            if (GridManager.Grid.TryGetTile(player.position, out playerTile))
+                            if (GridManager.Grid.TryGetTile(playerTargeted.position, out targetedPlayerTile))
                             {
-                                res = eff.Process(casterTile, playerTile, action); // le player a peut être été déplacé donc on essaye
+                                res = eff.Process(casterTile, targetedPlayerTile, action); // le player target a peut être été déplacé donc on essaye
+                            }
+                            if(GridManager.Grid.TryGetTile(playerCaster.position, out casterPlayerTile))
+                            {
+                                res = eff.Process(casterPlayerTile, targetTile, action); // maybe it's the caster which moved, we try (charge, TP)
                             }
                         }
                     }

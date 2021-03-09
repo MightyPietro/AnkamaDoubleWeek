@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: DestroyElement
   m_EditorClassIdentifier: 
   description: 
-  isTileEffect: 0
-  tileEffect: {fileID: 0}
-  prefab: {fileID: 0}
   paCost: 0
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 0
   range: 3
+  isTileEffect: 0
+  tileEffect: {fileID: 0}
   hasSightView: 0
   isLinedRange: 1
-  actionTypes: 80000000
+  isTargettingTile: 0
+  isAreaAction: 0
+  areaRange: 0
+  hasLineArea: 0
+  customArea: []
+  actionTypes: 00020000

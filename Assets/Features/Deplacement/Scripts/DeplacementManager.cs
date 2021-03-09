@@ -76,7 +76,10 @@ namespace WeekAnkama
 			StopCoroutine(FollowPath());
 			Debug.Log("Movement stop");
 			processDeplacement = false;
-			OnPlayerMovementFinished?.Invoke(targetToMove.gameObject.GetComponent<Player>());
+            if (targetToMove != null)
+            {
+				OnPlayerMovementFinished?.Invoke(targetToMove.gameObject.GetComponent<Player>());
+			}
 		}
 
 		IEnumerator FollowPath()
