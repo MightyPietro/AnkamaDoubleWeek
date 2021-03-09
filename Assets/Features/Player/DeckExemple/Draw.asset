@@ -17,7 +17,7 @@ MonoBehaviour:
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 0
-  range: 0
+  range: 1
   isTileEffect: 0
   tileEffect: {fileID: 0}
   hasSightView: 0

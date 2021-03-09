@@ -23,8 +23,9 @@ MonoBehaviour:
   hasSightView: 0
   isLinedRange: 1
   isTargettingTile: 0
+  canBePlayedOnself: 0
   isAreaAction: 0
   areaRange: 0
   hasLineArea: 1
   customArea: []
-  actionTypes: 02000000080000001000000020000000
+  actionTypes: 080000001000000020000000
