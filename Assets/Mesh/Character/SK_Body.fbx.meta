@@ -4,20 +4,20 @@ ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
-      74: 4969693413197702009
-    second: Armature|Falling_01
-  - first:
-      74: 4859965331425882094
-    second: Armature|Walk_01
+      74: -2119728706601795564
+    second: Armature|000_T-Pose
   - first:
       74: -47757044105611666
     second: Armature|Attack_01
   - first:
       74: 7766256570425640492
-    second: Armature|Attack_01.001
+    second: Armature|Attack_03
   - first:
       74: 8416408570801230831
     second: Armature|Attack_02
+  - first:
+      74: 4969693413197702009
+    second: Armature|Falling_01
   - first:
       74: 4387223280812128721
     second: Armature|Hurt_01
@@ -34,14 +34,15 @@ ModelImporter:
       74: 7824715469267687378
     second: Armature|TornadeDeKonoha
   - first:
+      74: 4859965331425882094
+    second: Armature|Walk_01
+  - first:
       74: -8866149348495393048
     second: Armature|Walk_02
-  externalObjects:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: defaultMat.001
-    second: {fileID: 2100000, guid: 2f86ea4b107b8ea46966027fd3344b3e, type: 2}
+      74: 5193206120137211919
+    second: Armature|Taunt_01
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -70,7 +71,6 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-<<<<<<< HEAD
       name: Armature|000_T-Pose
       takeName: Armature|000_T-Pose
       internalID: 0
@@ -100,8 +100,6 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-=======
->>>>>>> develop
       name: Armature|Attack_01
       takeName: Armature|Attack_01
       internalID: 0
@@ -131,19 +129,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-<<<<<<< HEAD
       name: Armature|Attack_02
       takeName: Armature|Attack_02
       internalID: 0
       firstFrame: 0
       lastFrame: 144
-=======
-      name: Armature|Attack_01.001
-      takeName: Armature|Attack_01.001
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 137
->>>>>>> develop
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -168,19 +158,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-<<<<<<< HEAD
       name: Armature|Attack_03
       takeName: Armature|Attack_03
       internalID: 0
       firstFrame: 0
       lastFrame: 137
-=======
-      name: Armature|Attack_02
-      takeName: Armature|Attack_02
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 144
->>>>>>> develop
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -303,11 +285,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-<<<<<<< HEAD
       loopTime: 0
-=======
-      loopTime: 1
->>>>>>> develop
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -354,7 +332,6 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-<<<<<<< HEAD
       name: Armature|Taunt_01
       takeName: Armature|Taunt_01
       internalID: 0
@@ -384,8 +361,6 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-=======
->>>>>>> develop
       name: Armature|TornadeDeKonoha
       takeName: Armature|TornadeDeKonoha
       internalID: 0
