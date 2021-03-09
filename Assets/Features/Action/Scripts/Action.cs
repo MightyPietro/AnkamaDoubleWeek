@@ -14,6 +14,7 @@ namespace WeekAnkama
         public string description;
 
         public bool isTileEffect = false;
+        public bool targetTileEffect = false;
         [ShowIf("isTileEffect")]
         public TileEffect tileEffect;
         [HideIf("isTileEffect")]

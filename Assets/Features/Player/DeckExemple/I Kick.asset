@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: I Kick
   m_EditorClassIdentifier: 
+  description: 
   isTileEffect: 1
   tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
   prefab: {fileID: 0}
@@ -22,4 +23,4 @@ MonoBehaviour:
   range: 5
   hasSightView: 0
   isLinedRange: 1
-  actionTypes: 01000000020000000400000008000000
+  actionTypes: 020000000400000008000000

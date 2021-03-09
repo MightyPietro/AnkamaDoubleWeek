@@ -170,6 +170,10 @@ namespace WeekAnkama
                             {
                                 DoAction(targetTile);
                             }
+                            else if (actualPlayer.currentAction.targetTileEffect && targetTile.Effect != null)
+                            {
+                                DoAction(targetTile);
+                            }
                             else
                             {
                                 HandleUnselectCard(actualPlayer);

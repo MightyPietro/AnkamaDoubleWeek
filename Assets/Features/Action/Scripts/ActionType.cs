@@ -13,7 +13,8 @@ namespace WeekAnkama
         Water = (1 << 3),
         Fire = (1 << 4),
         Earth = (1 << 5),
-        Air = (1 << 6)
+        Air = (1 << 6),
+        DestroyTerraforming = (1 << 7),
     }
 }
 
