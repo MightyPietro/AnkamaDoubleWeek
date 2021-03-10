@@ -83,9 +83,10 @@ namespace WeekAnkama
 
         public void SetPlayerOutArena(Player killedPlayer, Vector3 pos)
         {
-            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),killedPlayer.transform.position, Quaternion.identity) as GameObject;
+            
+            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),pos, Quaternion.identity) as GameObject;
             FeedbackManager.instance.Feedback(_playerOut, ragdoll.transform.position, 2);
-            ragdoll.transform.DOMove(pos, .1f);
+            //ragdoll.GetComponent<Rigidbody>().AddForce(new Vector3(100,0,0));
             Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
