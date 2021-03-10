@@ -40,7 +40,7 @@
             v2f vert (appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _Size);
+                o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _Size / 5000);
                 o.uv = (v.uv);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
