@@ -28,15 +28,14 @@ namespace WeekAnkama
         {
             instance = this;
 
-            OnPushFinished += (Player p) =>
+            /*OnPushFinished += (Player p) =>
             {
-                pushingSomething = false;
-                if (!p.processMovement && queuedPush)
+                if (!p.processMovement && queuedPush && !pushingSomething)
                 {
                     queuedPush = false;
                     AskPushPlayer(p, queuedDir, queuedPushForce);
                 }
-            };
+            };*/
         }
 
         public List<Tile> GetPushPath(Tile startTile, Vector2Int pushDirection, int pushForce, out bool isPlayerOut)
@@ -208,6 +207,7 @@ namespace WeekAnkama
                             }
                             else
                             {
+                                pushingSomething = false;
                                 OnPushFinished?.Invoke(playerToMove);
                             }
                             yield break;

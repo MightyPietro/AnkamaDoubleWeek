@@ -13,14 +13,29 @@ MonoBehaviour:
   m_Name: Push
   m_EditorClassIdentifier: 
   description: 
+<<<<<<< HEAD
   isTileEffect: 0
   tileEffect: {fileID: 0}
   prefab: {fileID: 0}
+=======
+>>>>>>> develop
   paCost: 3
   bonusPA: 0
   fatigueDmg: 110
   pushCase: 1
   range: 1
+  isTileEffect: 0
+  tileEffect: {fileID: 0}
   hasSightView: 0
   isLinedRange: 1
+<<<<<<< HEAD
   actionTypes: 0200000004000000
+=======
+  isTargettingTile: 0
+  canBePlayedOnself: 0
+  isAreaAction: 0
+  areaRange: 0
+  hasLineArea: 1
+  customArea: []
+  actionTypes: 10000000
+>>>>>>> develop

@@ -12,14 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: I Kick
   m_EditorClassIdentifier: 
-  isTileEffect: 1
-  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
-  prefab: {fileID: 0}
+  description: 
   paCost: 4
   bonusPA: 0
   fatigueDmg: 50
   pushCase: 3
   range: 5
+  isTileEffect: 1
+  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
   hasSightView: 0
   isLinedRange: 1
-  actionTypes: 01000000020000000400000008000000
+  isTargettingTile: 0
+  canBePlayedOnself: 0
+  isAreaAction: 0
+  areaRange: 0
+  hasLineArea: 1
+  customArea: []
+  actionTypes: 080000001000000020000000

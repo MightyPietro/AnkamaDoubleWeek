@@ -27,13 +27,13 @@ namespace WeekAnkama
                 Destroy(VFX, time);
             }
 
-            if(feedback.clip != null)
+            if(feedback.clips.Length > 0)
             {
                 for (int i = 0; i < _sources.Length; i++)
                 {
                     if (!_sources[i].isPlaying)
                     {
-                        _sources[i].PlayOneShot(feedback.clip);
+                        _sources[i].PlayOneShot(feedback.clips[Random.Range(0, feedback.clips.Length)]);
                         break;
                     }
                 }
@@ -48,13 +48,13 @@ namespace WeekAnkama
                 Destroy(VFX, time);
             }
 
-            if (feedback.clip != null)
+            if (feedback.clips.Length > 0)
             {
                 for (int i = 0; i < _sources.Length; i++)
                 {
                     if (!_sources[i].isPlaying)
                     {
-                        _sources[i].PlayOneShot(feedback.clip);
+                        _sources[i].PlayOneShot(feedback.clips[Random.Range(0, feedback.clips.Length)]);
                         break;
                     }
                 }

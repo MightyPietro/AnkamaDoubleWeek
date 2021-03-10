@@ -22,6 +22,7 @@ namespace WeekAnkama
         [SerializeField] private IntVariable _playerValue;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
+        [SerializeField] private Feedback _teleportPlayer;
 
 
         Grid grid;
@@ -75,6 +76,8 @@ namespace WeekAnkama
 
         public void SetPlayerOutArena(Player killedPlayer)
         {
+            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),killedPlayer.transform.position, Quaternion.identity) as GameObject;
+            Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
             killedPlayer.isOut = true;
@@ -167,13 +170,17 @@ namespace WeekAnkama
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
-                        if (targetTile.Player != actualPlayer)
+                        if (targetTile.Player != actualPlayer || actualPlayer.currentAction.canBePlayedOnself)
                         {
                             if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
                             {
                                 DoAction(targetTile);
                             }
                             else if (actualPlayer.currentAction.isTileEffect)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else if (actualPlayer.currentAction.isTargettingTile)
                             {
                                 DoAction(targetTile);
                             }
@@ -217,6 +224,7 @@ namespace WeekAnkama
                 playerToTeleport.position = tileWanted.Coords;
                 Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
+                FeedbackManager.instance.Feedback(_teleportPlayer, tileWanted.WorldPosition, 2.1f);
                 return true;
             }
             else
@@ -240,11 +248,22 @@ namespace WeekAnkama
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
                 actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
-                if(currentCard != null) currentCard.interactable = false;
+                    if (actualPlayer.currentAction.range == 1)
+                    {
+                        actualPlayer.Punch();
+                    }
 
                 HandleUnselectCard(actualPlayer);
 
-                //CheckCardsCost();
+                    HandleUnselectCard(actualPlayer);
+
+                    //CheckCardsCost();
+                }
+                else
+                {
+                    HandleUnselectCard();
+                }
+
 
             }            
         }
@@ -276,6 +295,28 @@ namespace WeekAnkama
                 playerToDraw.deck = new List<Action>(playerToDraw.discardPile);
                 playerToDraw.discardPile = new List<Action>();
             }
+        }
+        /// <summary>
+        /// Draw card for Actual Player, in this class to fill player hands
+        /// </summary>
+        private void DrawCard()
+        {
+            int rand = Random.Range(0, actualPlayer._deckReminder.Count);
+            actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
+            actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
+        }
+
+        /// <summary>
+        /// Draw card by using an action
+        /// </summary>
+        /// <param name="player"></param>
+        public void DrawCard(Player player)
+        {
+            int rand = Random.Range(0, player._deckReminder.Count);
+            player.hand.Add(player._deckReminder[rand]);
+            player._deckReminder.Remove(player._deckReminder[rand]);
+            DisplayCards();
+
         }
 
         [PunRPC]
@@ -310,17 +351,17 @@ namespace WeekAnkama
 
             //Calcul tiles to preview
             int range = action.range;
-            for (int y = -range; y <= range; y++)
+            /*for (int y = -range; y <= range; y++)
             {
                 for (int x = -range; x <= range; x++)
                 {
-                    if (x == y || (x != 0 && y!=0)) continue;
+                    if ( (x == y && x == 0 && !action.canBePlayedOnself) || (x == y && x != 0)|| (x != 0 && y!=0)) continue;
                     if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
                     {
                         _tilesInPreview.Add(currentTile);
                     }
                 }
-            }
+            }*/
 
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
 
@@ -488,6 +529,13 @@ namespace WeekAnkama
                 {
                     tilesInRange.RemoveAt(i);
                     i--;
+                }
+            }
+            if (actionToCheck.canBePlayedOnself)
+            {
+                if (!tilesInRange.Contains(castTile))
+                {
+                    tilesInRange.Add(castTile);
                 }
             }
 

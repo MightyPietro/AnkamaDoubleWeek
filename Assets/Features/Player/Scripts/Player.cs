@@ -22,6 +22,8 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _PAText;
         [SerializeField] private TextMeshProUGUI _PMText;
         [SerializeField] private Feedback _playerFatigueDmg;
+        [SerializeField] private Animator _anim;
+
         private bool _processMovement = false;
         private bool _isOut = false;
         private Vector2Int _direction;
@@ -70,6 +72,7 @@ namespace WeekAnkama
         public TextMeshProUGUI PMText { get { return _PMText; } set { _PMText = value; } }
         public bool processMovement { get { return _processMovement; } set { _processMovement = value; } }
         public bool isOut { get { return _isOut; } set { _isOut = value; } }
+        public Animator anim { get { return _anim; } set { _anim = value; } }
         #endregion
 
 
@@ -117,6 +120,32 @@ namespace WeekAnkama
             }
         }
 
+
+        private void OnDisable()
+        {
+            DeplacementManager.OnPlayerMovementFinished -= StopRun;
+        }
+        private void StopRun(Player player)
+        {
+            if(this == player)
+            {
+                player.anim.SetBool("isRun", false);
+                player.anim.SetBool("isIDLE", true);
+            }
+
+        }
+
+        public void Punch()
+        {
+            int rand = Random.Range(0, 3);
+            anim.SetTrigger("Attack" + rand.ToString());
+        }
+
+        private void Hurt()
+        {
+            int rand = Random.Range(0,2);
+            anim.SetTrigger("Hurt" + rand.ToString());
+        }
         public void BeginTurn()
         {
             ResetDatas();
