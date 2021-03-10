@@ -48,6 +48,7 @@ namespace WeekAnkama
         private PlayerPassive passive;
 
         private System.Action<Player, Player> beginTurn, takeDamage, doDamage, passEnemyExhaust, passSelfExhaust;
+        private System.Action<Player> passEnemyExhaustSolo;
         #endregion
 
 
@@ -132,8 +133,9 @@ namespace WeekAnkama
                         break;
                 }
             }
-
+            
             DeplacementManager.OnPlayerMovementFinished += StopRun;
+            passEnemyExhaustSolo += PlayerManager.instance.DrawCard;
         }
 
 
@@ -210,7 +212,6 @@ namespace WeekAnkama
 
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
             FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
-
             Hurt();
             if (amount>0)
             {
@@ -235,6 +236,7 @@ namespace WeekAnkama
         public void PassEnnemyExhaust(Player targetPlayer)
         {
             passEnemyExhaust?.Invoke(this, targetPlayer);
+            passEnemyExhaustSolo?.Invoke(this);
         }
 
         public void ResetDatas()
@@ -253,9 +255,10 @@ namespace WeekAnkama
             fatigue = 0;
         }
 
-        public void SetPlayerUI(Image _icone, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)
+        public void SetPlayerUI(Image _icone, Image _spellIcon, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)
         {
             _icone.sprite = icone;
+            _spellIcon.sprite = classe.icon;
             mainFatigueTxt = _mainFatigueTxt;
             pmTxt = _pmTxt;
             paTxt = _paTxt;

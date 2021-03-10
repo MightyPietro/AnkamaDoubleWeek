@@ -15,8 +15,8 @@ namespace WeekAnkama
             if (_player == null) { 
                 Debug.LogError($"Player is Null in { this.GetType().ToString()}");
                 return;
-            } 
-            _player.fatigue += _fatigue;
+            }
+            _player.TakeDamage(casterTile.Player, _fatigue);
             FeedbackManager.instance.CharaFireFeedback(_player.transform.position + _player.transform.localScale, 3f,_player.transform);
         }
 

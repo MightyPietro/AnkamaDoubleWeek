@@ -10,18 +10,27 @@ namespace WeekAnkama
         public static event Action<Tile> OnLeftClickTile;
         public static event System.Action OnLeftClickNoTile;
 
-        private Vector3 _currentWorldPosition = Vector3.negativeInfinity;
+        [SerializeField] private GameObject _highlightTile;
+
+        public Vector3 _currentWorldPosition = Vector3.negativeInfinity;
+        public Vector3 _screenPosition;
+
+        public static MouseOperation instance;
+        public RaycastHit hitData;
 
         private void Awake()
         {
+            instance = this;
+
             MouseHandler.OnMouseMove += HandleMouseMove;
             MouseHandler.OnMouseLeftClick += HandleMouseClick;
+
         }
 
         private void HandleMouseMove(Vector2 mousePosition)
-        {            
-            RaycastHit hitData;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y));
+        {
+            _screenPosition = new Vector3(mousePosition.x, mousePosition.y);
+            Ray ray = Camera.main.ScreenPointToRay(_screenPosition);
             if (Physics.Raycast(ray, out hitData, 100))
             {
                 //Debug.Log("GOOD MOVE");
@@ -32,6 +41,7 @@ namespace WeekAnkama
             {
                 //Debug.Log("WRONG MOVE");
                 _currentWorldPosition = Vector3.negativeInfinity;
+                
             }
         }
 

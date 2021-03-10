@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace WeekAnkama
 {
@@ -11,10 +12,12 @@ namespace WeekAnkama
         [SerializeField] AudioSource[] _sources;
         [SerializeField] Transform _psPool;
         [SerializeField] Feedback _earthEffect;
+        [SerializeField] Feedback _pushEffect;
         [SerializeField] Feedback _charaFire;
         [SerializeField] Feedback _waterSplash;
 
-        private GameObject _earthVFX;
+        private GameObject _pushVFX;
+
 
         private void Awake()
         {
@@ -71,9 +74,9 @@ namespace WeekAnkama
         {
             if (_earthEffect.VFX != null)
             {
-                _earthVFX = Instantiate(_earthEffect.VFX, _psPool.transform);
-                _earthVFX.transform.position = pos;
-                Destroy(_earthVFX, time);
+                _pushVFX = Instantiate(_earthEffect.VFX, _psPool.transform);
+                _pushVFX.transform.position = pos;
+                Destroy(_pushVFX, time);
             }
 
             if (_earthEffect.clips.Length > 0)
@@ -89,8 +92,35 @@ namespace WeekAnkama
             }
             if (isExplose)
             {
-                _earthVFX.GetComponent<Animator>().SetBool("isExplose", true);
+                _pushVFX.GetComponent<Animator>().SetBool("isExplose", true);
             }
+
+        }
+
+        public void PushFeedback(Vector3 pos, float time,Player targetPlayer)
+        {
+            if (_pushEffect.VFX != null)
+            {
+                _pushVFX = Instantiate(_pushEffect.VFX, _psPool.transform);
+                _pushVFX.transform.DOLookAt(targetPlayer.transform.position, 0);
+                _pushVFX.transform.position = pos;
+
+                Destroy(_pushVFX, time);
+                
+            }
+
+            if (_pushEffect.clips.Length > 0)
+            {
+                for (int i = 0; i < _sources.Length; i++)
+                {
+                    if (!_sources[i].isPlaying)
+                    {
+                        _sources[i].PlayOneShot(_pushEffect.clips[Random.Range(0, _pushEffect.clips.Length)]);
+                        break;
+                    }
+                }
+            }
+
 
         }
     }
