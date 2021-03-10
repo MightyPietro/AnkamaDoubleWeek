@@ -54,8 +54,7 @@ namespace WeekAnkama
 			{
 				targetToMove = playerToMove.transform;
 				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
-				playerToMove.anim.SetBool("isIDLE", false);
-				playerToMove.anim.SetBool("isRun",true);
+
 
 			}
 		}
@@ -72,6 +71,7 @@ namespace WeekAnkama
 				targetIndex = 0;
 				StopCoroutine(FollowPath());
 				StartCoroutine(FollowPath());
+
 			}
 		}
 
@@ -136,6 +136,9 @@ namespace WeekAnkama
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
 				targetToMove.position += direction * speed * Time.deltaTime;
+
+				player.anim.SetBool("isIDLE", false);
+				player.anim.SetBool("isRun", true);
 
 				yield return null;
 			}

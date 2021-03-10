@@ -202,7 +202,7 @@ namespace WeekAnkama
 
                             if(isPlayerOut)
                             {
-                                PlayerManager.instance.SetPlayerOutArena(playerToMove);
+                                PlayerManager.instance.SetPlayerOutArena(playerToMove, currentWaypoint.WorldPosition + direction);
                                 currentWaypoint.UnSetPlayer();
                             }
                             else
