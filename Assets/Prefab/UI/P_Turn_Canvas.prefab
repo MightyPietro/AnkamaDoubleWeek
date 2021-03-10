@@ -915,7 +915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 600, y: 115}
+  m_AnchoredPosition: {x: 475, y: 30}
   m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1293067916
@@ -955,8 +955,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294953984
+  m_fontColor: {r: 0, g: 0.7980523, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4376,6 +4376,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharaIconInformations (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7514242435728081543, guid: 0be559e048be55148a50e481e3a0cfcc, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 731b8bb8691a1da4e9492c3481db1b23, type: 2}
+    - target: {fileID: 7514242435728081543, guid: 0be559e048be55148a50e481e3a0cfcc, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4371139156808415488, guid: 731b8bb8691a1da4e9492c3481db1b23, type: 2}
     - target: {fileID: 8403017023697891040, guid: 0be559e048be55148a50e481e3a0cfcc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4640,6 +4648,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharaIconInformations (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7514242435728081543, guid: 0be559e048be55148a50e481e3a0cfcc, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 731b8bb8691a1da4e9492c3481db1b23, type: 2}
+    - target: {fileID: 7514242435728081543, guid: 0be559e048be55148a50e481e3a0cfcc, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4371139156808415488, guid: 731b8bb8691a1da4e9492c3481db1b23, type: 2}
     - target: {fileID: 8403017023697891040, guid: 0be559e048be55148a50e481e3a0cfcc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
