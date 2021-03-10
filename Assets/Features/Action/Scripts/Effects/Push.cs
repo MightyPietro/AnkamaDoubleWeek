@@ -8,7 +8,7 @@ namespace WeekAnkama
     public class Push : ActionEffect
     {
         public override bool Process(Tile casterTile, Tile targetTile, Action action)
-        {
+        {            
             if (targetTile.Player != null)
             {
                 Vector2 direction = (targetTile.Coords - casterTile.Coords);

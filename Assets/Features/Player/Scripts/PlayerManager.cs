@@ -23,6 +23,7 @@ namespace WeekAnkama
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
         [SerializeField] private Feedback _teleportPlayer;
+        [SerializeField] private TerraformingMenu _terraformingMenu;
 
 
         Grid grid;
@@ -31,6 +32,7 @@ namespace WeekAnkama
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
         private List<Tile> _tilesInPreview;
+        private Coroutine _currentTerraformCoroutine;
 
         #endregion
 
@@ -172,13 +174,13 @@ namespace WeekAnkama
                     {
                         if (targetTile.Player != actualPlayer || actualPlayer.currentAction.canBePlayedOnself)
                         {
-                            if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                            if (!actualPlayer.currentAction.canTerraform && targetTile.Player != null)
                             {
                                 DoAction(targetTile);
                             }
-                            else if (actualPlayer.currentAction.isTileEffect)
+                            else if (actualPlayer.currentAction.canTerraform)
                             {
-                                DoAction(targetTile);
+                                _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
                             {
@@ -201,6 +203,33 @@ namespace WeekAnkama
                     MoveCharacter(targetTile);
                 }
             }
+        }
+
+        private IEnumerator DoTerraformAction(Tile targetTile)
+        {
+            ActionType element;
+
+            // show menu
+            _terraformingMenu.SetActive(true);
+            _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+
+            // wait for action (deselect or select terraformation)
+            while (!_terraformingMenu.TryGetSelectedElement(out element))
+            {
+                yield return null;
+            }
+            //Not Stopped then do action
+            if (actualPlayer.currentAction != null)
+            {
+                actualPlayer.currentAction.AddActionElementalEffect(element);
+
+                DoAction(targetTile);
+            }
+            else
+            {
+                HandleUnselectCard(actualPlayer);
+            }
+
         }
 
         private void MoveCharacter(Tile targetTile)
@@ -368,6 +397,14 @@ namespace WeekAnkama
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
+            //Stop element selection
+            if(_currentTerraformCoroutine != null)
+            {
+                StopCoroutine(_currentTerraformCoroutine);
+                _currentTerraformCoroutine = null;
+            }            
+            _terraformingMenu.SetActive(false);
+
             SetPreviewTiles(_tilesInPreview, false, Color.cyan);
             ShowMovePossibility();
             //_tilesInPreview.Clear();
