@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 namespace WeekAnkama
 {
     public class DeplacementManager : MonoBehaviour
@@ -114,9 +115,13 @@ namespace WeekAnkama
 
 					currentWaypoint.UnSetPlayer();
 
+					
+
 					Tile nextTile = path[targetIndex];
 					Vector2 dir = new Vector2(nextTile.Coords.x - currentWaypoint.Coords.x, nextTile.Coords.y - currentWaypoint.Coords.y).normalized;
 					player.Direction = new Vector2Int((int)dir.x, (int)dir.y);
+
+					player.transform.DOLookAt(nextTile.WorldPosition, .1f);
 
 					Tile previousWaypoint = currentWaypoint;
 					currentWaypoint = nextTile;
