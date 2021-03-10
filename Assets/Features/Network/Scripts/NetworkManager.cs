@@ -23,6 +23,7 @@ namespace WeekAnkama
 
         private void Awake()
         {
+
             instance = this;
             if (!PhotonNetwork.IsConnected)
             {

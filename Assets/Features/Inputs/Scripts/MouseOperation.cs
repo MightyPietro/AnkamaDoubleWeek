@@ -26,6 +26,7 @@ namespace WeekAnkama
             {
                 //Debug.Log("GOOD MOVE");
                 _currentWorldPosition = hitData.point;
+
             }
             else
             {

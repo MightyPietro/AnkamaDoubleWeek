@@ -10,6 +10,7 @@ public class TileFeedback : MonoBehaviour
     [SerializeField]
     private Material blueMat, redMat;
 
+    [SerializeField] private GameObject _tileHighlight;
     public void Hide()
     {
         planeMesh.gameObject.SetActive(false);
@@ -28,4 +29,7 @@ public class TileFeedback : MonoBehaviour
         }
         planeMesh.gameObject.SetActive(true);
     }
+
+    public void DrawHighlight(bool value) { _tileHighlight.SetActive(value); Debug.Log("HELO"); }
+
 }

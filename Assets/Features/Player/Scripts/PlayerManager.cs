@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
+using DG.Tweening;
 
 namespace WeekAnkama
 {
@@ -23,6 +24,7 @@ namespace WeekAnkama
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
         [SerializeField] private Feedback _teleportPlayer;
+        [SerializeField] private Feedback _playerOut;
 
 
         Grid grid;
@@ -79,13 +81,16 @@ namespace WeekAnkama
 
 
 
-        public void SetPlayerOutArena(Player killedPlayer)
+        public void SetPlayerOutArena(Player killedPlayer, Vector3 pos)
         {
             GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),killedPlayer.transform.position, Quaternion.identity) as GameObject;
+            FeedbackManager.instance.Feedback(_playerOut, ragdoll.transform.position, 2);
+            ragdoll.transform.DOMove(pos, .1f);
             Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
             killedPlayer.isOut = true;
+
         }
 
         public void StartPlayerTurn(Player _setActualPlayer)
