@@ -13,5 +13,8 @@ namespace WeekAnkama
         public string description;
 
         public PlayerClasses passive;
+
+        public Sprite icon;
+
     }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   nom: 
   description: 
   passive: 3
+  icon: {fileID: 21300000, guid: c6e4ece5b8a01c74a8910f155af85980, type: 3}
