@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Events;
 using Photon.Pun;
 
@@ -40,6 +41,13 @@ namespace WeekAnkama
 
         public static TurnManager instance;
         private  int _turnValue = 0;
+
+        [SerializeField]
+        private IntVariable playerValue;
+        [SerializeField]
+        private Image playerIcon;
+        [SerializeField]
+        private TextMeshProUGUI playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt;
 
         public int turnValue
         {
@@ -81,7 +89,12 @@ namespace WeekAnkama
         {
             for (int i = 0; i < spawnPosition.Count; i++)
             {
-                playerManager.TeleportPlayer(players[i], spawnPosition[i]);
+                playerManager.TeleportPlayer(players[i], spawnPosition[i], true);
+                if(i== playerValue.Value)
+                {
+                    players[i].SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+                }
+                playerManager.DoDraw(players[i]);
             }
 
             didBattleStart = true;

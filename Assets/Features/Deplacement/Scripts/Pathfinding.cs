@@ -126,60 +126,9 @@ namespace WeekAnkama
 			return false;
 		}
 
-		public List<Tile> GetNodesWithRange(Tile startNode, int maxDistance, bool isInLine)
+		public List<Tile> GetNodesWithRange(Tile startNode, int minDistance, int maxDistance, bool isInLine)
 		{
 			ResetTiles();
-
-            #region c chiant
-            /*Heap<Tile> openSet = new Heap<Tile>(grid.Width * grid.Heigth);
-			HashSet<Tile> closedSet = new HashSet<Tile>();
-			openSet.Add(startNode);
-
-			startNode.parent = startNode;
-
-			List<Tile> toReturn = new List<Tile>();
-
-			while (openSet.Count > 0)
-			{
-				Tile currentNode = openSet.RemoveFirst();
-				toReturn.Add(currentNode);
-				closedSet.Add(currentNode);
-
-				foreach (Tile neighbour in grid.GetHeighNeighbours(currentNode))
-				{
-					if(closedSet.Contains(neighbour))
-                    {
-						continue;
-                    }
-
-					if (currentNode.gCost > maxDistance)
-					{
-						return toReturn;
-					}
-
-					int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
-					if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
-					{
-						neighbour.gCost = newMovementCostToNeighbour;
-						neighbour.parent = currentNode;
-						if (!openSet.Contains(neighbour))
-						{
-							if ((neighbour.parent != startNode && !neighbour.parent.Walkable) || (!neighbour.Walkable && (neighbour.parent == startNode || neighbour.parent.Walkable)))
-							{
-								closedSet.Add(neighbour);
-								toReturn.Add(neighbour);
-								Debug.Log(neighbour.Coords);
-							}
-							else
-							{
-								openSet.Add(neighbour);
-							}
-						}
-					}
-				}
-			}
-			return toReturn;*/
-            #endregion
 
             List<Tile> toReturn = new List<Tile>();
 
@@ -214,9 +163,54 @@ namespace WeekAnkama
 							if (!openSet.Contains(neighbour))
 							{
 								openSet.Add(neighbour);
-								toReturn.Add(neighbour);
+								if (newMovementCostToNeighbour >= minDistance)
+								{
+									toReturn.Add(neighbour);
+								}
 							}
 						}
+				}
+			}
+			return toReturn;
+		}
+
+		public List<Tile> GetMovementNodes(Tile startNode, int maxDistance)
+		{
+			ResetTiles();
+
+			List<Tile> toReturn = new List<Tile>();
+
+			Heap<Tile> openSet = new Heap<Tile>(grid.Width * grid.Heigth);
+			HashSet<Tile> closedSet = new HashSet<Tile>();
+			openSet.Add(startNode);
+
+			startNode.gCost = 0;
+
+			while (openSet.Count > 0)
+			{
+				Tile currentNode = openSet.RemoveFirst();
+				closedSet.Add(currentNode);
+
+				foreach (Tile neighbour in grid.GetNeighbours(currentNode))
+				{
+					if (!neighbour.Walkable || closedSet.Contains(neighbour))
+					{
+						continue;
+					}
+
+					int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+
+					if (newMovementCostToNeighbour <= maxDistance && (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)))
+					{
+						neighbour.gCost = newMovementCostToNeighbour;
+						neighbour.parent = currentNode;
+
+						if (!openSet.Contains(neighbour))
+						{
+							openSet.Add(neighbour);
+							toReturn.Add(neighbour);
+						}
+					}
 				}
 			}
 			return toReturn;

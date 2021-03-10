@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 namespace WeekAnkama
 {
     public class DeplacementManager : MonoBehaviour
@@ -53,6 +54,9 @@ namespace WeekAnkama
 			{
 				targetToMove = playerToMove.transform;
 				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
+				playerToMove.anim.SetBool("isIDLE", false);
+				playerToMove.anim.SetBool("isRun",true);
+
 			}
 		}
 
@@ -76,8 +80,13 @@ namespace WeekAnkama
 			StopCoroutine(FollowPath());
 			Debug.Log("Movement stop");
 			processDeplacement = false;
-			OnPlayerMovementFinished?.Invoke(targetToMove.gameObject.GetComponent<Player>());
-		}
+            if (targetToMove != null)
+            {
+				OnPlayerMovementFinished?.Invoke(targetToMove.gameObject.GetComponent<Player>());
+			}
+
+
+        }
 
 		IEnumerator FollowPath()
 		{
@@ -106,9 +115,13 @@ namespace WeekAnkama
 
 					currentWaypoint.UnSetPlayer();
 
+					
+
 					Tile nextTile = path[targetIndex];
 					Vector2 dir = new Vector2(nextTile.Coords.x - currentWaypoint.Coords.x, nextTile.Coords.y - currentWaypoint.Coords.y).normalized;
 					player.Direction = new Vector2Int((int)dir.x, (int)dir.y);
+
+					player.transform.DOLookAt(nextTile.WorldPosition, .1f);
 
 					Tile previousWaypoint = currentWaypoint;
 					currentWaypoint = nextTile;
@@ -130,6 +143,7 @@ namespace WeekAnkama
 
 			//Réactiver les Inputs
 			OnPlayerMovementFinished?.Invoke(player);
+
 		}
 
 		public int GetDistance(Tile nodeA, Tile nodeB)
