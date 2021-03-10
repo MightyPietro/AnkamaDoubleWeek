@@ -32,8 +32,10 @@ namespace WeekAnkama
         Player currentPlayerTurn;
 
         public static event Action<Player> OnBeginPlayerTurn, OnEndPlayerTurn;
+        public static event System.Action OnBeginTurn, OnEndTurn;
 
-        [SerializeField]
+
+       [SerializeField]
         private Text newTurnText;
         [SerializeField]
         private List<Image> turnFeedback;
@@ -124,9 +126,8 @@ namespace WeekAnkama
             turnIndex = (turnIndex + 1) % players.Count;
 
             currentPlayerTurn = players[turnIndex];
+            currentPlayerTurn.SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
             playerManager.StartPlayerTurn(currentPlayerTurn);
-
-            
 
             newTurnText.text = "Player " + (turnIndex + 1).ToString();
             StartCoroutine(ShowTextNewTurn());
@@ -137,6 +138,7 @@ namespace WeekAnkama
             }
 
             OnBeginPlayerTurn?.Invoke(currentPlayerTurn);
+            OnBeginTurn?.Invoke();
         }
 
         public void EndTurnViaRPC()
@@ -155,6 +157,7 @@ namespace WeekAnkama
         private void EndTurn()
         {
             OnEndPlayerTurn?.Invoke(currentPlayerTurn);
+            OnEndTurn?.Invoke();
         }
 
         IEnumerator ShowTextNewTurn()

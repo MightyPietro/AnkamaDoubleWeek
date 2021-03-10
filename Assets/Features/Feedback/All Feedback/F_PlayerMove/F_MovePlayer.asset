@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: F_MovePlayer
   m_EditorClassIdentifier: 
   VFX: {fileID: 2409305397148360118, guid: 1734525a73c8d054f824fab860df263e, type: 3}
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: 8fb4736cd872dd24b8a227d707a8a30f, type: 3}
+  - {fileID: 8300000, guid: 55bb1b12c68138e428759ae8e88c4450, type: 3}
+  - {fileID: 8300000, guid: 7c4f90f60dfa49d43a612e509f574c55, type: 3}
+  - {fileID: 8300000, guid: 90bf3b84fb7db9d46b25e32675106ef6, type: 3}
+  - {fileID: 8300000, guid: 94d86e98799df0f438fa2ad0e5637af5, type: 3}

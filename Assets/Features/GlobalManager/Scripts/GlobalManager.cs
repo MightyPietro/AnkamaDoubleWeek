@@ -127,7 +127,7 @@ namespace WeekAnkama
             if(GridManager.Grid.TryGetTile(playerToPush.position, out playerTile))
             {
                 pushPath = GetPushDestination(playerTile, pushDirection, pushForce,out Player playerToDamage, out damageTaken, out isPlayerOut);
-                AskPlayerToFollowPath(pushPath, playerToPush, playerToDamage, 5, isPlayerOut, damageTaken);                
+                AskPlayerToFollowPath(pushPath, playerToPush, playerToDamage, 5, isPlayerOut, damageTaken, new Vector3(pushDirection.x,0, pushDirection.y));                
             }
         }
 
@@ -140,24 +140,24 @@ namespace WeekAnkama
             }
         }
 
-        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
+        public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages, Vector3 direction)
         {
             if(!playerToMove.processMovement)
             {
                 playerToMove.processMovement = true;
-                StartCoroutine(FollowPushMovementPathh(path, playerToMove, playerToDamage, speed, isPlayerOut, damages));
+                StartCoroutine(FollowPushMovementPathh(path, playerToMove, playerToDamage, speed, isPlayerOut, damages, direction));
                 pushingSomething = true;
             }
         }
 
-        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages)
+        IEnumerator FollowPushMovementPathh(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages, Vector3 direction)
         {
             Tile currentWaypoint = path[0];
             Transform targetToMove = playerToMove.transform;
             int targetIndex = 0;
             Vector3 posUnit = Vector3.zero;
             Vector3 posTarget = Vector3.zero;
-            Vector3 direction = Vector3.zero;
+            //Vector3 direction = Vector3.zero;
 
             Vector3 outGridPos = Vector3.zero;
 
@@ -186,7 +186,7 @@ namespace WeekAnkama
                         else
                         {
                             playerToMove.processMovement = false;
-                            if(currentWaypoint.Player == null)// If player not set, means path was only one and dont need trigger, already on tile
+                            if (currentWaypoint.Player == null)// If player not set, means path was only one and dont need trigger, already on tile
                             {
                                 currentWaypoint.SetPlayerNoTrigger(playerToMove);
                             }
@@ -200,16 +200,15 @@ namespace WeekAnkama
                                 playerToDamage.TakeDamage(null, damages * 40);
                             }
 
-                            if(isPlayerOut)
+                            if (isPlayerOut)
                             {
-                                PlayerManager.instance.SetPlayerOutArena(playerToMove);
+                                PlayerManager.instance.SetPlayerOutArena(playerToMove, currentWaypoint.WorldPosition + direction);
                                 currentWaypoint.UnSetPlayer();
                             }
-                            else
-                            {
-                                pushingSomething = false;
-                                OnPushFinished?.Invoke(playerToMove);
-                            }
+
+                            pushingSomething = false;
+                            OnPushFinished?.Invoke(playerToMove);
+
                             yield break;
                         }
                     }

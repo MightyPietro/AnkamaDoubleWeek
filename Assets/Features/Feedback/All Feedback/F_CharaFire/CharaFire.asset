@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: CharaFire
   m_EditorClassIdentifier: 
   VFX: {fileID: 341389628588803367, guid: 9812195dbfe7ff1458f31edbec78a0a4, type: 3}
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: b20b1e2dddd1ef343a0963b61b676b3f, type: 3}
