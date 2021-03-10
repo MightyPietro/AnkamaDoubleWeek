@@ -19,8 +19,10 @@ namespace WeekAnkama
         public int fatigueDmg;
         [Range(0,10)]
         public int pushCase;
-        [Range(0, 7)]
+        [Range(0, 15)]
         public int range;
+        [Range(0, 15)]
+        public int minimalRange;
 
         [Space, Header("Action type")]
         public bool isTileEffect = false;
