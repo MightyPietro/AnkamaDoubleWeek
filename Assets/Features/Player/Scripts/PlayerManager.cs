@@ -167,8 +167,10 @@ namespace WeekAnkama
 
             if (actualPlayer != null)
             {
-                if (actualPlayer.currentAction != null)
+                if (actualPlayer.currentAction != null )
                 {
+                    if (actualPlayer.PA < actualPlayer.currentAction.paCost) HandleUnselectCard();
+
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
@@ -281,8 +283,6 @@ namespace WeekAnkama
                 {
                     actualPlayer.Punch();
                 }
-
-                HandleUnselectCard(actualPlayer);
 
                 HandleUnselectCard(actualPlayer);
 

@@ -26,24 +26,21 @@ namespace WeekAnkama
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y));
             if (Physics.Raycast(ray, out hitData, 100))
             {
-                if (IsOverUI(hitData))// UI
+                if (IsOverUI(mousePosition))// UI
                 {
                     isOnUI = true;
                 }
                 else
                 {
-                    //Debug.Log("GOOD MOVE");
                     _currentWorldPosition = hitData.point;
                     isOnUI = false;
                 }
             }
             else
             {
-                //Debug.Log("WRONG MOVE");
                 _currentWorldPosition = Vector3.negativeInfinity;
                 isOnUI = false;
             }
-            Debug.Log(isOnUI);
             if (isOnUI)
             {
                 MouseHandler.Instance.DisableGameplayInputs();
@@ -73,10 +70,10 @@ namespace WeekAnkama
             MouseHandler.OnMouseLeftClick -= HandleMouseClick;
         }
 
-        private bool IsOverUI(RaycastHit touch)
+        private bool IsOverUI(Vector2 mousePos)
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current);
-            pointerData.position = touch.point;
+            pointerData.position = mousePos;
 
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
@@ -85,10 +82,8 @@ namespace WeekAnkama
             {
                 for (int i = 0; i < results.Count; i++)
                 {
-                    Debug.Log(results[i].gameObject.tag);
-                    if (results[i].gameObject.tag == "UI")
-                    {
-                        
+                    if (results[i].gameObject.GetComponent<CanvasRenderer>() && results[i].gameObject.tag == "UI")
+                    {                        
                         return true;
                     }
                 }
