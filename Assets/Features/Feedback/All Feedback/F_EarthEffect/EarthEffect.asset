@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EarthEffect
   m_EditorClassIdentifier: 
   VFX: {fileID: 7034675539324251685, guid: ad359b56531cc9043a57cd182815730e, type: 3}
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: ade58c8547e2b6e4b9a373aa6cc3b033, type: 3}

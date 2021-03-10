@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 namespace WeekAnkama
 {
     public class DeplacementManager : MonoBehaviour
@@ -53,8 +54,7 @@ namespace WeekAnkama
 			{
 				targetToMove = playerToMove.transform;
 				PathRequestManager.RequestPath(targetToMove.position, wantedTile.WorldPosition, movementPoint*10, OnPathFound);
-				playerToMove.anim.SetBool("isIDLE", false);
-				playerToMove.anim.SetBool("isRun",true);
+
 
 			}
 		}
@@ -71,6 +71,7 @@ namespace WeekAnkama
 				targetIndex = 0;
 				StopCoroutine(FollowPath());
 				StartCoroutine(FollowPath());
+
 			}
 		}
 
@@ -114,9 +115,13 @@ namespace WeekAnkama
 
 					currentWaypoint.UnSetPlayer();
 
+					
+
 					Tile nextTile = path[targetIndex];
 					Vector2 dir = new Vector2(nextTile.Coords.x - currentWaypoint.Coords.x, nextTile.Coords.y - currentWaypoint.Coords.y).normalized;
 					player.Direction = new Vector2Int((int)dir.x, (int)dir.y);
+
+					player.transform.DOLookAt(nextTile.WorldPosition, .1f);
 
 					Tile previousWaypoint = currentWaypoint;
 					currentWaypoint = nextTile;
@@ -131,6 +136,9 @@ namespace WeekAnkama
 				direction = (currentWaypoint.WorldPosition-targetToMove.position).normalized;
 
 				targetToMove.position += direction * speed * Time.deltaTime;
+
+				player.anim.SetBool("isIDLE", false);
+				player.anim.SetBool("isRun", true);
 
 				yield return null;
 			}

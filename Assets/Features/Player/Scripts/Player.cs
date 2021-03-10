@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 namespace WeekAnkama
 {
@@ -27,15 +28,22 @@ namespace WeekAnkama
         private bool _processMovement = false;
         private bool _isOut = false;
         private Vector2Int _direction;
+        private float vulnerability = 1;
 
-        private Image icone;
+        [SerializeField]
+        private Sprite icone;
         private TextMeshProUGUI mainFatigueTxt, pmTxt, paTxt, stockPaTxt;
 
         [HideInInspector]
         public List<Action> discardPile = new List<Action>();
 
         [SerializeField]
+        private List<PlayerEffect> effects = new List<PlayerEffect>();
+
+        [SerializeField]
         private PlayerClassScriptable classe;
+        [SerializeField]
+        private IntVariable playerValue;
 
         private PlayerPassive passive;
 
@@ -55,7 +63,8 @@ namespace WeekAnkama
                 _fatigue = value;
                 fatigueText.text = fatigue.ToString();
 
-                FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position + new Vector3(0, transform.localScale.y + 1, 0), 1f);
+
+                Debug.Log(mainFatigueTxt);
                 if (mainFatigueTxt != null)
                 {
                     Debug.Log("Allo ???????"); mainFatigueTxt.text = fatigue.ToString();
@@ -81,7 +90,12 @@ namespace WeekAnkama
             ResetDatas();
             ResetFatigue();
 
-            switch(classe.passive)
+            if (PhotonNetwork.IsConnected)
+            {
+                classe = playerValue.playerClass;
+            }
+
+            switch (classe.passive)
             {
                 case PlayerClasses.Earth:
                     passive = new EarthClassPassive();
@@ -152,6 +166,23 @@ namespace WeekAnkama
         {
             ResetDatas();
             beginTurn?.Invoke(this, this);
+
+            foreach(PlayerEffect eff in effects)
+            {
+                switch(eff.effectType)
+                {
+                    case PlayerEffectTypes.PA:
+                        PA += (int)eff.value;
+                        break;
+                    case PlayerEffectTypes.PM:
+                        PM += (int)eff.value;
+                        break;
+                    case PlayerEffectTypes.Vulnerability:
+                        vulnerability += eff.value;
+                        break;
+                }
+            }
+            effects.Clear();
         }
 
         public void DoDamage(Player attackTarget, int amount)
@@ -177,12 +208,15 @@ namespace WeekAnkama
         {
             int lastFatigue = fatigue;
 
-            fatigue += amount;
+            fatigue += Mathf.RoundToInt((float)amount * vulnerability);
+            FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
 
-            if(amount>0)
+            Hurt();
+            if (amount>0)
             {
                 Debug.Log(fatigue);
                 takeDamage?.Invoke(attacker, this);
+                
             }
 
             if (Mathf.FloorToInt(_fatigue / 100) > Mathf.FloorToInt(lastFatigue / 100))
@@ -207,6 +241,11 @@ namespace WeekAnkama
         {
             PA = _basePA;
             PM = _basePM;
+            vulnerability = 1;
+            fatigue = fatigue;
+            stockPA = stockPA;
+
+            Debug.Log(PM);
         }
 
         public void ResetFatigue()
@@ -216,7 +255,7 @@ namespace WeekAnkama
 
         public void SetPlayerUI(Image _icone, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)
         {
-            icone = _icone;
+            _icone.sprite = icone;
             mainFatigueTxt = _mainFatigueTxt;
             pmTxt = _pmTxt;
             paTxt = _paTxt;

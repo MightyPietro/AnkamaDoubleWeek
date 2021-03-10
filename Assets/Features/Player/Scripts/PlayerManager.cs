@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
+using DG.Tweening;
 
 namespace WeekAnkama
 {
@@ -23,6 +24,7 @@ namespace WeekAnkama
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ActionsList _actionsList;
         [SerializeField] private Feedback _teleportPlayer;
+        [SerializeField] private Feedback _playerOut;
 
 
         Grid grid;
@@ -49,6 +51,7 @@ namespace WeekAnkama
                 {
                     item.enabled = false;
                 }
+                HideTileFeedback();
             };
 
             DeplacementManager.OnPlayerMovementFinished += (Player p) =>
@@ -57,6 +60,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
+                ShowMovePossibility();
             };
         }
 
@@ -68,19 +72,26 @@ namespace WeekAnkama
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
             TurnManager.OnEndPlayerTurn += HandleUnselectCard;
+            TurnManager.OnEndTurn += HideTileFeedback;
+            TurnManager.OnBeginTurn += ShowMovePossibility;
 
             _tilesInPreview = new List<Tile>();
+
         }        
 
 
 
-        public void SetPlayerOutArena(Player killedPlayer)
+        public void SetPlayerOutArena(Player killedPlayer, Vector3 pos)
         {
-            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),killedPlayer.transform.position, Quaternion.identity) as GameObject;
+            
+            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),pos, Quaternion.identity) as GameObject;
+            FeedbackManager.instance.Feedback(_playerOut, ragdoll.transform.position, 2);
+            //ragdoll.GetComponent<Rigidbody>().AddForce(new Vector3(100,0,0));
             Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
             killedPlayer.isOut = true;
+
         }
 
         public void StartPlayerTurn(Player _setActualPlayer)
@@ -92,7 +103,7 @@ namespace WeekAnkama
             if (actualPlayer.isOut)
             {
                 actualPlayer.isOut = false;
-                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer));
+                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer), true);
                 actualPlayer.ResetFatigue();
 
             }
@@ -214,11 +225,11 @@ namespace WeekAnkama
 
         }
 
-        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
+        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport, bool needFreeSpace)
         {
             Tile tileWanted = default;
 
-            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && (tileWanted.Walkable || !needFreeSpace))
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
@@ -255,7 +266,7 @@ namespace WeekAnkama
 
                 HandleUnselectCard(actualPlayer);
 
-                HandleUnselectCard(actualPlayer);
+                DisplayCards();
 
                 //CheckCardsCost();
             }
@@ -294,29 +305,11 @@ namespace WeekAnkama
                 playerToDraw.deck = new List<Action>(playerToDraw.discardPile);
                 playerToDraw.discardPile = new List<Action>();
             }
+            if(playerToDraw == actualPlayer)
+            {
+                DisplayCards();
+            }
         }
-        /// <summary>
-        /// Draw card for Actual Player, in this class to fill player hands
-        /// </summary>
-        /*private void DrawCard()
-        {
-            int rand = Random.Range(0, actualPlayer._deckReminder.Count);
-            actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
-            actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
-        }
-
-        /// <summary>
-        /// Draw card by using an action
-        /// </summary>
-        /// <param name="player"></param>
-        public void DrawCard(Player player)
-        {
-            int rand = Random.Range(0, player._deckReminder.Count);
-            player.hand.Add(player._deckReminder[rand]);
-            player._deckReminder.Remove(player._deckReminder[rand]);
-            DisplayCards();
-
-        }*/
 
         [PunRPC]
         private void AddCurrentActionToAll(int actionID)
@@ -344,23 +337,12 @@ namespace WeekAnkama
                 }
             }
 
-            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            HideTileFeedback();
 
             currentCard = button;
 
             //Calcul tiles to preview
             int range = action.range;
-            /*for (int y = -range; y <= range; y++)
-            {
-                for (int x = -range; x <= range; x++)
-                {
-                    if ( (x == y && x == 0 && !action.canBePlayedOnself) || (x == y && x != 0)|| (x != 0 && y!=0)) continue;
-                    if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
-                    {
-                        _tilesInPreview.Add(currentTile);
-                    }
-                }
-            }*/
 
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
 
@@ -388,7 +370,7 @@ namespace WeekAnkama
         private void HandleUnselectCard()
         {
             if (actualPlayer == null) return;
-            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            HideTileFeedback();
             //_tilesInPreview.Clear();
             actualPlayer.currentAction = null;
         }
@@ -397,7 +379,7 @@ namespace WeekAnkama
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
-            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            HideTileFeedback();
             ShowMovePossibility();
             //_tilesInPreview.Clear();
             player.currentAction = null;
@@ -419,6 +401,7 @@ namespace WeekAnkama
         [Button]
         private void DisplayCards()
         {
+            if (actualPlayer == null) return;
             for(int i = 0; i < displayedCards.Count; i++)
             {
                 if(i < actualPlayer.hand.Count)
@@ -496,11 +479,6 @@ namespace WeekAnkama
 
             List<Tile> usableTiles = GetUsableTiles(castTile, actionToCheck);
 
-            /*if ((!actionToCheck.isLinedRange || castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y) && usableTiles.Contains(targetTile))
-            {
-                return (Mathf.Abs(targetTile.Coords.x - castTile.Coords.x) + Mathf.Abs(targetTile.Coords.y - castTile.Coords.y) <= rangeNeeded);
-            }*/
-
             if (usableTiles.Contains(targetTile))
             {
                 return true;
@@ -511,7 +489,7 @@ namespace WeekAnkama
 
         private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
         {
-            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange);
+            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.minimalRange * 10, actionToCheck.range * 10, actionToCheck.isLinedRange);
 
             List<Tile> obstacles = new List<Tile>();
             foreach(Tile t in tilesInRange)
@@ -646,6 +624,14 @@ namespace WeekAnkama
         public void HideSpellDetail()
         {
             spellDetailObject.SetActive(false);
+        }
+
+        private void HideTileFeedback()
+        {
+            GridManager.Grid.TryGetTile(Vector2Int.zero, out Tile startTile);
+            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(startTile, 0, 150, false);
+            tilesInRange.Add(startTile);
+            SetPreviewTiles(tilesInRange, false, Color.green);
         }
 
     }
