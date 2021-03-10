@@ -12,7 +12,15 @@ namespace WeekAnkama
             {
                 Player p = casterTile.Player;
                 casterTile.UnSetPlayerNoTrigger();
-                return PlayerManager.instance.TeleportPlayer(p, targetTile.Coords);
+                return PlayerManager.instance.TeleportPlayer(p, targetTile.Coords, true);
+            }
+            else if(targetTile.Player != null && casterTile.Player != null)
+            {
+                Player pC = casterTile.Player;
+                Player pT = targetTile.Player;
+                PlayerManager.instance.TeleportPlayer(pC, targetTile.Coords, false);
+                PlayerManager.instance.TeleportPlayer(pT, casterTile.Coords, false);
+                return true;
             }
             return false;
         }

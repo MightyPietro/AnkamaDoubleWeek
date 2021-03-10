@@ -89,7 +89,7 @@ namespace WeekAnkama
         {
             for (int i = 0; i < spawnPosition.Count; i++)
             {
-                playerManager.TeleportPlayer(players[i], spawnPosition[i]);
+                playerManager.TeleportPlayer(players[i], spawnPosition[i], true);
                 if(i== playerValue.Value)
                 {
                     players[i].SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
