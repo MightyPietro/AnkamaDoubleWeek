@@ -26,6 +26,7 @@ namespace WeekAnkama
         [SerializeField] private Feedback _teleportPlayer;
         [SerializeField] private Feedback _playerOut;
 
+        private GameObject ragdoll;
 
         Grid grid;
 
@@ -83,10 +84,12 @@ namespace WeekAnkama
 
         public void SetPlayerOutArena(Player killedPlayer, Vector3 pos)
         {
-            
-            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),pos, Quaternion.identity) as GameObject;
+            ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll" + killedPlayer.uniquePlayerValue), pos, Quaternion.identity) as GameObject;
+
+
             FeedbackManager.instance.Feedback(_playerOut, ragdoll.transform.position, 2);
             ragdoll.transform.DORotate(-ragdoll.transform.forward * 200,.5f);
+
             Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);

@@ -83,6 +83,8 @@ namespace WeekAnkama
         public bool processMovement { get { return _processMovement; } set { _processMovement = value; } }
         public bool isOut { get { return _isOut; } set { _isOut = value; } }
         public Animator anim { get { return _anim; } set { _anim = value; } }
+
+        public int uniquePlayerValue;
         #endregion
 
 

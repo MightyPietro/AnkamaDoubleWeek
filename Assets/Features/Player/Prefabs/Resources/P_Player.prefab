@@ -399,7 +399,9 @@ MonoBehaviour:
   _PMText: {fileID: 0}
   _playerFatigueDmg: {fileID: 11400000, guid: bcaab2709f5c7b348aab9a5a449e43a2, type: 2}
   _anim: {fileID: 6618857107877991571}
+  icone: {fileID: 0}
   discardPile: []
+  effects: []
   classe: {fileID: 0}
   playerValue: {fileID: 11400000, guid: 0ac95db73baa426489f07bed16fd1a27, type: 2}
 --- !u!114 &1743324843573889749
@@ -431,6 +433,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5001057450055840956}
     m_Modifications:
+    - target: {fileID: 1665747106500979490, guid: 32e604c1b7c9eec4887c0b7e369cae6b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2674674590791480167, guid: 32e604c1b7c9eec4887c0b7e369cae6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
