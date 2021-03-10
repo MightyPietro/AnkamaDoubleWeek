@@ -118,6 +118,8 @@ namespace WeekAnkama
                         break;
                 }
             }
+
+            DeplacementManager.OnPlayerMovementFinished += StopRun;
         }
 
 
@@ -186,7 +188,11 @@ namespace WeekAnkama
             if (Mathf.FloorToInt(_fatigue / 100) > Mathf.FloorToInt(lastFatigue / 100))
             {
                 passSelfExhaust?.Invoke(this, this);
-                attacker.PassEnnemyExhaust(this);
+
+                if(attacker != null)
+                {
+                    attacker.PassEnnemyExhaust(this);
+                }
             }
 
             return fatigue;

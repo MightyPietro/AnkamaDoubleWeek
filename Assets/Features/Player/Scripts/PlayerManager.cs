@@ -248,24 +248,23 @@ namespace WeekAnkama
                 actualPlayer.PA -= actualPlayer.currentAction.paCost;
                 actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
-                    if (actualPlayer.currentAction.range == 1)
-                    {
-                        actualPlayer.Punch();
-                    }
+                if (actualPlayer.currentAction.range == 1)
+                {
+                    actualPlayer.Punch();
+                }
 
                 HandleUnselectCard(actualPlayer);
 
-                    HandleUnselectCard(actualPlayer);
+                HandleUnselectCard(actualPlayer);
 
-                    //CheckCardsCost();
-                }
-                else
-                {
-                    HandleUnselectCard();
-                }
+                //CheckCardsCost();
+            }
+            else
+            {
+                HandleUnselectCard();
+            }
 
 
-            }            
         }
 
         public void UsePaStock()
@@ -299,7 +298,7 @@ namespace WeekAnkama
         /// <summary>
         /// Draw card for Actual Player, in this class to fill player hands
         /// </summary>
-        private void DrawCard()
+        /*private void DrawCard()
         {
             int rand = Random.Range(0, actualPlayer._deckReminder.Count);
             actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
@@ -317,7 +316,7 @@ namespace WeekAnkama
             player._deckReminder.Remove(player._deckReminder[rand]);
             DisplayCards();
 
-        }
+        }*/
 
         [PunRPC]
         private void AddCurrentActionToAll(int actionID)
