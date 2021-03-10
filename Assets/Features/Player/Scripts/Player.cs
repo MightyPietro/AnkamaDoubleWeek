@@ -32,6 +32,9 @@ namespace WeekAnkama
         [HideInInspector]
         public List<Action> discardPile = new List<Action>();
 
+        [SerializeField]
+        private PlayerClassScriptable classe;
+
         private PlayerPassive passive;
 
         private System.Action<Player, Player> beginTurn, takeDamage, doDamage, passEnemyExhaust, passSelfExhaust;
@@ -70,35 +73,103 @@ namespace WeekAnkama
         #endregion
 
 
-        private void Awake()
+        private void Start()
         {
             ResetDatas();
             ResetFatigue();
+
+            switch(classe.passive)
+            {
+                case PlayerClasses.Earth:
+                    passive = new EarthClassPassive();
+                    break;
+                case PlayerClasses.Fire:
+                    passive = new FireClassPassive();
+                    break;
+                case PlayerClasses.Water:
+                    passive = new WaterClassPassive();
+                    break;
+                case PlayerClasses.Wind:
+                    passive = new WindClassPassive();
+                    break;
+            }
+
+            if(passive!=null)
+            {
+                switch(passive.Trigger)
+                {
+                    case PassiveTrigger.BeginTurn:
+                        beginTurn += passive.ApplyPassive;
+                        break;
+                    case PassiveTrigger.DoDamage:
+                        doDamage += passive.ApplyPassive;
+                        break;
+                    case PassiveTrigger.TakeDamage:
+                        takeDamage += passive.ApplyPassive;
+                        break;
+                    case PassiveTrigger.PassEnemyExhaust:
+                        passEnemyExhaust += passive.ApplyPassive;
+                        break;
+                    case PassiveTrigger.PassSelfExhaust:
+                        passSelfExhaust += passive.ApplyPassive;
+                        break;
+                }
+            }
+        }
+
+        public void BeginTurn()
+        {
+            ResetDatas();
+            beginTurn?.Invoke(this, this);
+        }
+
+        public void DoDamage(Player attackTarget, int amount)
+        {
+            if(amount>0)
+            {
+                doDamage?.Invoke(this, attackTarget);
+            }
+        }
+
+        public void TakeHeal(int amount)
+        {
+            Debug.Log(fatigue + " -= " + amount);
+            fatigue -= amount;
+            Debug.Log(fatigue);
+            if (fatigue<0)
+            {
+                fatigue = 0;
+            }
         }
 
         public int TakeDamage(Player attacker, int amount)
         {
             int lastFatigue = fatigue;
 
-            Debug.Log("Allo ?");
             fatigue += amount;
 
             if(amount>0)
             {
+                Debug.Log(fatigue);
                 takeDamage?.Invoke(attacker, this);
             }
 
             if (Mathf.FloorToInt(_fatigue / 100) > Mathf.FloorToInt(lastFatigue / 100))
             {
                 passSelfExhaust?.Invoke(this, this);
+                attacker.PassEnnemyExhaust(this);
             }
 
             return fatigue;
         }
 
+        public void PassEnnemyExhaust(Player targetPlayer)
+        {
+            passEnemyExhaust?.Invoke(this, targetPlayer);
+        }
+
         public void ResetDatas()
         {
-            beginTurn?.Invoke(this, this);
             PA = _basePA;
             PM = _basePM;
         }

@@ -94,7 +94,7 @@ namespace WeekAnkama
 
             }
 
-            actualPlayer.ResetDatas();
+            actualPlayer.BeginTurn();
             ChangeTextState(true);
 
             if(_playerValue.Value == TurnManager.instance.turnValue){
