@@ -12,7 +12,7 @@ namespace WeekAnkama
         [SerializeField, TextArea(2,3)]
         private string description;
 
-        public void ShowTooltip()
+        public virtual void ShowTooltip()
         {
             TooltipsManager.ShowTooltip(titre, description);
         }

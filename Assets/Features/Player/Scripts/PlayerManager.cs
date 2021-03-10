@@ -49,6 +49,7 @@ namespace WeekAnkama
                 {
                     item.enabled = false;
                 }
+                HideMovePossiblity();
             };
 
             DeplacementManager.OnPlayerMovementFinished += (Player p) =>
@@ -57,6 +58,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
+                ShowMovePossibility();
             };
         }
 
@@ -92,7 +94,7 @@ namespace WeekAnkama
             if (actualPlayer.isOut)
             {
                 actualPlayer.isOut = false;
-                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer));
+                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer), true);
                 actualPlayer.ResetFatigue();
 
             }
@@ -133,6 +135,11 @@ namespace WeekAnkama
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
+        }
+
+        private void HideMovePossiblity()
+        {
+            SetPreviewTiles(_tilesInPreview, false, Color.green);
         }
 
         private void ChangeTextState(bool value)
@@ -214,11 +221,11 @@ namespace WeekAnkama
 
         }
 
-        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
+        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport, bool needFreeSpace)
         {
             Tile tileWanted = default;
 
-            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && (tileWanted.Walkable || !needFreeSpace))
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
@@ -255,7 +262,7 @@ namespace WeekAnkama
 
                 HandleUnselectCard(actualPlayer);
 
-                HandleUnselectCard(actualPlayer);
+                DisplayCards();
 
                 //CheckCardsCost();
             }
@@ -294,29 +301,11 @@ namespace WeekAnkama
                 playerToDraw.deck = new List<Action>(playerToDraw.discardPile);
                 playerToDraw.discardPile = new List<Action>();
             }
+            if(playerToDraw == actualPlayer)
+            {
+                DisplayCards();
+            }
         }
-        /// <summary>
-        /// Draw card for Actual Player, in this class to fill player hands
-        /// </summary>
-        /*private void DrawCard()
-        {
-            int rand = Random.Range(0, actualPlayer._deckReminder.Count);
-            actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
-            actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
-        }
-
-        /// <summary>
-        /// Draw card by using an action
-        /// </summary>
-        /// <param name="player"></param>
-        public void DrawCard(Player player)
-        {
-            int rand = Random.Range(0, player._deckReminder.Count);
-            player.hand.Add(player._deckReminder[rand]);
-            player._deckReminder.Remove(player._deckReminder[rand]);
-            DisplayCards();
-
-        }*/
 
         [PunRPC]
         private void AddCurrentActionToAll(int actionID)
@@ -350,17 +339,6 @@ namespace WeekAnkama
 
             //Calcul tiles to preview
             int range = action.range;
-            /*for (int y = -range; y <= range; y++)
-            {
-                for (int x = -range; x <= range; x++)
-                {
-                    if ( (x == y && x == 0 && !action.canBePlayedOnself) || (x == y && x != 0)|| (x != 0 && y!=0)) continue;
-                    if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
-                    {
-                        _tilesInPreview.Add(currentTile);
-                    }
-                }
-            }*/
 
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
 
@@ -419,6 +397,7 @@ namespace WeekAnkama
         [Button]
         private void DisplayCards()
         {
+            if (actualPlayer == null) return;
             for(int i = 0; i < displayedCards.Count; i++)
             {
                 if(i < actualPlayer.hand.Count)
