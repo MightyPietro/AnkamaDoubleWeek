@@ -18,7 +18,7 @@ MonoBehaviour:
   fatigueDmg: 50
   pushCase: 2
   range: 3
-  minimalRange: 1
+  minimalRange: 2
   isTileEffect: 0
   tileEffect: {fileID: 0}
   hasSightView: 0

@@ -59,17 +59,22 @@ namespace WeekAnkama
         public static void ChangeColor(Tile tile, Color color)
         {
             GameObject obj = GridManager.GetVisual(tile);
-            MeshRenderer rend = obj.GetComponent<MeshRenderer>();
-            rend.material.SetColor( "BaseColor" ,color); 
-            rend.material.SetFloat( "Base_color_opacity" ,1.0f); 
+            int colorInt = 0;
+            if(color == Color.cyan)
+            {
+                obj.GetComponent<TileFeedback>().Show(1);
+            }
+            else if(color == Color.green)
+            {
+                obj.GetComponent<TileFeedback>().Show(2);
+            }
+
         }
 
         public static void Reset(Tile tile, Color color)
         {
             GameObject obj = GridManager.GetVisual(tile);
-            MeshRenderer rend = obj.GetComponent<MeshRenderer>();
-            rend.material.SetColor("BaseColor", color);
-            rend.material.SetFloat("Base_color_opacity", 0.0f);
+            obj.GetComponent<TileFeedback>().Hide();
         }
 
 
