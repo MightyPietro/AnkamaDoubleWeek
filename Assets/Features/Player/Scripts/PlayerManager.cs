@@ -72,8 +72,11 @@ namespace WeekAnkama
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
             TurnManager.OnEndPlayerTurn += HandleUnselectCard;
+            TurnManager.OnEndTurn += HideTileFeedback;
+            TurnManager.OnBeginTurn += ShowMovePossibility;
 
             _tilesInPreview = new List<Tile>();
+
         }        
 
 
