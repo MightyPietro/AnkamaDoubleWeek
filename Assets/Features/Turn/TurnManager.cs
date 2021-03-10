@@ -51,6 +51,9 @@ namespace WeekAnkama
         [SerializeField]
         private TextMeshProUGUI playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt;
 
+        [SerializeField]
+        private Image turnTimeLeft;
+
         public int turnValue
         {
             get { return _turnValue; }
@@ -82,6 +85,7 @@ namespace WeekAnkama
                 {
                     currentTurnTimeLeft -= Time.deltaTime;
                 }
+                turnTimeLeft.fillAmount = currentTurnTimeLeft / 30;
             }
         }
 
