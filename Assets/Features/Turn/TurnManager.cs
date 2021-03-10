@@ -47,7 +47,7 @@ namespace WeekAnkama
         [SerializeField]
         private IntVariable playerValue;
         [SerializeField]
-        private Image playerIcon;
+        private Image playerIcon, passiveIcon;
         [SerializeField]
         private TextMeshProUGUI playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt;
 
@@ -98,7 +98,7 @@ namespace WeekAnkama
                 playerManager.TeleportPlayer(players[i], spawnPosition[i], true);
                 if(i== playerValue.Value)
                 {
-                    players[i].SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+                    players[i].SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
                 }
                 playerManager.DoDraw(players[i]);
             }
@@ -130,7 +130,10 @@ namespace WeekAnkama
             turnIndex = (turnIndex + 1) % players.Count;
 
             currentPlayerTurn = players[turnIndex];
-            currentPlayerTurn.SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+            if (playerValue.Value < 0)
+            {
+                currentPlayerTurn.SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+            }
             playerManager.StartPlayerTurn(currentPlayerTurn);
 
             newTurnText.text = "Player " + (turnIndex + 1).ToString();
