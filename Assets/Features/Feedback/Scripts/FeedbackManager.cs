@@ -20,7 +20,7 @@ namespace WeekAnkama
         }
         public void Feedback(Feedback feedback, Vector3 pos, float time)
         {
-            if (feedback.VFX != null) 
+            /*if (feedback.VFX != null) 
             {
                 GameObject VFX = Instantiate(feedback.VFX, _psPool.transform);
                 VFX.transform.position = pos;
@@ -37,7 +37,7 @@ namespace WeekAnkama
                         break;
                     }
                 }
-            }
+            }*/
         }
         public void Feedback(Feedback feedback, Vector3 pos, float time, Transform _transform)
         {

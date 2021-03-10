@@ -85,7 +85,6 @@ namespace WeekAnkama
 
         public void StartPlayerTurn(Player _setActualPlayer)
         {
-
             ChangeTextState(false);
             actualPlayer = _setActualPlayer;
 
@@ -98,11 +97,11 @@ namespace WeekAnkama
 
             }
 
-            actualPlayer.ResetDatas();
+            actualPlayer.BeginTurn();
             ChangeTextState(true);
 
             if(_playerValue.Value == TurnManager.instance.turnValue){
-                DoDraw();
+                DrawCard(actualPlayer);
                 DisplayCards();
                 _endTurnButton.SetActive(true);
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
@@ -120,12 +119,20 @@ namespace WeekAnkama
                 }
                 else
                 {
-                    DoDraw();
+                    DrawCard(actualPlayer);
                     DisplayCards();
                 }
 
             }
 
+            ShowMovePossibility();
+        }
+
+        private void ShowMovePossibility()
+        {
+            GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
+            _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
+            SetPreviewTiles(_tilesInPreview, true, Color.green);
         }
 
         private void ChangeTextState(bool value)
@@ -163,13 +170,17 @@ namespace WeekAnkama
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
-                        if (targetTile.Player != actualPlayer)
+                        if (targetTile.Player != actualPlayer || actualPlayer.currentAction.canBePlayedOnself)
                         {
                             if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
                             {
                                 DoAction(targetTile);
                             }
                             else if (actualPlayer.currentAction.isTileEffect)
+                            {
+                                DoAction(targetTile);
+                            }
+                            else if (actualPlayer.currentAction.isTargettingTile)
                             {
                                 DoAction(targetTile);
                             }
@@ -230,24 +241,30 @@ namespace WeekAnkama
                 Tile casterTile = null;
                 GridManager.Grid.TryGetTile(actualPlayer.position, out casterTile);
 
+                actualPlayer.discardPile.Add(actualPlayer.currentAction);
+                actualPlayer.hand.Remove(actualPlayer.currentAction);
+
+                actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
+                actualPlayer.PA -= actualPlayer.currentAction.paCost;
+                actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
 
                 if (actualPlayer.currentAction.range == 1)
                 {
                     actualPlayer.Punch();
                 }
 
-                actualPlayer.currentAction.Process(casterTile, targetTile, actualPlayer.currentAction);
-                actualPlayer.PA -= actualPlayer.currentAction.paCost;
-                actualPlayer.stockPA += actualPlayer.currentAction.bonusPA;
-
-                if(currentCard != null) currentCard.interactable = false;
-
+                HandleUnselectCard(actualPlayer);
 
                 HandleUnselectCard(actualPlayer);
 
                 //CheckCardsCost();
+            }
+            else
+            {
+                HandleUnselectCard();
+            }
 
-            }            
+
         }
 
         public void UsePaStock()
@@ -257,35 +274,49 @@ namespace WeekAnkama
         }
 
         [Button]
-        private void DoDraw()
+        public void DoDraw(Player playerToDraw)
         {
-            actualPlayer.hand.Clear();
-            actualPlayer._deckReminder.Clear();
-            for (int i = 0; i < actualPlayer.deck.Count; i++)
+            for (int i = 0; i < 3; i++)
             {
-                actualPlayer._deckReminder.Add(actualPlayer.deck[i]);
+                DrawCard(playerToDraw);
             }
-            /*for (int i = 0; i < 4; i++)
-            {
-                int rand = Random.Range(0, actualPlayer._deckReminder.Count);
-                actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
-                actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
-
-            }*/
-
-            for (int i = 0; i < 4; i++)
-            {
-                DrawCard();
-            }
-
         }
 
-        public void DrawCard()
+        public void DrawCard(Player playerToDraw)
+        {
+            int rand = Random.Range(0, playerToDraw.deck.Count);
+            playerToDraw.hand.Add(playerToDraw.deck[rand]);
+            playerToDraw.discardPile.Add(playerToDraw.deck[rand]);
+            playerToDraw.deck.RemoveAt(rand);
+
+            if (playerToDraw.deck.Count<=0)
+            {
+                playerToDraw.deck = new List<Action>(playerToDraw.discardPile);
+                playerToDraw.discardPile = new List<Action>();
+            }
+        }
+        /// <summary>
+        /// Draw card for Actual Player, in this class to fill player hands
+        /// </summary>
+        /*private void DrawCard()
         {
             int rand = Random.Range(0, actualPlayer._deckReminder.Count);
             actualPlayer.hand.Add(actualPlayer._deckReminder[rand]);
             actualPlayer._deckReminder.Remove(actualPlayer._deckReminder[rand]);
         }
+
+        /// <summary>
+        /// Draw card by using an action
+        /// </summary>
+        /// <param name="player"></param>
+        public void DrawCard(Player player)
+        {
+            int rand = Random.Range(0, player._deckReminder.Count);
+            player.hand.Add(player._deckReminder[rand]);
+            player._deckReminder.Remove(player._deckReminder[rand]);
+            DisplayCards();
+
+        }*/
 
         [PunRPC]
         private void AddCurrentActionToAll(int actionID)
@@ -313,21 +344,23 @@ namespace WeekAnkama
                 }
             }
 
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+
             currentCard = button;
 
             //Calcul tiles to preview
             int range = action.range;
-            for (int y = -range; y <= range; y++)
+            /*for (int y = -range; y <= range; y++)
             {
                 for (int x = -range; x <= range; x++)
                 {
-                    if (x == y || (x != 0 && y!=0)) continue;
+                    if ( (x == y && x == 0 && !action.canBePlayedOnself) || (x == y && x != 0)|| (x != 0 && y!=0)) continue;
                     if(GridManager.Grid.TryGetTile(actualPlayer.position + new Vector2Int(x,y), out Tile currentTile))
                     {
                         _tilesInPreview.Add(currentTile);
                     }
                 }
-            }
+            }*/
 
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
 
@@ -365,6 +398,7 @@ namespace WeekAnkama
         {
             if (player == null) return;
             SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            ShowMovePossibility();
             //_tilesInPreview.Clear();
             player.currentAction = null;
         }
@@ -494,6 +528,13 @@ namespace WeekAnkama
                 {
                     tilesInRange.RemoveAt(i);
                     i--;
+                }
+            }
+            if (actionToCheck.canBePlayedOnself)
+            {
+                if (!tilesInRange.Contains(castTile))
+                {
+                    tilesInRange.Add(castTile);
                 }
             }
 

@@ -95,6 +95,11 @@ namespace WeekAnkama
             _player = null;
         }
 
+        public void UnSetPlayerNoTrigger()
+        {
+            _player = null;
+        }
+
         public void SetTileEffect(TileEffect effect)
         {
             if(effect == null)

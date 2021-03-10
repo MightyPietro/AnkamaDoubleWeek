@@ -222,6 +222,48 @@ namespace WeekAnkama
 			return toReturn;
 		}
 
+		public List<Tile> GetMovementNodes(Tile startNode, int maxDistance)
+		{
+			ResetTiles();
+
+			List<Tile> toReturn = new List<Tile>();
+
+			Heap<Tile> openSet = new Heap<Tile>(grid.Width * grid.Heigth);
+			HashSet<Tile> closedSet = new HashSet<Tile>();
+			openSet.Add(startNode);
+
+			startNode.gCost = 0;
+
+			while (openSet.Count > 0)
+			{
+				Tile currentNode = openSet.RemoveFirst();
+				closedSet.Add(currentNode);
+
+				foreach (Tile neighbour in grid.GetNeighbours(currentNode))
+				{
+					if (!neighbour.Walkable || closedSet.Contains(neighbour))
+					{
+						continue;
+					}
+
+					int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+
+					if (newMovementCostToNeighbour <= maxDistance && (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)))
+					{
+						neighbour.gCost = newMovementCostToNeighbour;
+						neighbour.parent = currentNode;
+
+						if (!openSet.Contains(neighbour))
+						{
+							openSet.Add(neighbour);
+							toReturn.Add(neighbour);
+						}
+					}
+				}
+			}
+			return toReturn;
+		}
+
 		public int GetDistance(Tile nodeA, Tile nodeB)
 		{
 			int dstX = Mathf.Abs(nodeA.Coords.x - nodeB.Coords.x);
