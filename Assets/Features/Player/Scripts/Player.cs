@@ -63,8 +63,7 @@ namespace WeekAnkama
                 _fatigue = value;
                 fatigueText.text = fatigue.ToString();
 
-                
-                Hurt();
+
                 Debug.Log(mainFatigueTxt);
                 if (mainFatigueTxt != null)
                 {
@@ -210,8 +209,9 @@ namespace WeekAnkama
             int lastFatigue = fatigue;
 
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
+            FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
 
-
+            Hurt();
             if (amount>0)
             {
                 Debug.Log(fatigue);

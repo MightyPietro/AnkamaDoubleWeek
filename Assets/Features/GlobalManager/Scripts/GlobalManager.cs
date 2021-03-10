@@ -152,6 +152,9 @@ namespace WeekAnkama
 
             Vector3 outGridPos = Vector3.zero;
 
+            
+
+
             while (true)
             {
                 posUnit = targetToMove.position;
@@ -164,7 +167,7 @@ namespace WeekAnkama
                 {
                     posTarget = outGridPos;
                 }
-
+                
                 if (Vector3.Distance(posUnit, posTarget) <= (speed * Time.deltaTime))
                 {
                     targetIndex++;
@@ -173,9 +176,11 @@ namespace WeekAnkama
                         if (isPlayerOut && outGridPos == Vector3.zero)
                         {
                             outGridPos = currentWaypoint.WorldPosition + direction;
+
                         }
                         else
                         {
+
                             playerToMove.processMovement = false;
                             if (currentWaypoint.Player == null)// If player not set, means path was only one and dont need trigger, already on tile
                             {
@@ -193,6 +198,7 @@ namespace WeekAnkama
 
                             if (isPlayerOut)
                             {
+
                                 PlayerManager.instance.SetPlayerOutArena(playerToMove, currentWaypoint.WorldPosition + direction);
                                 currentWaypoint.UnSetPlayer();
                             }

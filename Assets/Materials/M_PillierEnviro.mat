@@ -141,7 +141,7 @@ Material:
     - SideRoughness: 0
     - SideSaturation: 1
     - TopBaseColorOpacity: 0.2
-    - TopColorVarOpacity: 0.48
+    - TopColorVarOpacity: 0.4
     - TopContrast: 1
     - TopHUE: 0
     - TopMetallic: 0
