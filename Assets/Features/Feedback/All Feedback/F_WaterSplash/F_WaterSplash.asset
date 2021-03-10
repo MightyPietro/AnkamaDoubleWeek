@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: F_WaterSplash
   m_EditorClassIdentifier: 
   VFX: {fileID: 6090410418473545095, guid: 165f30fae4a3bd2429594edb3e0499ff, type: 3}
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: f96016cd7d4e28445aa605e98098eea0, type: 3}
