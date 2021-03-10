@@ -14,6 +14,8 @@ namespace WeekAnkama
         [SerializeField] Feedback _charaFire;
         [SerializeField] Feedback _waterSplash;
 
+        private GameObject _earthVFX;
+
         private void Awake()
         {
             instance = this;
@@ -39,6 +41,7 @@ namespace WeekAnkama
                 }
             }
         }
+       
         public void Feedback(Feedback feedback, Vector3 pos, float time, Transform _transform)
         {
             if (feedback.VFX != null)
@@ -61,9 +64,35 @@ namespace WeekAnkama
             }
         }
 
-        public void EarthFeedback(Vector3 pos, float time) => Feedback(_earthEffect, pos, time);
         public void CharaFireFeedback(Vector3 pos, float time, Transform _transform) => Feedback(_charaFire, pos, time, _transform);
         public void WaterFeedback(Vector3 pos, float time) => Feedback(_waterSplash, pos, time);
+
+        public void EarthFeedback(Vector3 pos, float time, bool isExplose)
+        {
+            if (_earthEffect.VFX != null)
+            {
+                _earthVFX = Instantiate(_earthEffect.VFX, _psPool.transform);
+                _earthVFX.transform.position = pos;
+                Destroy(_earthVFX, time);
+            }
+
+            if (_earthEffect.clips.Length > 0)
+            {
+                for (int i = 0; i < _sources.Length; i++)
+                {
+                    if (!_sources[i].isPlaying)
+                    {
+                        _sources[i].PlayOneShot(_earthEffect.clips[Random.Range(0, _earthEffect.clips.Length)]);
+                        break;
+                    }
+                }
+            }
+            if (isExplose)
+            {
+                _earthVFX.GetComponent<Animator>().SetBool("isExplose", true);
+            }
+
+        }
     }
 }
 
