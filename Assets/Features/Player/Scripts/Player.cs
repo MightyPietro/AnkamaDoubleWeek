@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 namespace WeekAnkama
 {
@@ -36,6 +37,8 @@ namespace WeekAnkama
 
         [SerializeField]
         private PlayerClassScriptable classe;
+        [SerializeField]
+        private IntVariable playerValue;
 
         private PlayerPassive passive;
 
@@ -56,6 +59,7 @@ namespace WeekAnkama
                 fatigueText.text = fatigue.ToString();
 
                 FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position + new Vector3(0, transform.localScale.y + 1, 0), 1f);
+                Hurt();
                 if (mainFatigueTxt != null)
                 {
                     Debug.Log("Allo ???????"); mainFatigueTxt.text = fatigue.ToString();
@@ -81,7 +85,12 @@ namespace WeekAnkama
             ResetDatas();
             ResetFatigue();
 
-            switch(classe.passive)
+            if (PhotonNetwork.IsConnected)
+            {
+                classe = playerValue.playerClass;
+            }
+
+            switch (classe.passive)
             {
                 case PlayerClasses.Earth:
                     passive = new EarthClassPassive();

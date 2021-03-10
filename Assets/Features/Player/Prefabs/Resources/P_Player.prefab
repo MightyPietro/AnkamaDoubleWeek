@@ -399,11 +399,9 @@ MonoBehaviour:
   _PMText: {fileID: 0}
   _playerFatigueDmg: {fileID: 11400000, guid: bcaab2709f5c7b348aab9a5a449e43a2, type: 2}
   _anim: {fileID: 6618857107877991571}
-  _deckReminder:
-  - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 0}
+  discardPile: []
+  classe: {fileID: 0}
+  playerValue: {fileID: 11400000, guid: 0ac95db73baa426489f07bed16fd1a27, type: 2}
 --- !u!114 &1743324843573889749
 MonoBehaviour:
   m_ObjectHideFlags: 0
