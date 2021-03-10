@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &7773771695900843242
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928809090742863531}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.24673367, z: 1}
+  m_Center: {x: 0, y: 9.876633, z: 0}
 --- !u!1001 &7118396667582282746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53,7 +66,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c82496e727955f498d21a9ceb917da8, type: 3}
       propertyPath: m_Name
-      value: SM_Pillier_10m_01
+      value: P_Pillier_10m_01
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3451118302482216456, guid: 0c82496e727955f498d21a9ceb917da8, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: 0c82496e727955f498d21a9ceb917da8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3451118302482216456, guid: 0c82496e727955f498d21a9ceb917da8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c82496e727955f498d21a9ceb917da8, type: 3}
+--- !u!1 &7928809090742863531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0c82496e727955f498d21a9ceb917da8, type: 3}
+  m_PrefabInstance: {fileID: 7118396667582282746}
+  m_PrefabAsset: {fileID: 0}
