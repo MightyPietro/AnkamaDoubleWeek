@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9182049107121446404}
   m_Layer: 5
   m_Name: P_ActionButton
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 598516140125895681}
   m_Layer: 5
   m_Name: Name
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 4454448996619874178}
   m_Layer: 5
   m_Name: Fatigue
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 6317203707851842841}
   m_Layer: 5
   m_Name: VFX_Glow
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5203,7 +5203,7 @@ GameObject:
   - component: {fileID: 858446211696251274}
   m_Layer: 5
   m_Name: PA
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

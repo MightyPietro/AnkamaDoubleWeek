@@ -18,8 +18,8 @@ MonoBehaviour:
   fatigueDmg: 50
   pushCase: 3
   range: 5
-  isTileEffect: 1
-  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
+  canTerraform: 1
+  tileEffects: []
   hasSightView: 0
   isLinedRange: 1
   isTargettingTile: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   areaRange: 0
   hasLineArea: 1
   customArea: []
-  actionTypes: 080000001000000020000000
+  actionTypes: 0800000010000000
