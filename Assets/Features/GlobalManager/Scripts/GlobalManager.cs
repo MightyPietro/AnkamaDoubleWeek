@@ -131,15 +131,6 @@ namespace WeekAnkama
             }
         }
 
-        public void AskPlayerToMove(Player playerToMove, Tile destination, float speed)
-        {
-            if(!playerToMove.processMovement)
-            {
-                playerToMove.processMovement = true;
-                
-            }
-        }
-
         public void AskPlayerToFollowPath(List<Tile> path, Player playerToMove, Player playerToDamage, float speed, bool isPlayerOut, int damages, Vector3 direction)
         {
             if(!playerToMove.processMovement)
