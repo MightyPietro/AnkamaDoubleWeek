@@ -627,7 +627,10 @@ namespace WeekAnkama
 
         private void HideTileFeedback()
         {
-            SetPreviewTiles(_tilesInPreview, false, Color.green);
+            GridManager.Grid.TryGetTile(Vector2Int.zero, out Tile startTile);
+            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(startTile, 0, 150, false);
+            tilesInRange.Add(startTile);
+            SetPreviewTiles(tilesInRange, false, Color.green);
         }
 
     }
