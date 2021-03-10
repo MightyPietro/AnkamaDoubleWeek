@@ -58,7 +58,7 @@ namespace WeekAnkama
                 _fatigue = value;
                 fatigueText.text = fatigue.ToString();
 
-                FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position + new Vector3(0, transform.localScale.y + 1, 0), 1f);
+                
                 Hurt();
                 if (mainFatigueTxt != null)
                 {
@@ -187,11 +187,14 @@ namespace WeekAnkama
             int lastFatigue = fatigue;
 
             fatigue += amount;
+            FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
 
-            if(amount>0)
+
+            if (amount>0)
             {
                 Debug.Log(fatigue);
                 takeDamage?.Invoke(attacker, this);
+                
             }
 
             if (Mathf.FloorToInt(_fatigue / 100) > Mathf.FloorToInt(lastFatigue / 100))
