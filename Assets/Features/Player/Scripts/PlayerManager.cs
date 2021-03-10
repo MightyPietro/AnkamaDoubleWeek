@@ -49,7 +49,7 @@ namespace WeekAnkama
                 {
                     item.enabled = false;
                 }
-                HideMovePossiblity();
+                HideTileFeedback();
             };
 
             DeplacementManager.OnPlayerMovementFinished += (Player p) =>
@@ -135,11 +135,6 @@ namespace WeekAnkama
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
-        }
-
-        private void HideMovePossiblity()
-        {
-            SetPreviewTiles(_tilesInPreview, false, Color.green);
         }
 
         private void ChangeTextState(bool value)
@@ -333,7 +328,7 @@ namespace WeekAnkama
                 }
             }
 
-            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            HideTileFeedback();
 
             currentCard = button;
 
@@ -366,7 +361,7 @@ namespace WeekAnkama
         private void HandleUnselectCard()
         {
             if (actualPlayer == null) return;
-            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            HideTileFeedback();
             //_tilesInPreview.Clear();
             actualPlayer.currentAction = null;
         }
@@ -375,7 +370,7 @@ namespace WeekAnkama
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
-            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
+            HideTileFeedback();
             ShowMovePossibility();
             //_tilesInPreview.Clear();
             player.currentAction = null;
@@ -475,11 +470,6 @@ namespace WeekAnkama
 
             List<Tile> usableTiles = GetUsableTiles(castTile, actionToCheck);
 
-            /*if ((!actionToCheck.isLinedRange || castTile.Coords.x == targetTile.Coords.x || castTile.Coords.y == targetTile.Coords.y) && usableTiles.Contains(targetTile))
-            {
-                return (Mathf.Abs(targetTile.Coords.x - castTile.Coords.x) + Mathf.Abs(targetTile.Coords.y - castTile.Coords.y) <= rangeNeeded);
-            }*/
-
             if (usableTiles.Contains(targetTile))
             {
                 return true;
@@ -490,7 +480,7 @@ namespace WeekAnkama
 
         private List<Tile> GetUsableTiles(Tile castTile, Action actionToCheck)
         {
-            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.range * 10, actionToCheck.isLinedRange);
+            List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.minimalRange * 10, actionToCheck.range * 10, actionToCheck.isLinedRange);
 
             List<Tile> obstacles = new List<Tile>();
             foreach(Tile t in tilesInRange)
@@ -625,6 +615,11 @@ namespace WeekAnkama
         public void HideSpellDetail()
         {
             spellDetailObject.SetActive(false);
+        }
+
+        private void HideTileFeedback()
+        {
+            SetPreviewTiles(_tilesInPreview, false, Color.green);
         }
 
     }
