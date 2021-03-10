@@ -210,7 +210,6 @@ namespace WeekAnkama
 
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
             FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
-
             Hurt();
             if (amount>0)
             {

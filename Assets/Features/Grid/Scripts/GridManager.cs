@@ -12,7 +12,8 @@ namespace WeekAnkama
 
         [SerializeField] private GridLevel _settings;
         [SerializeField] private GameObject[] _floor;
-                     
+
+        [SerializeField] private GameObject _highlightTile;
 
         public static Grid Grid => _grid;
         public static GameObject[,] TilesVisual => _tilesVisual;
