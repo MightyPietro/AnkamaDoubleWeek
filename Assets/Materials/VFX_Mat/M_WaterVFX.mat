@@ -113,13 +113,13 @@ Material:
     - NormalPower: 0
     - Roughness: 0.5
     - Saturation: 1
-    - Side_Opacity: 0.146
+    - Side_Opacity: 0.105
     - Vector1_DBBE198F: 0.2
     - Vector1_EE715587: 1
     - VertexPower: 0.746
     - VortexOpacity: 0.18
     - VortexRotation: 0
-    - VortexRotationSpeed: 2.25
+    - VortexRotationSpeed: 0.33
     - VortexSize: 0.845
     - _AlphaClip: 0
     - _Blend: 0
