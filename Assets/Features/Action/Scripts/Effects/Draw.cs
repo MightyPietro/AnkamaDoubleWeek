@@ -8,7 +8,7 @@ namespace WeekAnkama
     {
         public override bool Process(Tile casterTile, Tile targetTile, Action action)
         {
-            if(targetTile != null && targetTile.Player != null && targetTile.Player.hand.Count < 7)
+            if(targetTile != null && targetTile.Player != null && targetTile.Player.hand.Count <= 7)
             {
                 PlayerManager.instance.DrawCard(targetTile.Player);
                 return true;
