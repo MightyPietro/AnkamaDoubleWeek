@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1743324843573889749, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: viewIdField
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3122769323367309816, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -222,6 +226,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1743324843573889749, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: viewIdField
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3122769323367309816, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -517,6 +525,7 @@ MonoBehaviour:
   - {x: 5, y: 1}
   - {x: 1, y: 5}
   secondByTurn: 6
+  _photonView: {fileID: 0}
   newTurnText: {fileID: 1486189010}
   turnFeedback:
   - {fileID: 1659441823}
@@ -524,10 +533,18 @@ MonoBehaviour:
   - {fileID: 576758923}
   - {fileID: 772125256}
   colorTests:
-  - {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
-  - {r: 0.86152506, g: 1, b: 0.4009434, a: 1}
-  - {r: 0.2971698, g: 0.47057128, b: 1, a: 1}
-  - {r: 0.4669811, g: 1, b: 0.56937635, a: 1}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerValue: {fileID: 0}
+  playerIcon: {fileID: 0}
+  passiveIcon: {fileID: 0}
+  playerFatigueTxt: {fileID: 0}
+  playerPmTxt: {fileID: 0}
+  playerPaTxt: {fileID: 0}
+  playerStockPaTxt: {fileID: 0}
+  turnTimeLeft: {fileID: 0}
 --- !u!4 &393725970
 Transform:
   m_ObjectHideFlags: 0
@@ -566,7 +583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b03401b7ae4e8a499dacfbd350c6214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boot: {fileID: 393725975}
 --- !u!114 &393725973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +599,7 @@ MonoBehaviour:
   speed: 2
   testT: {fileID: 2038216333}
   testMovable: {fileID: 112871682}
+  _moveFeedback: {fileID: 0}
 --- !u!114 &393725974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,7 +646,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _players: []
-  boot: {fileID: 393725975}
 --- !u!1 &439715043
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2066244388213483621, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd741d589d754bc4283b665a6abfa9ce, type: 3}
 --- !u!1 &544032543 stripped
@@ -992,6 +1012,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1743324843573889749, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3122769323367309816, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -1159,6 +1183,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1743324843573889749, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3122769323367309816, guid: 230bc4a0ca7a3514cbf5b49d6330a494, type: 3}
       propertyPath: m_Layer
       value: 2
