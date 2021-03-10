@@ -49,6 +49,7 @@ namespace WeekAnkama
                 {
                     item.enabled = false;
                 }
+                HideMovePossiblity();
             };
 
             DeplacementManager.OnPlayerMovementFinished += (Player p) =>
@@ -57,6 +58,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
+                ShowMovePossibility();
             };
         }
 
@@ -92,7 +94,7 @@ namespace WeekAnkama
             if (actualPlayer.isOut)
             {
                 actualPlayer.isOut = false;
-                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer));
+                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer), true);
                 actualPlayer.ResetFatigue();
 
             }
@@ -133,6 +135,11 @@ namespace WeekAnkama
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
+        }
+
+        private void HideMovePossiblity()
+        {
+            SetPreviewTiles(_tilesInPreview, false, Color.green);
         }
 
         private void ChangeTextState(bool value)
@@ -214,11 +221,11 @@ namespace WeekAnkama
 
         }
 
-        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport)
+        public bool TeleportPlayer(Player playerToTeleport, Vector2Int posToTeleport, bool needFreeSpace)
         {
             Tile tileWanted = default;
 
-            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && tileWanted.Walkable)
+            if (GridManager.Grid.TryGetTile(posToTeleport, out tileWanted) && (tileWanted.Walkable || !needFreeSpace))
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
@@ -255,7 +262,7 @@ namespace WeekAnkama
 
                 HandleUnselectCard(actualPlayer);
 
-                HandleUnselectCard(actualPlayer);
+                DisplayCards();
 
                 //CheckCardsCost();
             }
