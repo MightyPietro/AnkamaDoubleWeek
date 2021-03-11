@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Un Poing c'est tout
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  description: 
-  paCost: 0
+  icon: {fileID: 21300000, guid: 73c21bfad4f093348a8a3a5d96131f3e, type: 3}
+  description: Inflige 50 de fatigue et pousse un joueur adjacent.
+  paCost: 2
   bonusPA: 0
-  fatigueDmg: 0
-  pushCase: 0
-  range: 0
+  fatigueDmg: 50
+  pushCase: 1
+  range: 1
   minimalRange: 0
   canTerraform: 0
   tileEffects: []
-  hasSightView: 0
-  isLinedRange: 0
+  hasSightView: 1
+  isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
   hasPlayerEffect: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Rocketo-poing
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a170b2482ea9644478e700c03858c00e, type: 3}
   description: "Inflige 50 de fatigue et pousse un joueur situ\xE9 jusqu'\xE0 3 cases
     de distance."
   paCost: 4

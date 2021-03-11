@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Charge Heure
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: ad4c34f61d77b3d458db3664ff2b34ff, type: 3}
   description: "D\xE9placement jusqu'\xE0 3 cases dans une direction choisie. Si
     vous percutez un joueur, vous arr\xEAte et lui inflige 80 de fatigue. Stock 1
     PA"

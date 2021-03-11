@@ -12,20 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: I Kick
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: a170b2482ea9644478e700c03858c00e, type: 3}
-  description: 
-  paCost: 4
+  icon: {fileID: 21300000, guid: a9583ca32fd999e44aa68b0235584ba7, type: 3}
+  description: "Pousse un joueur situ\xE9 jusqu'\xE0 2 cases de distance. Stock 1
+    PA."
+  paCost: 3
   bonusPA: 0
-  fatigueDmg: 50
-  pushCase: 3
-  range: 5
+  fatigueDmg: 0
+  pushCase: 1
+  range: 2
   minimalRange: 0
-  canTerraform: 1
+  canTerraform: 0
   tileEffects: []
-  hasSightView: 0
+  hasSightView: 1
   isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
-  hasPlayerEffect: 0
-  playerEffects: []
-  actionTypes: 0800000010000000
+  hasPlayerEffect: 1
+  playerEffects:
+  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  actionTypes: 10000000
