@@ -218,8 +218,16 @@ namespace WeekAnkama
                             }
                             else if (actualPlayer.currentAction.canTerraform)
                             {
-                                if (_playerValue.Value == turnManager.turnValue)
+                                if (PhotonNetwork.IsConnected)
+                                {
+                                    if (_playerValue.Value == turnManager.turnValue)
+                                        _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                }
+                                else
+                                {
                                     _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                }
+                                
 
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
