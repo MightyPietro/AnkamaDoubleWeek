@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9058142351827252769}
   - component: {fileID: 9058142351827252775}
   - component: {fileID: 9058142351827252774}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4821,7 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9058142351866767350}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_FireVar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4857,7 +4857,7 @@ GameObject:
   - component: {fileID: 9058142352625140587}
   - component: {fileID: 9058142352625140585}
   - component: {fileID: 9058142352625140584}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9669,7 +9669,7 @@ GameObject:
   - component: {fileID: 9058142353066346784}
   - component: {fileID: 9058142353066346790}
   - component: {fileID: 9058142353066346785}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Add
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14508,7 +14508,7 @@ GameObject:
   - component: {fileID: 9058142353324330246}
   - component: {fileID: 9058142353324330244}
   - component: {fileID: 9058142353324330247}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3755129605456694958}
   - component: {fileID: 3755129605456694959}
   - component: {fileID: 3755129605456694956}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Spawn_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4823,7 +4823,7 @@ GameObject:
   - component: {fileID: 3755129605729371917}
   - component: {fileID: 3755129605729371914}
   - component: {fileID: 3755129605729371915}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9635,7 +9635,7 @@ GameObject:
   - component: {fileID: 3755129606268137098}
   - component: {fileID: 3755129606268137099}
   - component: {fileID: 3755129606268137096}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14447,7 +14447,7 @@ GameObject:
   - component: {fileID: 3755129606521446626}
   - component: {fileID: 3755129606521446627}
   - component: {fileID: 3755129606521446624}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Spawn_Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19257,7 +19257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8784989529511030110}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_TeleportSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

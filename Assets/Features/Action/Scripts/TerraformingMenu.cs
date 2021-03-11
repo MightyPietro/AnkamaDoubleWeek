@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+
 
 namespace WeekAnkama
 {
@@ -8,6 +10,7 @@ namespace WeekAnkama
     {
         [SerializeField] private Transform _selfTransform;
         [SerializeField] private GameObject _selfGameobject;
+        [SerializeField] private PhotonView _photonView;
         private ActionType _selectedElement;
 
 
@@ -37,6 +40,20 @@ namespace WeekAnkama
             _selectedElement = ActionType.None;
         }
 
+        public void OnPlayerClickTerraformButtonViaRPC(string element)
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                _photonView.RPC("OnPlayerClickTerraformButton", RpcTarget.All, element);
+            }
+            else
+            {
+                OnPlayerClickTerraformButton(element);
+            }
+            
+        }
+
+        [PunRPC]
         public void OnPlayerClickTerraformButton(string element)
         {
             switch (element)

@@ -54,6 +54,7 @@ MonoBehaviour:
   _actionsList: {fileID: 11400000, guid: 6adf90d7e67596b45bb7897dd1e79480, type: 2}
   _teleportPlayer: {fileID: 11400000, guid: 03f2598f657503b4fb8a35411f3f3e11, type: 2}
   _playerOut: {fileID: 11400000, guid: ee606b3d43bcc504a98119c53172ca97, type: 2}
+  _terraformingMenu: {fileID: 0}
   displayedCards:
   - {fileID: 0}
   - {fileID: 0}
@@ -64,6 +65,8 @@ MonoBehaviour:
   - {fileID: 0}
   spellTitle: {fileID: 0}
   spellDescription: {fileID: 0}
+  stockMaanaText: {fileID: 0}
+  damagesText: {fileID: 0}
   spellDetailObject: {fileID: 0}
 --- !u!114 &2066244388213483621
 MonoBehaviour:

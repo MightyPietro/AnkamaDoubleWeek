@@ -159,7 +159,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5769095066384077127}
         m_TargetAssemblyTypeName: WeekAnkama.TerraformingMenu, Assembly-CSharp
-        m_MethodName: OnPlayerClickTerraformButton
+        m_MethodName: OnPlayerClickTerraformButtonViaRPC
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -291,7 +291,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5769095066384077127}
         m_TargetAssemblyTypeName: WeekAnkama.TerraformingMenu, Assembly-CSharp
-        m_MethodName: OnPlayerClickTerraformButton
+        m_MethodName: OnPlayerClickTerraformButtonViaRPC
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -498,7 +498,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5769095066384077127}
         m_TargetAssemblyTypeName: WeekAnkama.TerraformingMenu, Assembly-CSharp
-        m_MethodName: OnPlayerClickTerraformButton
+        m_MethodName: OnPlayerClickTerraformButtonViaRPC
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -748,7 +748,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5769095066384077127}
         m_TargetAssemblyTypeName: WeekAnkama.TerraformingMenu, Assembly-CSharp
-        m_MethodName: OnPlayerClickTerraformButton
+        m_MethodName: OnPlayerClickTerraformButtonViaRPC
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1008,6 +1008,7 @@ GameObject:
   - component: {fileID: 886726710}
   - component: {fileID: 886726709}
   - component: {fileID: 886726708}
+  - component: {fileID: 5032987225126062782}
   m_Layer: 5
   m_Name: P_TerraformingMenu
   m_TagString: Untagged
@@ -1049,6 +1050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selfTransform: {fileID: 3856214200668111446}
   _selfGameobject: {fileID: 8562000557612901544}
+  _photonView: {fileID: 5032987225126062782}
 --- !u!223 &886726710
 Canvas:
   m_ObjectHideFlags: 0
@@ -1109,3 +1111,25 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &5032987225126062782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8562000557612901544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7006159713203357471}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_SelectionCase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,6 +89,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 06e81649b27722d4998ba24e58f5715e, type: 3}
       propertyPath: m_Name
       value: SM_Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e81649b27722d4998ba24e58f5715e, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06e81649b27722d4998ba24e58f5715e, type: 3}
