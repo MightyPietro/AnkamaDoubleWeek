@@ -64,7 +64,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                if(_playerValue.Value == turnManager.turnValue)
+                if(_playerValue.Value == turnManager.turnValue || _playerValue.Value < 0)
                     ShowMovePossibility();
 
             };
@@ -372,7 +372,7 @@ namespace WeekAnkama
         [Button]
         public void DoDraw(Player playerToDraw)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 DrawCard(playerToDraw);
             }

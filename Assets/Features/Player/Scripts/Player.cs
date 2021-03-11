@@ -291,6 +291,14 @@ namespace WeekAnkama
             fatigue = 0;
         }
 
+        public void UnsetPlayerUI()
+        {
+            mainFatigueTxt = null;
+            pmTxt = null;
+            paTxt = null;
+            stockPaTxt = null;
+        }
+
         public void SetPlayerUI(Image _icone, Image _spellIcon, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)
         {
             _icone.sprite = icone;
