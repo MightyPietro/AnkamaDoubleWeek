@@ -181,7 +181,6 @@ namespace WeekAnkama
             if(this == player)
             {
                 player.anim.SetBool("isRun", false);
-                player.anim.SetBool("isIDLE", true);
             }
 
         }
@@ -252,6 +251,7 @@ namespace WeekAnkama
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
             FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
             Hurt();
+            StopRun(this);
             if (amount>0)
             {
                 takeDamage?.Invoke(attacker, this);
@@ -289,6 +289,14 @@ namespace WeekAnkama
         public void ResetFatigue()
         {
             fatigue = 0;
+        }
+
+        public void UnsetPlayerUI()
+        {
+            mainFatigueTxt = null;
+            pmTxt = null;
+            paTxt = null;
+            stockPaTxt = null;
         }
 
         public void SetPlayerUI(Image _icone, Image _spellIcon, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)

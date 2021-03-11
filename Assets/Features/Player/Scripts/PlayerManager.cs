@@ -54,8 +54,8 @@ namespace WeekAnkama
                 foreach (var item in displayedCards)
                 {
                     item.enabled = false;
+                    HideTileFeedback();
                 }
-                HideTileFeedback();
             };
 
             DeplacementManager.OnPlayerMovementFinished += (Player p) =>
@@ -64,13 +64,13 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                if(_playerValue.Value == turnManager.turnValue)
+                if(_playerValue.Value == turnManager.turnValue || _playerValue.Value < 0)
                     ShowMovePossibility();
 
             };
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
             if (!PhotonNetwork.IsConnected)
             {
@@ -78,10 +78,15 @@ namespace WeekAnkama
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
             TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
-            TurnManager.OnEndTurn += HideTileFeedback;
             TurnManager.OnBeginTurn += ShowMovePossibility;
-
+            
             _tilesInPreview = new List<Tile>();
+            yield return new WaitForSeconds(.5f);
+            if (!PhotonNetwork.IsConnected)
+            {
+                ShowMovePossibility();
+            }
+
 
         }        
 
@@ -288,6 +293,8 @@ namespace WeekAnkama
                 HandleUnselectCardViaRPC(actualPlayer);
             }
 
+            
+
         }
 
         [PunRPC]
@@ -298,6 +305,8 @@ namespace WeekAnkama
             Debug.Log(actualPlayer.currentAction);
             GridManager.Grid.TryGetTile(new Vector2Int(x, y), out Tile tile);
             DoAction(tile);
+            actualPlayer.anim.SetTrigger("Skill");
+            actualPlayer.transform.DOLookAt(tile.WorldPosition,.1f);
         }
 
         private void MoveCharacter(Tile targetTile)
@@ -372,7 +381,7 @@ namespace WeekAnkama
         [Button]
         public void DoDraw(Player playerToDraw)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 DrawCard(playerToDraw);
             }
@@ -493,6 +502,7 @@ namespace WeekAnkama
                 _currentTerraformCoroutine = null;
             }            
             _terraformingMenu.GetComponent<Canvas>().enabled = false;
+            _terraformingMenu._selectedElement = ActionType.None;
 
             SetPreviewTiles(_tilesInPreview, false, Color.cyan);
             HideTileFeedback();
