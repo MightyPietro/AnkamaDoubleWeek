@@ -36,15 +36,10 @@ namespace WeekAnkama
         public bool isTargettingTile = false;
 
         public bool canBePlayedOnself = false;
-        
-        [Space]
-        public bool isAreaAction;
-        [ShowIfGroup("isAreaAction")]
-        public int areaRange;
-        [ShowIfGroup("isAreaAction")] public bool hasLineArea = true;
-        [ShowIfGroup("isAreaAction")] public List<Vector2> customArea;
-        [Space]           
-       
+
+        public bool hasPlayerEffect = false;
+        [ShowIf("hasPlayerEffect"), PropertySpace(0, 20.0f)]
+        [SerializeField] private List<PlayerEffect> playerEffects;
 
         [Header("Action")]
         public List<ActionType> actionTypes;
@@ -111,6 +106,14 @@ namespace WeekAnkama
             Tile targetedPlayerTile, casterPlayerTile;
 
             FindActionEffectSubClass();
+
+            if (action.hasPlayerEffect)
+            {
+                for (int i = 0; i < action.playerEffects.Count; i++)
+                {
+                    playerTargeted.AddEffect(action.playerEffects[i]);
+                }
+            }
 
             for (int j = 0; j < actionTypes.Count; j++)
             {
