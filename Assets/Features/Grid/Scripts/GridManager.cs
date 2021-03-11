@@ -26,15 +26,6 @@ namespace WeekAnkama
 
             _tilesVisual = new GameObject[_grid.Width, _grid.Heigth];
 
-            int currentIdx = 0;
-            foreach (var item in _settings.CustomCellPosition)
-            {
-                if(_grid.TryGetTile(item,out Tile t))
-                {
-                    t.SetTileEffect(_settings.CorrespondingEffect[currentIdx]);
-                }
-                currentIdx++;
-            }
 
             int x = 0, y = 0;
             foreach (var item in _floor)
@@ -47,6 +38,20 @@ namespace WeekAnkama
                     x = 0;
                     y++;
                 }                
+            }
+        }
+
+        private void Start()
+        {
+
+            int currentIdx = 0;
+            foreach (var item in _settings.CustomCellPosition)
+            {
+                if (_grid.TryGetTile(item, out Tile t))
+                {
+                    t.SetTileEffect(_settings.CorrespondingEffect[currentIdx]);
+                }
+                currentIdx++;
             }
         }
 

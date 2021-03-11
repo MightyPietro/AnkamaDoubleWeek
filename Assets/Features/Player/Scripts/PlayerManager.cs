@@ -218,11 +218,13 @@ namespace WeekAnkama
                             }
                             else if (actualPlayer.currentAction.canTerraform)
                             {
-                                if(_playerValue.Value == turnManager.turnValue)
-                                    _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                Debug.Log("canTerraform");
+                                _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
                             {
+                                Debug.Log("isTargettingTile");
                                 DoAction(targetTile);
                             }
                             else
@@ -249,8 +251,12 @@ namespace WeekAnkama
             ActionType element;
 
             // show menu
-            _terraformingMenu.SetActive(true);
-            _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+
+
+            _terraformingMenu.GetComponent<Canvas>().enabled = true;
+            if (_playerValue.Value == turnManager.turnValue)
+                _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+            else _terraformingMenu.SetPosition(new Vector3(9000,9000,9000));
 
             // wait for action (deselect or select terraformation)
             while (!_terraformingMenu.TryGetSelectedElement(out element))
@@ -261,11 +267,12 @@ namespace WeekAnkama
             if (actualPlayer.currentAction != null)
             {
                 actualPlayer.currentAction.AddActionElementalEffect(element);
-
+                Debug.Log(actualPlayer.currentAction);
                 DoAction(targetTile);
             }
             else
             {
+                Debug.Log("Current ACTION NULL");
                 HandleUnselectCardViaRPC(actualPlayer);
             }
 
@@ -343,7 +350,7 @@ namespace WeekAnkama
         [Button]
         public void DoDraw(Player playerToDraw)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 DrawCard(playerToDraw);
             }
@@ -463,7 +470,7 @@ namespace WeekAnkama
                 StopCoroutine(_currentTerraformCoroutine);
                 _currentTerraformCoroutine = null;
             }            
-            _terraformingMenu.SetActive(false);
+            _terraformingMenu.GetComponent<Canvas>().enabled = false;
 
             SetPreviewTiles(_tilesInPreview, false, Color.cyan);
             HideTileFeedback();
