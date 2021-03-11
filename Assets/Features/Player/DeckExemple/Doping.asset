@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "Bonus : Donne 2 PM \xE0 vous ou votre alli\xE9 pour 1 tour. Stock
     1 PA."
   paCost: 2
-  bonusPA: 0
+  bonusPA: 1
   fatigueDmg: 0
   pushCase: 0
   range: 15
@@ -29,5 +29,6 @@ MonoBehaviour:
   canBePlayedOnself: 1
   hasPlayerEffect: 1
   playerEffects:
-  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  - {fileID: 11400000, guid: e859cf43f14730a4cac1482a41c17059, type: 2}
+  - {fileID: 11400000, guid: e859cf43f14730a4cac1482a41c17059, type: 2}
   actionTypes: 00000000

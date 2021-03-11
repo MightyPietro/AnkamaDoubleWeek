@@ -29,5 +29,10 @@ MonoBehaviour:
   canBePlayedOnself: 0
   hasPlayerEffect: 1
   playerEffects:
-  - {fileID: 11400000, guid: c3dd6010a948b854b841148e5d9e579e, type: 2}
+  - {fileID: 11400000, guid: bb13d5cb76158294b90e9a201d200e36, type: 2}
+  - {fileID: 11400000, guid: bb13d5cb76158294b90e9a201d200e36, type: 2}
+  - {fileID: 11400000, guid: bb13d5cb76158294b90e9a201d200e36, type: 2}
+  - {fileID: 11400000, guid: bb13d5cb76158294b90e9a201d200e36, type: 2}
+  - {fileID: 11400000, guid: bb13d5cb76158294b90e9a201d200e36, type: 2}
+  - {fileID: 11400000, guid: bb13d5cb76158294b90e9a201d200e36, type: 2}
   actionTypes: 00000000
