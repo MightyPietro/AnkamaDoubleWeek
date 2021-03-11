@@ -3,6 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace WeekAnkama
 {
@@ -99,6 +100,11 @@ namespace WeekAnkama
 
         public PhotonView pView => photonView;
 
+        public void GoToMenu()
+        {
+            LeaveRoom();
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 
 }

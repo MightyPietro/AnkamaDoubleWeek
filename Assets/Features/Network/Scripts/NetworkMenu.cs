@@ -126,7 +126,7 @@ namespace WeekAnkama
 
         public void LaunchLocal()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadSceneAsync(1);
         }
 
         private void OnDisable()

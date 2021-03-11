@@ -65,6 +65,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_WaterEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 4756577318610380307, guid: fb8301b01192a524586596075010e15a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6358222005696059894, guid: fb8301b01192a524586596075010e15a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

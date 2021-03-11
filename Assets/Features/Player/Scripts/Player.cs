@@ -181,7 +181,6 @@ namespace WeekAnkama
             if(this == player)
             {
                 player.anim.SetBool("isRun", false);
-                player.anim.SetBool("isIDLE", true);
             }
 
         }
@@ -250,7 +249,7 @@ namespace WeekAnkama
             int lastFatigue = fatigue;
 
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
-            
+            StopRun(this);
             if (amount>0)
             {
                 FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
