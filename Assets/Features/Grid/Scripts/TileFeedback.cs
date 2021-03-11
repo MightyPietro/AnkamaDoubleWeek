@@ -13,6 +13,9 @@ namespace WeekAnkama
         private Material blueMat, redMat;
 
         [SerializeField] private GameObject _tileHighlight;
+        [SerializeField] private GameObject _tileSelected;
+
+        private bool isRaycast = false;
         public void Hide()
         {
             planeMesh.gameObject.SetActive(false);
@@ -41,18 +44,35 @@ namespace WeekAnkama
                 if (hitData.transform == this.transform)
                 {
                     _tileHighlight.SetActive(true);
-
+                    MouseHandler.OnMouseLeftClick += ActiveSelect;
+                    isRaycast = true;
                 }
                 else
                 {
                     _tileHighlight.SetActive(false);
+                    MouseHandler.OnMouseLeftClick -= ActiveSelect;
+                    DesactiveSelect();
+                    isRaycast = false;
                 }
             }
             else
             {
                 _tileHighlight.SetActive(false);
+                MouseHandler.OnMouseLeftClick -= ActiveSelect;
+                DesactiveSelect();
+                isRaycast = false;
 
             }
+        }
+
+        private void ActiveSelect()
+        {
+            _tileSelected.SetActive(true);
+        }
+
+        private void DesactiveSelect()
+        {
+            _tileSelected.SetActive(false);
         }
 
     }
