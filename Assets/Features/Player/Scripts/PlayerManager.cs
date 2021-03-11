@@ -484,6 +484,7 @@ namespace WeekAnkama
             card.gameObject.SetActive(true);
             card.onClick.RemoveAllListeners();
             card.onClick.AddListener(() => { AddCurrentAction(action, card); });
+            Debug.Log(action);
             card.name = action.name;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();

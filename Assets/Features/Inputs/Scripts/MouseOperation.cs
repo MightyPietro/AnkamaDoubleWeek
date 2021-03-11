@@ -15,7 +15,6 @@ namespace WeekAnkama
         private bool isOnUI = false;
         [SerializeField] private GameObject _highlightTile;
 
-        public Vector3 _currentWorldPosition = Vector3.negativeInfinity;
         public Vector3 _screenPosition;
 
         public static MouseOperation instance;
