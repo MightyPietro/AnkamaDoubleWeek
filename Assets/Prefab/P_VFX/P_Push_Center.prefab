@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6980613989270247338}
   - component: {fileID: 6980613989270247339}
   - component: {fileID: 6980613989270247336}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_PushCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4888,7 +4888,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6980613989328218065}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Push_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4923,7 +4923,7 @@ GameObject:
   - component: {fileID: 6980613989443456436}
   - component: {fileID: 6980613989443456437}
   - component: {fileID: 6980613989443456434}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_PushSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9802,7 +9802,7 @@ GameObject:
   - component: {fileID: 6980613990183601779}
   - component: {fileID: 6980613990183601776}
   - component: {fileID: 6980613990183601777}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_PushImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,7 +15,7 @@ namespace WeekAnkama
         private PlayerManager playerManager;
 
         [SerializeField]
-        private List<Player> players = new List<Player>();
+        public List<Player> players = new List<Player>();
 
         [SerializeField]
         private List<Vector2Int> spawnPosition;
@@ -34,6 +34,7 @@ namespace WeekAnkama
         public static event Action<Player> OnBeginPlayerTurn, OnEndPlayerTurn;
         public static event System.Action OnBeginTurn, OnEndTurn;
 
+        public static TurnManager instance;
 
        [SerializeField]
         private TextMeshProUGUI newTurnText;
@@ -41,7 +42,6 @@ namespace WeekAnkama
         private List<Image> turnFeedback;
         public List<Sprite> colorTests;
 
-        public static TurnManager instance;
         private  int _turnValue = 0;
 
         [SerializeField]
