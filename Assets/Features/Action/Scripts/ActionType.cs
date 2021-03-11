@@ -7,6 +7,7 @@ namespace WeekAnkama
     [System.Flags]
     public enum ActionType
     {
+        None = 0,
         Attract = (1 << 0),
         Charge = (1 << 1),
         Teleportation = (1 << 2),

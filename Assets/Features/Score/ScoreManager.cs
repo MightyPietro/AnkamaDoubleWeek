@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
+    private static ScoreManager instance;
+
     private static Vector2Int score;
     
     private static TextMeshProUGUI redTxt, blueTxt;
+
+    [SerializeField]
+    private GameObject endScreen, endMenu;
+    [SerializeField]
+    private TextMeshProUGUI victoryText;
 
     [SerializeField]
     private static int maxScore;
@@ -20,6 +29,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+
         maxScore = scoreWanted;
         redTxt = redScoreTxt;
         blueTxt = blueScoreTxt;
@@ -50,6 +61,15 @@ public class ScoreManager : MonoBehaviour
 
     private static void WinGame(int team)
     {
-        
+        if (team > 0)
+        {
+            instance.victoryText.text = "VICTOIRE DE L'EQUIPE ROUGE !";
+        }
+        else
+        {
+            instance.victoryText.text = "VICTOIRE DE L'EQUIPE BLEUE !";
+        }
+
+        instance.endScreen.SetActive(true);
     }
 }

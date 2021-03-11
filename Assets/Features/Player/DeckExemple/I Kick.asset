@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: I Kick
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 055a34d303fe4954b80a9ceac21fa833, type: 3}
   description: 
   paCost: 4
   bonusPA: 0
   fatigueDmg: 50
   pushCase: 3
   range: 5
-  isTileEffect: 1
-  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
+  minimalRange: 0
+  canTerraform: 1
+  tileEffects: []
   hasSightView: 0
   isLinedRange: 1
   isTargettingTile: 0
@@ -28,4 +30,4 @@ MonoBehaviour:
   areaRange: 0
   hasLineArea: 1
   customArea: []
-  actionTypes: 080000001000000020000000
+  actionTypes: 0800000010000000

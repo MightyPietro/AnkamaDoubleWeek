@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 56bbc6b42271d4177ac313247f47ac1f, type: 3}
   description: 
   paCost: 3
   bonusPA: 0
   fatigueDmg: 50
   pushCase: 1
   range: 1
-  isTileEffect: 0
-  tileEffect: {fileID: 0}
+  minimalRange: 0
+  canTerraform: 0
+  tileEffects: []
   hasSightView: 0
   isLinedRange: 1
   isTargettingTile: 0

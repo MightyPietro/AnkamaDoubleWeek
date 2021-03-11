@@ -36,7 +36,7 @@ namespace WeekAnkama
 
 
        [SerializeField]
-        private Text newTurnText;
+        private TextMeshProUGUI newTurnText;
         [SerializeField]
         private List<Image> turnFeedback;
         public List<Sprite> colorTests;
@@ -137,7 +137,7 @@ namespace WeekAnkama
             }
             playerManager.StartPlayerTurn(currentPlayerTurn);
 
-            newTurnText.text = "Player " + (turnIndex + 1).ToString();
+            newTurnText.text = "Joueur " + (turnIndex + 1).ToString();
             StartCoroutine(ShowTextNewTurn());
 
             for (int i = 0; i < players.Count; i++)

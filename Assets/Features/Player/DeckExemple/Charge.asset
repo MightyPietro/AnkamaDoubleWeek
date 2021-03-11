@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Charge
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: c962d8c4cacef0a45ba600076a036183, type: 3}
   description: 
   paCost: 0
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 5
   range: 4
-  isTileEffect: 0
-  tileEffect: {fileID: 0}
+  minimalRange: 0
+  canTerraform: 0
+  tileEffects: []
   hasSightView: 1
   isLinedRange: 1
   isTargettingTile: 1
+  canBePlayedOnself: 0
   isAreaAction: 0
   areaRange: 0
   hasLineArea: 1

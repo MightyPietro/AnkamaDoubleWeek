@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VFX: {fileID: 2409305397148360118, guid: 1734525a73c8d054f824fab860df263e, type: 3}
   clips:
-  - {fileID: 8300000, guid: 519b2c5c420ab6845acfd0413b908d8a, type: 3}
-  - {fileID: 8300000, guid: 9617e06b74bfa8a4b9eff6f11727e5ee, type: 3}
-  - {fileID: 8300000, guid: b4896d4969c15c74d958d2a2e4744267, type: 3}
-  - {fileID: 8300000, guid: 8b1effc6ffe78774ca71a51955793eda, type: 3}
-  - {fileID: 8300000, guid: 2ea62c139f8c433478d0f1ba4212e720, type: 3}
-  - {fileID: 8300000, guid: 9d82eebae0dd42f4cbce9bf71bcfc94d, type: 3}
+  - {fileID: 8300000, guid: 39347d0c5328dc347a51b3f93f9f55c0, type: 3}
+  - {fileID: 8300000, guid: a8d2dd381a43dc14b8ad2134bbaee7a9, type: 3}
+  - {fileID: 8300000, guid: 045b3bdbc64145f41ae21b5f615901ff, type: 3}
+  - {fileID: 8300000, guid: 62c79b93e001ad34a8d1a18d26fd2b16, type: 3}
+  - {fileID: 8300000, guid: 41d6c32acc0b99e49b86dbeaf159639d, type: 3}
+  - {fileID: 8300000, guid: d0263fcfe4f996440954149cbb6895f5, type: 3}
