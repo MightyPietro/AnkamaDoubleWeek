@@ -12,20 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Comme Hover Ire
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  description: 
-  paCost: 0
+  icon: {fileID: 21300000, guid: d44749d9f5fccdd49a2076cb281e3632, type: 3}
+  description: "Attire un joueur situ\xE9 jusqu'\xE0 2 cases de distance et terraforme
+    \xE0 sa place d'origine."
+  paCost: 3
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 0
-  range: 0
+  range: 2
   minimalRange: 0
-  canTerraform: 0
-  tileEffects: []
+  canTerraform: 1
+  tileEffects:
+  - {fileID: 11400000, guid: 6f878a336e45489489ed346844eb48b5, type: 2}
+  - {fileID: 11400000, guid: 675ad80b8c1310f4c8a2f4033879d158, type: 2}
+  - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
+  - {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
   hasSightView: 0
-  isLinedRange: 0
+  isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
   hasPlayerEffect: 0
   playerEffects: []
-  actionTypes: 
+  actionTypes: 01000000

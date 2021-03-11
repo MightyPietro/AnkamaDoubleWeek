@@ -107,6 +107,8 @@ namespace WeekAnkama
 
             FindActionEffectSubClass();
 
+
+
             if (action.hasPlayerEffect)
             {
                 for (int i = 0; i < action.playerEffects.Count; i++)

@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4040ac57a7823604dbd9c496e45deb55, type: 3}
   description: 
   paCost: 0
-  bonusPA: 0
+  bonusPA: 7
   fatigueDmg: 0
   pushCase: 0
   range: 1

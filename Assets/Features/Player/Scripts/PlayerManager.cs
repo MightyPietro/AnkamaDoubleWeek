@@ -64,7 +64,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                if(_playerValue.Value == turnManager.turnValue)
+                if(_playerValue.Value == turnManager.turnValue || _playerValue.Value < 0)
                     ShowMovePossibility();
 
             };
@@ -111,7 +111,12 @@ namespace WeekAnkama
             if (actualPlayer.isOut)
             {
                 actualPlayer.isOut = false;
-                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer), true);
+                Vector2Int spawnPoint = turnManager.GetSpawnPoint(actualPlayer);
+                if(GridManager.Grid.TryGetTile(spawnPoint, out Tile spawnTile))
+                {
+                    spawnTile.UnSetTileEffect();
+                    TeleportPlayer(actualPlayer, spawnPoint, true);
+                }
                 actualPlayer.ResetFatigue();
 
             }
@@ -372,7 +377,7 @@ namespace WeekAnkama
         [Button]
         public void DoDraw(Player playerToDraw)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 DrawCard(playerToDraw);
             }

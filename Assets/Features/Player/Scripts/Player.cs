@@ -250,10 +250,11 @@ namespace WeekAnkama
             int lastFatigue = fatigue;
 
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
-            FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
-            Hurt();
+            
             if (amount>0)
             {
+                FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
+                Hurt();
                 takeDamage?.Invoke(attacker, this);
                 
             }
@@ -289,6 +290,14 @@ namespace WeekAnkama
         public void ResetFatigue()
         {
             fatigue = 0;
+        }
+
+        public void UnsetPlayerUI()
+        {
+            mainFatigueTxt = null;
+            pmTxt = null;
+            paTxt = null;
+            stockPaTxt = null;
         }
 
         public void SetPlayerUI(Image _icone, Image _spellIcon, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)

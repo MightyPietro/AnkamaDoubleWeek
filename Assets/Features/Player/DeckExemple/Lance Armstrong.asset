@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Lance Armstrong
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 57cbc445392ce6742ae1c03287491eb7, type: 3}
   description: "\xC9change votre place avec celle d'un joueur adjacent."
   paCost: 2
   bonusPA: 0
