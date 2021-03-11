@@ -17,6 +17,12 @@ MonoBehaviour:
   _cellSize: {x: 1, y: 1}
   _normalizedOffset: {x: -0.5, y: -0.5}
   _customCellPosition:
-  - {x: 2, y: 3}
+  - {x: 1, y: 1}
+  - {x: 1, y: 5}
+  - {x: 5, y: 1}
+  - {x: 5, y: 5}
   _correspondingEffect:
+  - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
+  - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
+  - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
   - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}

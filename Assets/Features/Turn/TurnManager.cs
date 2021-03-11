@@ -95,7 +95,12 @@ namespace WeekAnkama
         {
             for (int i = 0; i < spawnPosition.Count; i++)
             {
-                playerManager.TeleportPlayer(players[i], spawnPosition[i], true);
+                if (GridManager.Grid.TryGetTile(spawnPosition[i], out Tile spawnTile))
+                {
+                    spawnTile.UnSetTileEffect();
+                    playerManager.TeleportPlayer(players[i], spawnPosition[i], true);
+                }
+                
                 players[i].uniquePlayerValue = i + 1;
                 if(i== playerValue.Value)
                 {

@@ -101,7 +101,7 @@ namespace WeekAnkama
         }
 
         public void SetTileEffect(TileEffect effect)
-        {
+        {            
             if(effect == null)
             {
                 Debug.LogError("Impossible to set effect, effect is Null !!!");
@@ -111,6 +111,7 @@ namespace WeekAnkama
             {
                 _effectVisual = TileEffectPool.Instance.GetObjectInPool();
             }
+            Debug.Log("SET TILE EFFECT - " + Coords + this);
             _effect = effect;
             effect.BootUp(this);
             //OnEnterCase?.Invoke(_player);            
@@ -121,7 +122,8 @@ namespace WeekAnkama
         {
             if (_effect != null)
             {
-                _effect.ShutDown();
+                Debug.Log("UN SET TILE EFFECT - " + Coords);
+                _effect.ShutDown(this);
                 _effect = null;
                 _effectVisual.ShutDown();
                 TileEffectPool.Instance.ReturnObject(_effectVisual);
