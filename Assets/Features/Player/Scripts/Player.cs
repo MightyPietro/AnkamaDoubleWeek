@@ -23,9 +23,11 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _PAText;
         [SerializeField] private TextMeshProUGUI _PMText;
         [SerializeField] private Feedback _playerFatigueDmg;
+        [SerializeField] private Feedback _playerFatigueDmgUI;
         [SerializeField] private Animator _anim;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private PlayerClassScriptable[] _classes;
+        
 
         private bool _processMovement = false;
         private bool _isOut = false;
@@ -38,6 +40,8 @@ namespace WeekAnkama
 
         [SerializeField]
         private GameObject turnFeedback;
+        [SerializeField]
+        private ArrowTurnFeedBack turnArrowFeedback;
 
         [HideInInspector]
         public List<Action> discardPile = new List<Action>();
@@ -202,6 +206,7 @@ namespace WeekAnkama
             beginTurn?.Invoke(this, this);
 
             turnFeedback.SetActive(true);
+            turnArrowFeedback.SetActive(true);
 
             foreach (PlayerEffect eff in effects)
             {
@@ -224,6 +229,7 @@ namespace WeekAnkama
         public void EndTurn()
         {
             turnFeedback.SetActive(false);
+            turnArrowFeedback.SetActive(false);
         }
 
         public void DoDamage(Player attackTarget, int amount)
@@ -254,6 +260,7 @@ namespace WeekAnkama
             if (amount>0)
             {
                 FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
+                //FeedbackManager.instance.Feedback(_playerFatigueDmgUI, fatigueText.transform.position, 2f);
                 Hurt();
                 takeDamage?.Invoke(attacker, this);
                 
