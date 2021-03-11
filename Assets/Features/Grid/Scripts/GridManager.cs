@@ -12,7 +12,8 @@ namespace WeekAnkama
 
         [SerializeField] private GridLevel _settings;
         [SerializeField] private GameObject[] _floor;
-                     
+
+        [SerializeField] private GameObject _highlightTile;
 
         public static Grid Grid => _grid;
         public static GameObject[,] TilesVisual => _tilesVisual;
@@ -25,6 +26,7 @@ namespace WeekAnkama
 
             _tilesVisual = new GameObject[_grid.Width, _grid.Heigth];
 
+
             int x = 0, y = 0;
             foreach (var item in _floor)
             {
@@ -36,6 +38,20 @@ namespace WeekAnkama
                     x = 0;
                     y++;
                 }                
+            }
+        }
+
+        private void Start()
+        {
+
+            int currentIdx = 0;
+            foreach (var item in _settings.CustomCellPosition)
+            {
+                if (_grid.TryGetTile(item, out Tile t))
+                {
+                    t.SetTileEffect(_settings.CorrespondingEffect[currentIdx]);
+                }
+                currentIdx++;
             }
         }
 

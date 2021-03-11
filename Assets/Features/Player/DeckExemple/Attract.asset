@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Attract
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 07dae977ca486f14098e7d7b93129aab, type: 3}
   description: 
   paCost: 3
   bonusPA: 0
@@ -19,14 +20,12 @@ MonoBehaviour:
   pushCase: 2
   range: 3
   minimalRange: 2
-  isTileEffect: 0
-  tileEffect: {fileID: 0}
+  canTerraform: 0
+  tileEffects: []
   hasSightView: 0
   isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
-  isAreaAction: 0
-  areaRange: 0
-  hasLineArea: 1
-  customArea: []
-  actionTypes: 01000000
+  hasPlayerEffect: 0
+  playerEffects: []
+  actionTypes: 0100000008000000

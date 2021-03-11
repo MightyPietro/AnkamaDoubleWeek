@@ -10,7 +10,7 @@ namespace WeekAnkama
         {
             if(targetTile.Player != null)
             {
-                targetTile.Player.fatigue += action.fatigueDmg;
+                casterTile.Player.DoDamage(targetTile.Player, targetTile.Player.TakeDamage(casterTile.Player, action.fatigueDmg));
                 FeedbackManager.instance.EarthFeedback(targetTile.WorldPosition, 2f,true);
                 return true;
             }

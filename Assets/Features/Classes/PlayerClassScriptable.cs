@@ -11,7 +11,11 @@ namespace WeekAnkama
     {
         public string nom;
         public string description;
+        public Sprite icon;
 
         public PlayerClasses passive;
+
+        public List<Action> deck;
+
     }
 }

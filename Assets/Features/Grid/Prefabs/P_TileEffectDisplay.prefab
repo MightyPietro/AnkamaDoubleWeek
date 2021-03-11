@@ -134,9 +134,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5453666076099607626}
     m_Modifications:
+    - target: {fileID: 1912112196082421627, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2561138567935649115, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2645503746650650468, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4196616480170284766, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4756577318610380307, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
       propertyPath: m_Name
       value: EarthEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756577318610380307, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6358222005696059894, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,6 +202,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7281257772592587835, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275490114792063300, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9136536220131569820, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5df6941311604584e96e195c7a395c7e, type: 3}
 --- !u!4 &7808705596641565773 stripped
@@ -207,6 +239,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5453666076099607626}
     m_Modifications:
+    - target: {fileID: 1030180574284750245, guid: 1780676362efa6d49bd8ee4cf18b6239, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030180574316530804, guid: 1780676362efa6d49bd8ee4cf18b6239, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030180574733854340, guid: 1780676362efa6d49bd8ee4cf18b6239, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030180575084882159, guid: 1780676362efa6d49bd8ee4cf18b6239, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030180575516123814, guid: 1780676362efa6d49bd8ee4cf18b6239, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4139541738830095420, guid: 1780676362efa6d49bd8ee4cf18b6239, type: 3}
       propertyPath: m_Name
       value: FireEffect

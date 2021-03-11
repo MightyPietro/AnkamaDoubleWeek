@@ -54,13 +54,12 @@ namespace WeekAnkama
                 GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
                 {
-                    Debug.Log("Out player");
                     isPlayerOut = true;
                     return path;
                 }
                 else
                 {
-                    if(newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
+                    if(newTile.Player == null && newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
                     {
                         pushForce++;
                     }

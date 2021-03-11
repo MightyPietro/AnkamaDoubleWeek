@@ -3561,6 +3561,7 @@ MonoBehaviour:
   - {fileID: 2035785371}
   _psPool: {fileID: 2343851262126094033}
   _earthEffect: {fileID: 11400000, guid: e96fa92b6ffaa6042b7268768626af65, type: 2}
+  _pushEffect: {fileID: 11400000, guid: 8a8cc5ed737e2bd4d8953bad1d50edce, type: 2}
   _charaFire: {fileID: 11400000, guid: 1efba8bd831464247b9f80fae80d2206, type: 2}
   _waterSplash: {fileID: 11400000, guid: dfff6942c57c0e74bbfe90ecbb0afc44, type: 2}
 --- !u!1 &7758075588610149339

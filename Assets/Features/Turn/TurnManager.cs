@@ -15,7 +15,7 @@ namespace WeekAnkama
         private PlayerManager playerManager;
 
         [SerializeField]
-        private List<Player> players = new List<Player>();
+        public List<Player> players = new List<Player>();
 
         [SerializeField]
         private List<Vector2Int> spawnPosition;
@@ -34,20 +34,20 @@ namespace WeekAnkama
         public static event Action<Player> OnBeginPlayerTurn, OnEndPlayerTurn;
         public static event System.Action OnBeginTurn, OnEndTurn;
 
+        public static TurnManager instance;
 
        [SerializeField]
-        private Text newTurnText;
+        private TextMeshProUGUI newTurnText;
         [SerializeField]
         private List<Image> turnFeedback;
         public List<Sprite> colorTests;
 
-        public static TurnManager instance;
         private  int _turnValue = 0;
 
         [SerializeField]
         private IntVariable playerValue;
         [SerializeField]
-        private Image playerIcon;
+        private Image playerIcon, passiveIcon;
         [SerializeField]
         private TextMeshProUGUI playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt;
 
@@ -96,9 +96,10 @@ namespace WeekAnkama
             for (int i = 0; i < spawnPosition.Count; i++)
             {
                 playerManager.TeleportPlayer(players[i], spawnPosition[i], true);
+                players[i].uniquePlayerValue = i + 1;
                 if(i== playerValue.Value)
                 {
-                    players[i].SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+                    players[i].SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
                 }
                 playerManager.DoDraw(players[i]);
             }
@@ -130,10 +131,13 @@ namespace WeekAnkama
             turnIndex = (turnIndex + 1) % players.Count;
 
             currentPlayerTurn = players[turnIndex];
-            currentPlayerTurn.SetPlayerUI(playerIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+            if (playerValue.Value < 0)
+            {
+                currentPlayerTurn.SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
+            }
             playerManager.StartPlayerTurn(currentPlayerTurn);
 
-            newTurnText.text = "Player " + (turnIndex + 1).ToString();
+            newTurnText.text = "Joueur " + (turnIndex + 1).ToString();
             StartCoroutine(ShowTextNewTurn());
 
             for (int i = 0; i < players.Count; i++)
@@ -160,6 +164,10 @@ namespace WeekAnkama
         [PunRPC]
         private void EndTurn()
         {
+            if (currentPlayerTurn != null)
+            {
+                currentPlayerTurn.EndTurn();
+            }
             OnEndPlayerTurn?.Invoke(currentPlayerTurn);
             OnEndTurn?.Invoke();
         }

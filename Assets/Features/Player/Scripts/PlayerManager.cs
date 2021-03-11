@@ -25,7 +25,10 @@ namespace WeekAnkama
         [SerializeField] private ActionsList _actionsList;
         [SerializeField] private Feedback _teleportPlayer;
         [SerializeField] private Feedback _playerOut;
+        [SerializeField] private TerraformingMenu _terraformingMenu;
+        [SerializeField] private Button stockPaButton;
 
+        private GameObject ragdoll;
 
         Grid grid;
 
@@ -33,6 +36,7 @@ namespace WeekAnkama
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
         private List<Tile> _tilesInPreview;
+        private Coroutine _currentTerraformCoroutine;
 
         #endregion
 
@@ -60,7 +64,9 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                ShowMovePossibility();
+                if(_playerValue.Value == turnManager.turnValue)
+                    ShowMovePossibility();
+
             };
         }
 
@@ -71,7 +77,7 @@ namespace WeekAnkama
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
-            TurnManager.OnEndPlayerTurn += HandleUnselectCard;
+            TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
             TurnManager.OnEndTurn += HideTileFeedback;
             TurnManager.OnBeginTurn += ShowMovePossibility;
 
@@ -83,10 +89,12 @@ namespace WeekAnkama
 
         public void SetPlayerOutArena(Player killedPlayer, Vector3 pos)
         {
-            
-            GameObject ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll"),pos, Quaternion.identity) as GameObject;
+            ragdoll = Instantiate(Resources.Load("P_Player_Ragdoll" + killedPlayer.uniquePlayerValue), pos, Quaternion.identity) as GameObject;
+
+
             FeedbackManager.instance.Feedback(_playerOut, ragdoll.transform.position, 2);
-            //ragdoll.GetComponent<Rigidbody>().AddForce(new Vector3(100,0,0));
+            ragdoll.transform.DORotate(-ragdoll.transform.forward * 200,.5f);
+
             Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
             killedPlayer.transform.position = new Vector3(-50, 0, 0);
@@ -112,35 +120,54 @@ namespace WeekAnkama
             ChangeTextState(true);
 
             if(_playerValue.Value == TurnManager.instance.turnValue){
+                foreach (Button butt in displayedCards)
+                {
+                    butt.interactable = true;
+                }
+                stockPaButton.interactable = true;
                 DrawCard(actualPlayer);
                 DisplayCards();
-                _endTurnButton.SetActive(true);
+                _endTurnButton.GetComponent<Button>().interactable = true;
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+                TurnManager.OnBeginTurn += ShowMovePossibility;
+                TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
+                TurnManager.OnEndTurn += HideTileFeedback;
+                ShowMovePossibility();
             }
             else
             {
                 if (PhotonNetwork.IsConnected)
                 {
-
+                    foreach(Button butt in displayedCards)
+                    {
+                        butt.interactable = false;
+                    }
+                    stockPaButton.interactable = false;
                     MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
                     MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
-                    _endTurnButton.SetActive(false);
+                    TurnManager.OnBeginTurn -= ShowMovePossibility;
+                    TurnManager.OnEndPlayerTurn -= HandleUnselectCardViaRPC;
+                    TurnManager.OnEndTurn -= HideTileFeedback;
+                    _endTurnButton.GetComponent<Button>().interactable = false;
                     HideCards();
                 }
                 else
                 {
+
                     DrawCard(actualPlayer);
                     DisplayCards();
+                    ShowMovePossibility();
                 }
 
             }
 
-            ShowMovePossibility();
+           
         }
 
         private void ShowMovePossibility()
         {
+            
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
@@ -176,34 +203,39 @@ namespace WeekAnkama
 
             if (actualPlayer != null)
             {
-                if (actualPlayer.currentAction != null)
+                if (actualPlayer.currentAction != null )
                 {
+                    if (actualPlayer.PA < actualPlayer.currentAction.paCost) HandleUnselectCard();
+
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
                         if (targetTile.Player != actualPlayer || actualPlayer.currentAction.canBePlayedOnself)
                         {
-                            if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                            if (!actualPlayer.currentAction.canTerraform && targetTile.Player != null)
                             {
                                 DoAction(targetTile);
                             }
-                            else if (actualPlayer.currentAction.isTileEffect)
+                            else if (actualPlayer.currentAction.canTerraform)
                             {
-                                DoAction(targetTile);
+                                Debug.Log("canTerraform");
+                                _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
                             {
+                                Debug.Log("isTargettingTile");
                                 DoAction(targetTile);
                             }
                             else
                             {
-                                HandleUnselectCard(actualPlayer);
+                                HandleUnselectCardViaRPC(actualPlayer);
                             }
                         }
                     }
                     else
                     {
-                        HandleUnselectCard(actualPlayer);
+                        HandleUnselectCardViaRPC(actualPlayer);
                     }
                 }
                 else
@@ -212,6 +244,38 @@ namespace WeekAnkama
                     MoveCharacter(targetTile);
                 }
             }
+        }
+
+        private IEnumerator DoTerraformAction(Tile targetTile)
+        {
+            ActionType element;
+
+            // show menu
+
+
+            _terraformingMenu.GetComponent<Canvas>().enabled = true;
+            if (_playerValue.Value == turnManager.turnValue)
+                _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+            else _terraformingMenu.SetPosition(new Vector3(9000,9000,9000));
+
+            // wait for action (deselect or select terraformation)
+            while (!_terraformingMenu.TryGetSelectedElement(out element))
+            {
+                yield return null;
+            }
+            //Not Stopped then do action
+            if (actualPlayer.currentAction != null)
+            {
+                actualPlayer.currentAction.AddActionElementalEffect(element);
+                Debug.Log(actualPlayer.currentAction);
+                DoAction(targetTile);
+            }
+            else
+            {
+                Debug.Log("Current ACTION NULL");
+                HandleUnselectCardViaRPC(actualPlayer);
+            }
+
         }
 
         private void MoveCharacter(Tile targetTile)
@@ -233,7 +297,6 @@ namespace WeekAnkama
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
-                Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
                 FeedbackManager.instance.Feedback(_teleportPlayer, tileWanted.WorldPosition, 2.1f);
                 return true;
@@ -264,7 +327,7 @@ namespace WeekAnkama
                     actualPlayer.Punch();
                 }
 
-                HandleUnselectCard(actualPlayer);
+                HandleUnselectCardViaRPC(actualPlayer);
 
                 DisplayCards();
 
@@ -287,7 +350,7 @@ namespace WeekAnkama
         [Button]
         public void DoDraw(Player playerToDraw)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 DrawCard(playerToDraw);
             }
@@ -375,10 +438,41 @@ namespace WeekAnkama
             actualPlayer.currentAction = null;
         }
 
-
-        private void HandleUnselectCard(Player player)
+        public void HandleUnselectCardViaRPC(Player player)
         {
+            for (int i = 0; i < TurnManager.instance.players.Count; i++)
+            {
+                if(player == TurnManager.instance.players[i])
+                {
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        _photonView.RPC("HandleUnselectCard", RpcTarget.All, i);
+                    }
+                    else
+                    {
+                        HandleUnselectCard(i);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        [PunRPC]
+        private void HandleUnselectCard(int playerValue)
+        {
+            Player player = TurnManager.instance.players[playerValue];
+
             if (player == null) return;
+            //Stop element selection
+            if(_currentTerraformCoroutine != null)
+            {
+                StopCoroutine(_currentTerraformCoroutine);
+                _currentTerraformCoroutine = null;
+            }            
+            _terraformingMenu.GetComponent<Canvas>().enabled = false;
+
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
             HideTileFeedback();
             ShowMovePossibility();
             //_tilesInPreview.Clear();
@@ -393,7 +487,7 @@ namespace WeekAnkama
             }
             else
             {
-                HandleUnselectCard(actualPlayer);
+                HandleUnselectCardViaRPC(actualPlayer);
             }
 
         }
@@ -442,6 +536,7 @@ namespace WeekAnkama
             card.onClick.RemoveAllListeners();
             card.onClick.AddListener(() => { AddCurrentAction(action, card); });
             card.name = action.name;
+            card.image.sprite = action.icon;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
             card.transform.Find("Fatigue").GetComponent<Text>().text = action.fatigueDmg.ToString();
@@ -609,7 +704,7 @@ namespace WeekAnkama
         }
 
         [SerializeField]
-        private TextMeshProUGUI spellTitle, spellDescription;
+        private TextMeshProUGUI spellTitle, spellDescription, stockMaanaText, damagesText;
         [SerializeField]
         private GameObject spellDetailObject;
 
@@ -618,6 +713,8 @@ namespace WeekAnkama
             spellDetailObject.transform.position = new Vector3(700+75*index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
             spellTitle.text = actualPlayerHand[index].name;
             spellDescription.text = actualPlayerHand[index].description;
+            stockMaanaText.text = actualPlayerHand[index].bonusPA.ToString();
+            damagesText.text = actualPlayerHand[index].fatigueDmg.ToString();
             spellDetailObject.SetActive(true);
         }
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9159728676015246177}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Debuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3468080798991621754}
   - component: {fileID: 1565980204643804702}
   - component: {fileID: 5172218255692788693}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Debuff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
