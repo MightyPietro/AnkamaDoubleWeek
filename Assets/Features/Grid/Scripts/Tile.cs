@@ -43,7 +43,7 @@ namespace WeekAnkama
                 if(_effect != null)
                 {
                     Debug.Log(Effect.Crossable);
-                    return _crossable && _effect.Crossable;// && _player == null;
+                    return _crossable && _effect.Crossable && _player == null;
                 }
                 else
                 {

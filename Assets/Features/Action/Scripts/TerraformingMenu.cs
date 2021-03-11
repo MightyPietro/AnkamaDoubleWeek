@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+
 
 namespace WeekAnkama
 {
@@ -8,9 +10,14 @@ namespace WeekAnkama
     {
         [SerializeField] private Transform _selfTransform;
         [SerializeField] private GameObject _selfGameobject;
-        private ActionType _selectedElement;
+        [SerializeField] private PhotonView _photonView;
+        public ActionType _selectedElement;
+        public static TerraformingMenu instance;
 
-
+        private void Awake()
+        {
+            instance = this;
+        }
         public void SetActive(bool active)
         {
             _selfGameobject.SetActive(active);
@@ -37,6 +44,13 @@ namespace WeekAnkama
             _selectedElement = ActionType.None;
         }
 
+        public void OnPlayerClickTerraformButtonViaRPC(string element)
+        {
+            OnPlayerClickTerraformButton(element);
+
+        }
+
+        [PunRPC]
         public void OnPlayerClickTerraformButton(string element)
         {
             switch (element)
@@ -60,6 +74,8 @@ namespace WeekAnkama
                     _selectedElement = ActionType.None;
                     break;
             }
+
+
         }
 
 

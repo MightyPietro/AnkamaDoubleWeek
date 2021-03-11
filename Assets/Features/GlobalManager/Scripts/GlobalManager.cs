@@ -59,7 +59,7 @@ namespace WeekAnkama
                 }
                 else
                 {
-                    if(newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
+                    if(newTile.Player == null && newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
                     {
                         pushForce++;
                     }

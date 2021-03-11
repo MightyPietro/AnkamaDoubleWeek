@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6641566734948499431}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Chara_Burned
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3583908983353594980}
   - component: {fileID: 3583908983353595003}
   - component: {fileID: 3583908983353595002}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

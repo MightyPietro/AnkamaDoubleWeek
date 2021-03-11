@@ -24,6 +24,8 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _PMText;
         [SerializeField] private Feedback _playerFatigueDmg;
         [SerializeField] private Animator _anim;
+        [SerializeField] private PhotonView _photonView;
+        [SerializeField] private PlayerClassScriptable[] _classes;
 
         private bool _processMovement = false;
         private bool _isOut = false;
@@ -33,6 +35,9 @@ namespace WeekAnkama
         [SerializeField]
         private Sprite icone;
         private TextMeshProUGUI mainFatigueTxt, pmTxt, paTxt, stockPaTxt;
+
+        [SerializeField]
+        private GameObject turnFeedback;
 
         [HideInInspector]
         public List<Action> discardPile = new List<Action>();
@@ -90,11 +95,30 @@ namespace WeekAnkama
         {
             ResetDatas();
             ResetFatigue();
-
-            if (PhotonNetwork.IsConnected)
+            if (!PhotonNetwork.IsConnected)
             {
                 classe = playerValue.playerClass;
             }
+            else
+            {
+                for (int i = 0; i < TurnManager.instance.players.Count; i++)
+                {
+                    if (this == TurnManager.instance.players[i])
+                    {
+                        for (int j = 0; j < _classes.Length; j++)
+                        {
+                            if (this.classe == _classes[j]) ;
+                            {
+                                _photonView.RPC("SetPlayerClassViaRPC", RpcTarget.All, i,j);
+
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
 
             switch (classe.passive)
             {
@@ -145,6 +169,13 @@ namespace WeekAnkama
         {
             DeplacementManager.OnPlayerMovementFinished -= StopRun;
         }
+
+        [PunRPC]
+        public void SetPlayerClassViaRPC(int playerValue, int playerClasse)
+        {
+
+            TurnManager.instance.players[playerValue].classe = _classes[playerClasse];
+        }
         private void StopRun(Player player)
         {
             if(this == player)
@@ -171,7 +202,9 @@ namespace WeekAnkama
             ResetDatas();
             beginTurn?.Invoke(this, this);
 
-            foreach(PlayerEffect eff in effects)
+            turnFeedback.SetActive(true);
+
+            foreach (PlayerEffect eff in effects)
             {
                 switch(eff.effectType)
                 {
@@ -189,6 +222,11 @@ namespace WeekAnkama
             effects.Clear();
         }
 
+        public void EndTurn()
+        {
+            turnFeedback.SetActive(false);
+        }
+
         public void DoDamage(Player attackTarget, int amount)
         {
             if(amount>0)
@@ -199,7 +237,6 @@ namespace WeekAnkama
 
         public void TakeHeal(int amount)
         {
-            Debug.Log(fatigue + " -= " + amount);
             fatigue -= amount;
             Debug.Log(fatigue);
             if (fatigue<0)
@@ -217,7 +254,6 @@ namespace WeekAnkama
             Hurt();
             if (amount>0)
             {
-                Debug.Log(fatigue);
                 takeDamage?.Invoke(attacker, this);
                 
             }
@@ -255,6 +291,14 @@ namespace WeekAnkama
             fatigue = 0;
         }
 
+        public void UnsetPlayerUI()
+        {
+            mainFatigueTxt = null;
+            pmTxt = null;
+            paTxt = null;
+            stockPaTxt = null;
+        }
+
         public void SetPlayerUI(Image _icone, Image _spellIcon, TextMeshProUGUI _mainFatigueTxt, TextMeshProUGUI _pmTxt, TextMeshProUGUI _paTxt, TextMeshProUGUI _stockPaTxt)
         {
             _icone.sprite = icone;
@@ -263,6 +307,11 @@ namespace WeekAnkama
             pmTxt = _pmTxt;
             paTxt = _paTxt;
             stockPaTxt = _stockPaTxt;
+        }
+
+        public void AddEffect(PlayerEffect effect)
+        {
+            effects.Add(effect);
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7646677523286552183}
   - component: {fileID: 7646677523286552177}
   - component: {fileID: 7646677523286552176}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Impacte_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4881,7 @@ GameObject:
   - component: {fileID: 7646677523846758015}
   - component: {fileID: 7646677523846758009}
   - component: {fileID: 7646677523846758008}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9751,7 +9751,7 @@ GameObject:
   - component: {fileID: 7646677524339702665}
   - component: {fileID: 7646677524339702667}
   - component: {fileID: 7646677524339702666}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Impacte_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14619,7 +14619,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7646677524612391670}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Impact
   m_TagString: Untagged
   m_Icon: {fileID: 0}

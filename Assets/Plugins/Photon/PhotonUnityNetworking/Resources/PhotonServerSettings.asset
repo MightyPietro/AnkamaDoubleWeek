@@ -51,6 +51,9 @@ MonoBehaviour:
   - HideValueSelectionButton
   - ShowValueSelectionButton
   - HandleUnselectCard
+  - OnPlayerClickTerraformButton
+  - SetPlayerClassViaRPC
+  - DoTerraformAction
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8615194375433270514}
   - component: {fileID: 8615194375433270516}
   - component: {fileID: 8615194375433270517}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4766,7 +4766,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c638efd85454904c807954e90d46378, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4821,8 +4821,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8615194375976326896}
-  m_Layer: 0
-  m_Name: VFX_Fire
+  m_Layer: 2
+  m_Name: P_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4857,7 +4857,7 @@ GameObject:
   - component: {fileID: 8615194376577397973}
   - component: {fileID: 8615194376577397975}
   - component: {fileID: 8615194376577397972}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Sparkles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9669,7 +9669,7 @@ GameObject:
   - component: {fileID: 8615194376680363963}
   - component: {fileID: 8615194376680363965}
   - component: {fileID: 8615194376680363962}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14481,7 +14481,7 @@ GameObject:
   - component: {fileID: 8615194376936119764}
   - component: {fileID: 8615194376936119766}
   - component: {fileID: 8615194376936119767}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire_Add
   m_TagString: Untagged
   m_Icon: {fileID: 0}

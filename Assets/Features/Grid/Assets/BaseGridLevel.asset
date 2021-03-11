@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8bb979a22dbbf42a46192808214e2f, type: 3}
   m_Name: BaseGridLevel
   m_EditorClassIdentifier: 
+  _width: 7
+  _heigth: 7
+  _cellSize: {x: 1, y: 1}
+  _normalizedOffset: {x: -0.5, y: -0.5}
+  _customCellPosition: []
+  _correspondingEffect: []

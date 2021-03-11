@@ -152,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2657049192567239692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -264,6 +264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8691451992623567072}
+  - {fileID: 4178344792696077259}
   m_Father: {fileID: 4312154125726209446}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,12 +385,12 @@ MonoBehaviour:
   _fatigue: 100
   _position: {x: 0, y: 0}
   _deck:
-  - {fileID: 11400000, guid: b32ba75fc9f12ff49a7b5b6c97df3c44, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: c119837774e8c3145b675cba3f687530, type: 2}
   - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
   - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
   - {fileID: 11400000, guid: 87ed7c37b71b9ed41b4f810d72912adb, type: 2}
-  - {fileID: 11400000, guid: e090e18783484f446953045e535a678c, type: 2}
+  - {fileID: 0}
   _hand:
   - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
   - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
@@ -399,11 +400,19 @@ MonoBehaviour:
   _PMText: {fileID: 0}
   _playerFatigueDmg: {fileID: 11400000, guid: bcaab2709f5c7b348aab9a5a449e43a2, type: 2}
   _anim: {fileID: 6618857107877991571}
+  _photonView: {fileID: 1743324843573889749}
+  _classes:
+  - {fileID: 11400000, guid: 9644ffcc0e119444c9a88239e1274f31, type: 2}
+  - {fileID: 11400000, guid: 6d59c4a1965e1674b80ec67783a0910c, type: 2}
+  - {fileID: 11400000, guid: f55acaac256fec149a6ab088da21008c, type: 2}
+  - {fileID: 11400000, guid: b769d9e8f987b974bb6d0c400e2597c1, type: 2}
   icone: {fileID: 0}
+  turnFeedback: {fileID: 8666277812645639922}
   discardPile: []
   effects: []
   classe: {fileID: 0}
   playerValue: {fileID: 11400000, guid: 0ac95db73baa426489f07bed16fd1a27, type: 2}
+  uniquePlayerValue: 0
 --- !u!114 &1743324843573889749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +435,87 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!1 &8666277812645639922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4178344792696077259}
+  - component: {fileID: 2572781856698816981}
+  - component: {fileID: 8579337411143208482}
+  m_Layer: 2
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4178344792696077259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666277812645639922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.975, z: 0}
+  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 5001057450055840956}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2572781856698816981
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666277812645639922}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8579337411143208482
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666277812645639922}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 775046e6819a260488dfc71c84685486, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &6737499216523027335
 PrefabInstance:
   m_ObjectHideFlags: 0
