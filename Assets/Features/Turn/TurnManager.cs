@@ -135,6 +135,10 @@ namespace WeekAnkama
             {
                 currentPlayerTurn.SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
             }
+            else if(playerValue.Value != turnIndex)
+            {
+
+            }
             playerManager.StartPlayerTurn(currentPlayerTurn);
 
             newTurnText.text = "Joueur " + (turnIndex + 1).ToString();

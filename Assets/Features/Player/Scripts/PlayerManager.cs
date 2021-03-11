@@ -26,6 +26,7 @@ namespace WeekAnkama
         [SerializeField] private Feedback _teleportPlayer;
         [SerializeField] private Feedback _playerOut;
         [SerializeField] private TerraformingMenu _terraformingMenu;
+        [SerializeField] private Button stockPaButton;
 
         private GameObject ragdoll;
 
@@ -117,6 +118,11 @@ namespace WeekAnkama
             ChangeTextState(true);
 
             if(_playerValue.Value == TurnManager.instance.turnValue){
+                foreach (Button butt in displayedCards)
+                {
+                    butt.interactable = true;
+                }
+                stockPaButton.interactable = true;
                 DrawCard(actualPlayer);
                 DisplayCards();
                 _endTurnButton.SetActive(true);
@@ -127,7 +133,11 @@ namespace WeekAnkama
             {
                 if (PhotonNetwork.IsConnected)
                 {
-
+                    foreach(Button butt in displayedCards)
+                    {
+                        butt.interactable = false;
+                    }
+                    stockPaButton.interactable = false;
                     MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
                     MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
                     _endTurnButton.SetActive(false);
@@ -135,6 +145,7 @@ namespace WeekAnkama
                 }
                 else
                 {
+
                     DrawCard(actualPlayer);
                     DisplayCards();
                 }
