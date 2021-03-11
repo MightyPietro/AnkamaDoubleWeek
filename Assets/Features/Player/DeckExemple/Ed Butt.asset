@@ -12,20 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Ed Butt
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  description: 
-  paCost: 0
+  icon: {fileID: 21300000, guid: caa4cecffa068c84bb46d909a6795c80, type: 3}
+  description: "Attire un joueur situ\xE9 jusqu'\xE0 2 cases de distance et lui inflige
+    50 de fatigue. Stock 1 PA"
+  paCost: 3
   bonusPA: 0
-  fatigueDmg: 0
+  fatigueDmg: 50
   pushCase: 0
-  range: 0
+  range: 2
   minimalRange: 0
   canTerraform: 0
   tileEffects: []
-  hasSightView: 0
-  isLinedRange: 0
+  hasSightView: 1
+  isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
-  hasPlayerEffect: 0
-  playerEffects: []
-  actionTypes: 
+  hasPlayerEffect: 1
+  playerEffects:
+  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  actionTypes: 01000000

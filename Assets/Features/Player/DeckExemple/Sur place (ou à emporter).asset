@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: "Sur place (ou \xE0 emporter)"
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  description: 
-  paCost: 0
+  icon: {fileID: 21300000, guid: 355a8bea85dfca14cbaec9d6c586ac0e, type: 3}
+  description: 'Malus: Cible un joueur, ce dernier aura 0 PM lors de son prochain
+    tour.'
+  paCost: 3
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 0
-  range: 0
+  range: 15
   minimalRange: 0
   canTerraform: 0
   tileEffects: []
@@ -26,6 +27,7 @@ MonoBehaviour:
   isLinedRange: 0
   isTargettingTile: 0
   canBePlayedOnself: 0
-  hasPlayerEffect: 0
-  playerEffects: []
-  actionTypes: 
+  hasPlayerEffect: 1
+  playerEffects:
+  - {fileID: 11400000, guid: c3dd6010a948b854b841148e5d9e579e, type: 2}
+  actionTypes: 00000000
