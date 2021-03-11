@@ -264,6 +264,11 @@ namespace WeekAnkama
             paTxt = _paTxt;
             stockPaTxt = _stockPaTxt;
         }
+
+        public void AddEffect(PlayerEffect effect)
+        {
+            effects.Add(effect);
+        }
     }
 }
 
