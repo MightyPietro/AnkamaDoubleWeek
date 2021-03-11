@@ -16,7 +16,5 @@ MonoBehaviour:
   _heigth: 7
   _cellSize: {x: 1, y: 1}
   _normalizedOffset: {x: -0.5, y: -0.5}
-  _customCellPosition:
-  - {x: 2, y: 3}
-  _correspondingEffect:
-  - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
+  _customCellPosition: []
+  _correspondingEffect: []

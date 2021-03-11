@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 56bbc6b42271d4177ac313247f47ac1f, type: 3}
+  icon: {fileID: 21300000, guid: bbccc8f15ce88c14aa9e7c057e54214f, type: 3}
   description: 
   paCost: 3
   bonusPA: 0
@@ -26,8 +26,6 @@ MonoBehaviour:
   isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
-  isAreaAction: 0
-  areaRange: 0
-  hasLineArea: 1
-  customArea: []
+  hasPlayerEffect: 0
+  playerEffects: []
   actionTypes: 0800000010000000
