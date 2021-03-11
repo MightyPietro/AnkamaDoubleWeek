@@ -32,7 +32,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
-  - {fileID: 1030180574316530803}
+  - {fileID: 3734170259236788233}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -210,7 +210,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &8358421132224080773
+--- !u!1001 &5649357173492531199
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -267,8 +267,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf424a873cafb4240908864f4070db1d, type: 3}
---- !u!4 &1030180574316530803 stripped
+--- !u!4 &3734170259236788233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9058142351866767350, guid: cf424a873cafb4240908864f4070db1d, type: 3}
-  m_PrefabInstance: {fileID: 8358421132224080773}
+  m_PrefabInstance: {fileID: 5649357173492531199}
   m_PrefabAsset: {fileID: 0}
