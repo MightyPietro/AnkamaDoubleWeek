@@ -64,11 +64,9 @@ namespace WeekAnkama
                 _fatigue = value;
                 fatigueText.text = fatigue.ToString();
 
-
-                Debug.Log(mainFatigueTxt);
                 if (mainFatigueTxt != null)
                 {
-                    Debug.Log("Allo ???????"); mainFatigueTxt.text = fatigue.ToString();
+                    mainFatigueTxt.text = fatigue.ToString();
                 }
             }
         }
@@ -135,6 +133,8 @@ namespace WeekAnkama
                         break;
                 }
             }
+
+            _deck = new List<Action>(classe.deck);
             
             DeplacementManager.OnPlayerMovementFinished += StopRun;
             passEnemyExhaustSolo += PlayerManager.instance.DrawCard;
@@ -248,8 +248,6 @@ namespace WeekAnkama
             vulnerability = 1;
             fatigue = fatigue;
             stockPA = stockPA;
-
-            Debug.Log(PM);
         }
 
         public void ResetFatigue()

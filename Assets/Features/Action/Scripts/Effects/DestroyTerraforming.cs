@@ -8,7 +8,7 @@ namespace WeekAnkama
     {
         public override bool Process(Tile casterTile, Tile targetTile, Action action)
         {
-            if(targetTile != null && targetTile.Effect != null)
+            if(action.isTargettingTile && targetTile != null && targetTile.Effect != null)
             {
                 targetTile.UnSetTileEffect();
                 return true;

@@ -25,6 +25,7 @@ namespace WeekAnkama
         [SerializeField] private ActionsList _actionsList;
         [SerializeField] private Feedback _teleportPlayer;
         [SerializeField] private Feedback _playerOut;
+        [SerializeField] private TerraformingMenu _terraformingMenu;
 
         private GameObject ragdoll;
 
@@ -34,6 +35,7 @@ namespace WeekAnkama
         private List<Button> displayedCards = new List<Button>();
         private Button currentCard;
         private List<Tile> _tilesInPreview;
+        private Coroutine _currentTerraformCoroutine;
 
         #endregion
 
@@ -179,20 +181,22 @@ namespace WeekAnkama
 
             if (actualPlayer != null)
             {
-                if (actualPlayer.currentAction != null)
+                if (actualPlayer.currentAction != null )
                 {
+                    if (actualPlayer.PA < actualPlayer.currentAction.paCost) HandleUnselectCard();
+
                     GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
                     if (IsTargetValid(castTile, targetTile, actualPlayer.currentAction))
                     {
                         if (targetTile.Player != actualPlayer || actualPlayer.currentAction.canBePlayedOnself)
                         {
-                            if (!actualPlayer.currentAction.isTileEffect && targetTile.Player != null)
+                            if (!actualPlayer.currentAction.canTerraform && targetTile.Player != null)
                             {
                                 DoAction(targetTile);
                             }
-                            else if (actualPlayer.currentAction.isTileEffect)
+                            else if (actualPlayer.currentAction.canTerraform)
                             {
-                                DoAction(targetTile);
+                                _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
                             {
@@ -217,6 +221,33 @@ namespace WeekAnkama
             }
         }
 
+        private IEnumerator DoTerraformAction(Tile targetTile)
+        {
+            ActionType element;
+
+            // show menu
+            _terraformingMenu.SetActive(true);
+            _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+
+            // wait for action (deselect or select terraformation)
+            while (!_terraformingMenu.TryGetSelectedElement(out element))
+            {
+                yield return null;
+            }
+            //Not Stopped then do action
+            if (actualPlayer.currentAction != null)
+            {
+                actualPlayer.currentAction.AddActionElementalEffect(element);
+
+                DoAction(targetTile);
+            }
+            else
+            {
+                HandleUnselectCard(actualPlayer);
+            }
+
+        }
+
         private void MoveCharacter(Tile targetTile)
         {
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile castTile);
@@ -236,7 +267,6 @@ namespace WeekAnkama
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
-                Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
                 FeedbackManager.instance.Feedback(_teleportPlayer, tileWanted.WorldPosition, 2.1f);
                 return true;
@@ -382,6 +412,15 @@ namespace WeekAnkama
         private void HandleUnselectCard(Player player)
         {
             if (player == null) return;
+            //Stop element selection
+            if(_currentTerraformCoroutine != null)
+            {
+                StopCoroutine(_currentTerraformCoroutine);
+                _currentTerraformCoroutine = null;
+            }            
+            _terraformingMenu.SetActive(false);
+
+            SetPreviewTiles(_tilesInPreview, false, Color.cyan);
             HideTileFeedback();
             ShowMovePossibility();
             //_tilesInPreview.Clear();
@@ -445,6 +484,7 @@ namespace WeekAnkama
             card.onClick.RemoveAllListeners();
             card.onClick.AddListener(() => { AddCurrentAction(action, card); });
             card.name = action.name;
+            card.image.sprite = action.icon;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
             card.transform.Find("Fatigue").GetComponent<Text>().text = action.fatigueDmg.ToString();
@@ -612,7 +652,7 @@ namespace WeekAnkama
         }
 
         [SerializeField]
-        private TextMeshProUGUI spellTitle, spellDescription;
+        private TextMeshProUGUI spellTitle, spellDescription, stockMaanaText, damagesText;
         [SerializeField]
         private GameObject spellDetailObject;
 
@@ -621,6 +661,8 @@ namespace WeekAnkama
             spellDetailObject.transform.position = new Vector3(700+75*index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
             spellTitle.text = actualPlayerHand[index].name;
             spellDescription.text = actualPlayerHand[index].description;
+            stockMaanaText.text = actualPlayerHand[index].bonusPA.ToString();
+            damagesText.text = actualPlayerHand[index].fatigueDmg.ToString();
             spellDetailObject.SetActive(true);
         }
 
