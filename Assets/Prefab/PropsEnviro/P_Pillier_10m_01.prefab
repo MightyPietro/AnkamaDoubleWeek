@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3913330420423740020}
   - component: {fileID: 3710476906740466458}
   - component: {fileID: 3750153039963656525}
-  - component: {fileID: 6468584844473669909}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6468584844473669909
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6700836725342611667}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &7773771695900843242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -132,13 +117,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7296703792700824593}
     m_Modifications:
+    - target: {fileID: 1725316718059852778, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8699739125706094069, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8699739125706094069, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.086
+      value: 9.919
       objectReference: {fileID: 0}
     - target: {fileID: 8699739125706094069, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
       propertyPath: m_LocalPosition.z
@@ -184,7 +173,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8963624252483332349, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1209206535497175470, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8ae0e7cef7fa7944c8d3063c397de917, type: 3}
 --- !u!1 &6761635132232863671 stripped
 GameObject:

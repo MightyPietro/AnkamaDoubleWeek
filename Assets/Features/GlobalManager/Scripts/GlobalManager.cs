@@ -54,7 +54,6 @@ namespace WeekAnkama
                 GridManager.Grid.TryGetTile(newTilePos, out newTile);
                 if(newTile == null)
                 {
-                    Debug.Log("Out player");
                     isPlayerOut = true;
                     return path;
                 }

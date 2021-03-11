@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
-  m_Name: Water
+  m_Name: Gain PA
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 4040ac57a7823604dbd9c496e45deb55, type: 3}
   description: 
-  paCost: 4
+  paCost: 0
   bonusPA: 0
   fatigueDmg: 0
   pushCase: 0
-  range: 7
-  isTileEffect: 1
-  tileEffect: {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
+  range: 1
+  minimalRange: 0
+  canTerraform: 0
+  tileEffects: []
   hasSightView: 0
   isLinedRange: 0
   isTargettingTile: 0
-  isAreaAction: 0
-  areaRange: 0
-  hasLineArea: 0
-  customArea: []
-  actionTypes: 20000000
+  canBePlayedOnself: 1
+  hasPlayerEffect: 1
+  playerEffects:
+  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  actionTypes: 

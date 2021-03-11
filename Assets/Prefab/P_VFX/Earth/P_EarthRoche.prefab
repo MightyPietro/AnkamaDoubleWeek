@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 350943111037832228}
   - component: {fileID: 3706769751725884289}
   - component: {fileID: 1483338195253344075}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_EarthRoche
   m_TagString: Untagged
   m_Icon: {fileID: 0}

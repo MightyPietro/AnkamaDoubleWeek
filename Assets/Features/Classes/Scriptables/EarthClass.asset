@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nom: 
   description: 
-  passive: 3
   icon: {fileID: 21300000, guid: c6e4ece5b8a01c74a8910f155af85980, type: 3}
+  passive: 3
+  deck:
+  - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
+  - {fileID: 11400000, guid: e297844cffe0af641b6b8a2b6c49cda7, type: 2}
+  - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
+  - {fileID: 11400000, guid: c119837774e8c3145b675cba3f687530, type: 2}
+  - {fileID: 11400000, guid: d91abb48c7c567e4e91974941750aba1, type: 2}
+  - {fileID: 11400000, guid: ccf7ebc64f1642645b5f6fb34c9197c4, type: 2}

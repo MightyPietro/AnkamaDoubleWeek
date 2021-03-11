@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5816454350568209647}
   m_Layer: 2
-  m_Name: P_Player_Ragdoll
+  m_Name: P_Player_Ragdoll1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,6 +114,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4087921687997237434, guid: 6679d190de173284abb841c0d578ac55, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f86ea4b107b8ea46966027fd3344b3e, type: 2}
     - target: {fileID: 4338293059693203592, guid: 6679d190de173284abb841c0d578ac55, type: 3}
       propertyPath: m_Name
       value: P_Body

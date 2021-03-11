@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5766700790543255487}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Buff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 8398850459673469615}
   - component: {fileID: 291633622244375080}
   - component: {fileID: 8921562549097560018}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Buff
   m_TagString: Untagged
   m_Icon: {fileID: 0}

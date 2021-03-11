@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7418411397793825788}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Water_Splashed_Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6462458964667287258}
   - component: {fileID: 8516986505961417908}
   - component: {fileID: 1084632847880637049}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Splash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

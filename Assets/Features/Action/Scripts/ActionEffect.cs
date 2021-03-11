@@ -12,14 +12,13 @@ namespace WeekAnkama
         public virtual bool Process(Tile casterTile, Tile targetTile, Action action)
         {
 
-            if (action.isTileEffect)
+            if (action.canTerraform)
             {
-                targetTile.SetTileEffect(action.tileEffect);
-                action.tileEffect.linkedTile = targetTile;
-                action.tileEffect.casterTile = casterTile;
-                return true;
+                targetTile.SetTileEffect(action.ActionTileEffect);
+                action.ActionTileEffect.linkedTile = targetTile;
+                action.ActionTileEffect.casterTile = casterTile;
             }
-            return false;
+            return true;
 
         }
     }
