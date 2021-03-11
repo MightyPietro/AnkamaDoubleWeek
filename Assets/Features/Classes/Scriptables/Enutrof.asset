@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5993dacc302a2344185fa255f64d3746, type: 3}
   m_Name: Enutrof
   m_EditorClassIdentifier: 
-  nom: 
-  description: 
+  nom: Enutrof
+  description: "\xC9quilibr\xE9 : m\xE9lange entre tout type de carte pour un deck
+    utile \xE0 chaque situation !"
   icon: {fileID: 21300000, guid: c6e4ece5b8a01c74a8910f155af85980, type: 3}
   passive: 3
   deck:
-  - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: e297844cffe0af641b6b8a2b6c49cda7, type: 2}
-  - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 11400000, guid: c119837774e8c3145b675cba3f687530, type: 2}
-  - {fileID: 11400000, guid: d91abb48c7c567e4e91974941750aba1, type: 2}
-  - {fileID: 11400000, guid: ccf7ebc64f1642645b5f6fb34c9197c4, type: 2}
+  - {fileID: 11400000, guid: f78a9e36703e47343b44f06f6b50e645, type: 2}
+  - {fileID: 11400000, guid: 4943ecd668163bb469b0f09a48b047d0, type: 2}
+  - {fileID: 11400000, guid: 3d7dc2cc0c84d6940bdcfb9425198c0a, type: 2}
+  - {fileID: 11400000, guid: b2115942b849f864ebf48e3537fbb78c, type: 2}
+  - {fileID: 11400000, guid: 40098c35b6db7254584b90b28e335525, type: 2}
+  - {fileID: 11400000, guid: 270a5f8d6072bda45b30cd765093b484, type: 2}
+  - {fileID: 11400000, guid: 042d04ad12ad57e47906ac3e41ff5968, type: 2}
+  - {fileID: 11400000, guid: 84c72cbe8884f1a4782945d10b270119, type: 2}
+  - {fileID: 11400000, guid: 5dca2800edd5e444dbaa07e19ebbc3c5, type: 2}

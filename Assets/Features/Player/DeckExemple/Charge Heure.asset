@@ -31,4 +31,4 @@ MonoBehaviour:
   hasPlayerEffect: 1
   playerEffects:
   - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
-  actionTypes: 02000000
+  actionTypes: 0200000008000000

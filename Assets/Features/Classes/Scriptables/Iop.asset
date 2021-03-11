@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5993dacc302a2344185fa255f64d3746, type: 3}
   m_Name: Iop
   m_EditorClassIdentifier: 
-  nom: 
-  description: 
+  nom: Iop
+  description: "Enrag\xE9 : deck aggressif autour du d\xE9placement et des d\xE9g\xE2ts,
+    id\xE9al pour foncer t\xEAte baiss\xE9 au combat !"
   icon: {fileID: 21300000, guid: 7a99ccad540947b449675c77a16d55c8, type: 3}
   passive: 0
   deck:
-  - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: 1161169cecf755d408b917ef6e54a7c1, type: 2}
-  - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 11400000, guid: c119837774e8c3145b675cba3f687530, type: 2}
-  - {fileID: 11400000, guid: d91abb48c7c567e4e91974941750aba1, type: 2}
-  - {fileID: 11400000, guid: ccf7ebc64f1642645b5f6fb34c9197c4, type: 2}
+  - {fileID: 11400000, guid: df513d88344000848b9e0d8e90f6d8d0, type: 2}
+  - {fileID: 11400000, guid: 5dca2800edd5e444dbaa07e19ebbc3c5, type: 2}
+  - {fileID: 11400000, guid: b63142d252b63db4f949acff8387d114, type: 2}
+  - {fileID: 11400000, guid: 3d7dc2cc0c84d6940bdcfb9425198c0a, type: 2}
+  - {fileID: 11400000, guid: 843e4f50f4655d848a89e2bd4ec9a60b, type: 2}
+  - {fileID: 11400000, guid: 8071af015664f5e43a31f2e44dfd624f, type: 2}
+  - {fileID: 11400000, guid: af9228aa468f2dc44b1617553d409c23, type: 2}
+  - {fileID: 11400000, guid: e76b8bbab8a50c241bf54304a7455e51, type: 2}
+  - {fileID: 11400000, guid: 86f246bfaa49b10429abed7f18e43d13, type: 2}
