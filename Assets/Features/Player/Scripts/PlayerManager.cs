@@ -111,7 +111,12 @@ namespace WeekAnkama
             if (actualPlayer.isOut)
             {
                 actualPlayer.isOut = false;
-                TeleportPlayer(actualPlayer, turnManager.GetSpawnPoint(actualPlayer), true);
+                Vector2Int spawnPoint = turnManager.GetSpawnPoint(actualPlayer);
+                if(GridManager.Grid.TryGetTile(spawnPoint, out Tile spawnTile))
+                {
+                    spawnTile.UnSetTileEffect();
+                    TeleportPlayer(actualPlayer, spawnPoint, true);
+                }
                 actualPlayer.ResetFatigue();
 
             }

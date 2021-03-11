@@ -25,7 +25,7 @@ namespace WeekAnkama
                 /*Vector2 direction = (linkedTile.Coords - playerTile.Coords);
                 direction = direction.normalized;*/
 
-                linkedTile.UnSetPlayer();
+                //linkedTile.UnSetPlayer();
 
                 Debug.Log("Push test effect : " + _player.Direction);
                 GlobalManager.instance.AskPushPlayer(_player, _player.Direction, 1 + Mathf.FloorToInt(_player.fatigue / 100));

@@ -15,7 +15,7 @@ namespace WeekAnkama
             if (action.canTerraform)
             {
                 targetTile.SetTileEffect(action.ActionTileEffect);
-                action.ActionTileEffect.linkedTile = targetTile;
+                //action.ActionTileEffect.linkedTile.Add(targetTile);
                 action.ActionTileEffect.casterTile = casterTile;
             }
             return true;
