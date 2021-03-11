@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   paCost: 4
   bonusPA: 0
-  fatigueDmg: 0
+  fatigueDmg: 50
   pushCase: 0
   range: 7
   minimalRange: 0
