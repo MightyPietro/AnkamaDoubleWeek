@@ -85,7 +85,7 @@ namespace WeekAnkama
                 {
                     currentTurnTimeLeft -= Time.deltaTime;
                 }
-                turnTimeLeft.fillAmount = currentTurnTimeLeft / 30;
+                turnTimeLeft.fillAmount = currentTurnTimeLeft / secondByTurn;
             }
         }
 

@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5993dacc302a2344185fa255f64d3746, type: 3}
   m_Name: Xelor
   m_EditorClassIdentifier: 
-  nom: 
-  description: 
+  nom: Xelor
+  description: "Contr\xF4le : deck orient\xE9 autour du contr\xF4le du paquet et
+    des PAs, pour ceux qui utilisent leur t\xEAte avant leurs muscles !"
   icon: {fileID: 21300000, guid: e4faed26b239fdd408bb1b9c52326630, type: 3}
   passive: 1
   deck:
-  - {fileID: 11400000, guid: 8bac0586646b6b447840263a56b9f632, type: 2}
-  - {fileID: 11400000, guid: e297844cffe0af641b6b8a2b6c49cda7, type: 2}
-  - {fileID: 11400000, guid: 3f05b2efe38787749b6a447a975fbf82, type: 2}
-  - {fileID: 11400000, guid: c119837774e8c3145b675cba3f687530, type: 2}
-  - {fileID: 11400000, guid: ccf7ebc64f1642645b5f6fb34c9197c4, type: 2}
-  - {fileID: 11400000, guid: d91abb48c7c567e4e91974941750aba1, type: 2}
+  - {fileID: 11400000, guid: f95c03a72ab0f7e458275b18c7006289, type: 2}
+  - {fileID: 11400000, guid: 61764500d7a44f648bd19822fc65f55a, type: 2}
+  - {fileID: 11400000, guid: 86515eb98515e2649b9324ea9377e56a, type: 2}
+  - {fileID: 11400000, guid: af8b038eb38d5ed49a0427275eb474fc, type: 2}
+  - {fileID: 11400000, guid: 86f246bfaa49b10429abed7f18e43d13, type: 2}
+  - {fileID: 11400000, guid: 40098c35b6db7254584b90b28e335525, type: 2}
+  - {fileID: 11400000, guid: 6beed581f9e12b041a93fd15f437c9d0, type: 2}
+  - {fileID: 11400000, guid: 890c051fc783aa1499b8264471f4117c, type: 2}
+  - {fileID: 11400000, guid: 4943ecd668163bb469b0f09a48b047d0, type: 2}

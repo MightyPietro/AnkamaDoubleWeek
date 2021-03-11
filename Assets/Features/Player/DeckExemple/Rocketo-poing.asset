@@ -29,4 +29,4 @@ MonoBehaviour:
   canBePlayedOnself: 0
   hasPlayerEffect: 0
   playerEffects: []
-  actionTypes: 00000000
+  actionTypes: 0800000010000000

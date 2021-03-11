@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Phalconne
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: f87a05fa9fc98d8469423db9518e766e, type: 3}
-  description: "T\xE9l\xE9portation jusqu'\xE0 cases de distance. Stock 1 PA."
+  description: "T\xE9l\xE9portation jusqu'\xE0 2 cases de distance. Stock 1 PA."
   paCost: 2
   bonusPA: 0
   fatigueDmg: 0
