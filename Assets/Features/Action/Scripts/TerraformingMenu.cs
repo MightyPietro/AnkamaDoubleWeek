@@ -11,9 +11,13 @@ namespace WeekAnkama
         [SerializeField] private Transform _selfTransform;
         [SerializeField] private GameObject _selfGameobject;
         [SerializeField] private PhotonView _photonView;
-        private ActionType _selectedElement;
+        public ActionType _selectedElement;
+        public static TerraformingMenu instance;
 
-
+        private void Awake()
+        {
+            instance = this;
+        }
         public void SetActive(bool active)
         {
             _selfGameobject.SetActive(active);
@@ -42,15 +46,8 @@ namespace WeekAnkama
 
         public void OnPlayerClickTerraformButtonViaRPC(string element)
         {
-            if (PhotonNetwork.IsConnected)
-            {
-                _photonView.RPC("OnPlayerClickTerraformButton", RpcTarget.All, element);
-            }
-            else
-            {
-                OnPlayerClickTerraformButton(element);
-            }
-            
+            OnPlayerClickTerraformButton(element);
+
         }
 
         [PunRPC]
@@ -77,6 +74,8 @@ namespace WeekAnkama
                     _selectedElement = ActionType.None;
                     break;
             }
+
+
         }
 
 

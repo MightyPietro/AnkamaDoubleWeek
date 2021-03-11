@@ -218,8 +218,8 @@ namespace WeekAnkama
                             }
                             else if (actualPlayer.currentAction.canTerraform)
                             {
-                                Debug.Log("canTerraform");
-                                _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                if (_playerValue.Value == turnManager.turnValue)
+                                    _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
 
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
@@ -254,9 +254,7 @@ namespace WeekAnkama
 
 
             _terraformingMenu.GetComponent<Canvas>().enabled = true;
-            if (_playerValue.Value == turnManager.turnValue)
-                _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
-            else _terraformingMenu.SetPosition(new Vector3(9000,9000,9000));
+             _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
 
             // wait for action (deselect or select terraformation)
             while (!_terraformingMenu.TryGetSelectedElement(out element))
@@ -266,9 +264,15 @@ namespace WeekAnkama
             //Not Stopped then do action
             if (actualPlayer.currentAction != null)
             {
-                actualPlayer.currentAction.AddActionElementalEffect(element);
-                Debug.Log(actualPlayer.currentAction);
-                DoAction(targetTile);
+                if (PhotonNetwork.IsConnected)
+                {
+                    _photonView.RPC("DoTerraformAction", RpcTarget.All, targetTile.Coords.x, targetTile.Coords.y, (int)element);
+                }
+                else
+                {
+                    DoTerraformAction(targetTile.Coords.x, targetTile.Coords.y, (int)element);
+                }
+
             }
             else
             {
@@ -276,6 +280,16 @@ namespace WeekAnkama
                 HandleUnselectCardViaRPC(actualPlayer);
             }
 
+        }
+
+        [PunRPC]
+        public void DoTerraformAction(int x, int y, int element)
+        {
+            
+            actualPlayer.currentAction.AddActionElementalEffect((ActionType)element);
+            Debug.Log(actualPlayer.currentAction);
+            GridManager.Grid.TryGetTile(new Vector2Int(x, y), out Tile tile);
+            DoAction(tile);
         }
 
         private void MoveCharacter(Tile targetTile)
