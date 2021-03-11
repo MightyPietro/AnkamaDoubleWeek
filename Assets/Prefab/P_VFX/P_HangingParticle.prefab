@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2083995084984234111}
   - component: {fileID: 1918296109532948836}
   - component: {fileID: 2542852980004626106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LightParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4830,8 +4830,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5155442797738595463}
-  m_Layer: 0
-  m_Name: P_HangingParticle 1
+  m_Layer: 2
+  m_Name: P_HangingParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

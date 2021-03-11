@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1639190674890748621}
   - component: {fileID: 356052440123849243}
   - component: {fileID: 2608233670079330405}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_LilWateDrops
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4890,7 +4890,7 @@ GameObject:
   - component: {fileID: 4911605252274614943}
   - component: {fileID: 3362349428779065455}
   - component: {fileID: 5518471103200293044}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_LilRocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9767,7 +9767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 558220813652996297}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Global
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9800,7 +9800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7148037117208175078}
   - component: {fileID: 5371031711865363887}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9906,6 +9906,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c93f774de05f022478c86afa7c8e4a4f, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c93f774de05f022478c86afa7c8e4a4f, type: 3}
 --- !u!4 &2621079226095299317 stripped
@@ -9971,6 +9975,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6d54363b98a3eaf4d8400de80fa51da9, type: 3}
       propertyPath: m_Name
       value: SM_WaterMesh_Rock
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6d54363b98a3eaf4d8400de80fa51da9, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d54363b98a3eaf4d8400de80fa51da9, type: 3}

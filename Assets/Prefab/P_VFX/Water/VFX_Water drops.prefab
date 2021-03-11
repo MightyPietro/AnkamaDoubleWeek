@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8496222851948993639}
   - component: {fileID: 2263152970468265623}
   - component: {fileID: 9031036003489308236}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_Water drops
   m_TagString: Untagged
   m_Icon: {fileID: 0}

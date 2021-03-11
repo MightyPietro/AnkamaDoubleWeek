@@ -64,7 +64,9 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                ShowMovePossibility();
+                if(_playerValue.Value == turnManager.turnValue)
+                    ShowMovePossibility();
+
             };
         }
 
@@ -75,7 +77,7 @@ namespace WeekAnkama
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
             }
-            TurnManager.OnEndPlayerTurn += HandleUnselectCard;
+            TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
             TurnManager.OnEndTurn += HideTileFeedback;
             TurnManager.OnBeginTurn += ShowMovePossibility;
 
@@ -125,9 +127,13 @@ namespace WeekAnkama
                 stockPaButton.interactable = true;
                 DrawCard(actualPlayer);
                 DisplayCards();
-                _endTurnButton.SetActive(true);
+                _endTurnButton.GetComponent<Button>().interactable = true;
                 MouseOperation.OnLeftClickTile += DoSomethinOnTileViaRPC;
                 MouseOperation.OnLeftClickNoTile += OnLeftClickNoTile;
+                TurnManager.OnBeginTurn += ShowMovePossibility;
+                TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
+                TurnManager.OnEndTurn += HideTileFeedback;
+                ShowMovePossibility();
             }
             else
             {
@@ -140,7 +146,10 @@ namespace WeekAnkama
                     stockPaButton.interactable = false;
                     MouseOperation.OnLeftClickTile -= DoSomethinOnTileViaRPC;
                     MouseOperation.OnLeftClickNoTile -= OnLeftClickNoTile;
-                    _endTurnButton.SetActive(false);
+                    TurnManager.OnBeginTurn -= ShowMovePossibility;
+                    TurnManager.OnEndPlayerTurn -= HandleUnselectCardViaRPC;
+                    TurnManager.OnEndTurn -= HideTileFeedback;
+                    _endTurnButton.GetComponent<Button>().interactable = false;
                     HideCards();
                 }
                 else
@@ -148,15 +157,17 @@ namespace WeekAnkama
 
                     DrawCard(actualPlayer);
                     DisplayCards();
+                    ShowMovePossibility();
                 }
 
             }
 
-            ShowMovePossibility();
+           
         }
 
         private void ShowMovePossibility()
         {
+            
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
@@ -207,7 +218,8 @@ namespace WeekAnkama
                             }
                             else if (actualPlayer.currentAction.canTerraform)
                             {
-                                _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                if(_playerValue.Value == turnManager.turnValue)
+                                    _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
                             {
@@ -215,13 +227,13 @@ namespace WeekAnkama
                             }
                             else
                             {
-                                HandleUnselectCard(actualPlayer);
+                                HandleUnselectCardViaRPC(actualPlayer);
                             }
                         }
                     }
                     else
                     {
-                        HandleUnselectCard(actualPlayer);
+                        HandleUnselectCardViaRPC(actualPlayer);
                     }
                 }
                 else
@@ -254,7 +266,7 @@ namespace WeekAnkama
             }
             else
             {
-                HandleUnselectCard(actualPlayer);
+                HandleUnselectCardViaRPC(actualPlayer);
             }
 
         }
@@ -308,7 +320,7 @@ namespace WeekAnkama
                     actualPlayer.Punch();
                 }
 
-                HandleUnselectCard(actualPlayer);
+                HandleUnselectCardViaRPC(actualPlayer);
 
                 DisplayCards();
 
@@ -419,9 +431,31 @@ namespace WeekAnkama
             actualPlayer.currentAction = null;
         }
 
-
-        private void HandleUnselectCard(Player player)
+        public void HandleUnselectCardViaRPC(Player player)
         {
+            for (int i = 0; i < TurnManager.instance.players.Count; i++)
+            {
+                if(player == TurnManager.instance.players[i])
+                {
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        _photonView.RPC("HandleUnselectCard", RpcTarget.All, i);
+                    }
+                    else
+                    {
+                        HandleUnselectCard(i);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        [PunRPC]
+        private void HandleUnselectCard(int playerValue)
+        {
+            Player player = TurnManager.instance.players[playerValue];
+
             if (player == null) return;
             //Stop element selection
             if(_currentTerraformCoroutine != null)
@@ -446,7 +480,7 @@ namespace WeekAnkama
             }
             else
             {
-                HandleUnselectCard(actualPlayer);
+                HandleUnselectCardViaRPC(actualPlayer);
             }
 
         }

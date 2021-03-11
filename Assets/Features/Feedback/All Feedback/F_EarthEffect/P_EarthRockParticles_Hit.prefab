@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4508500186229267655}
   - component: {fileID: 4508500186229267654}
   - component: {fileID: 4508500186229267649}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VFX_EarthRock_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4889,7 +4889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 550474624389281929}
   - component: {fileID: 720277455918645044}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: P_EarthRockParticles_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5002,6 +5002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_VFX_Earth03
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ed1c740406bb6fe48a76d9463f88bac1, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed1c740406bb6fe48a76d9463f88bac1, type: 3}
 --- !u!4 &2454165551150588677 stripped
@@ -5075,6 +5079,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 72b2e4e7e1208e249837024f4972fd8b, type: 3}
       propertyPath: m_Name
       value: SM_VFX_Earth01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 72b2e4e7e1208e249837024f4972fd8b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72b2e4e7e1208e249837024f4972fd8b, type: 3}
@@ -5150,6 +5158,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_VFX_Earth02
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6e9e2122d3c55e43bc1cff29d2172a5, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6e9e2122d3c55e43bc1cff29d2172a5, type: 3}
 --- !u!4 &5359194566057241914 stripped
@@ -5224,6 +5236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_VFX_Earth04
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cb3d5eb83ec22949b89d88355421698, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cb3d5eb83ec22949b89d88355421698, type: 3}
 --- !u!4 &8385763378957079845 stripped
@@ -5297,6 +5313,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d8cc149dd6c48e14ca1f4dbc7a6a478e, type: 3}
       propertyPath: m_Name
       value: SM_VFX_Earth05
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8cc149dd6c48e14ca1f4dbc7a6a478e, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8cc149dd6c48e14ca1f4dbc7a6a478e, type: 3}
