@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player2BlueMain
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player1RedOutlines
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player1BlueMain
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player2BlueOutlines
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player2RedOutlines
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player2RedMain
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player1RedMain
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Player1BlueOutlines
-    Event: 1000
+    Event: 250
     filterSettings:
       RenderQueueType: 0
       LayerMask:
