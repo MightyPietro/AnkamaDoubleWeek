@@ -22,9 +22,9 @@ MonoBehaviour:
   minimalRange: 0
   canTerraform: 0
   tileEffects: []
-  hasSightView: 0
+  hasSightView: 1
   isLinedRange: 1
-  isTargettingTile: 0
+  isTargettingTile: 1
   canBePlayedOnself: 0
   hasPlayerEffect: 0
   playerEffects: []
