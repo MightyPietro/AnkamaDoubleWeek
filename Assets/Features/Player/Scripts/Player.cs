@@ -34,6 +34,9 @@ namespace WeekAnkama
         private Sprite icone;
         private TextMeshProUGUI mainFatigueTxt, pmTxt, paTxt, stockPaTxt;
 
+        [SerializeField]
+        private GameObject turnFeedback;
+
         [HideInInspector]
         public List<Action> discardPile = new List<Action>();
 
@@ -171,7 +174,9 @@ namespace WeekAnkama
             ResetDatas();
             beginTurn?.Invoke(this, this);
 
-            foreach(PlayerEffect eff in effects)
+            turnFeedback.SetActive(true);
+
+            foreach (PlayerEffect eff in effects)
             {
                 switch(eff.effectType)
                 {
@@ -189,6 +194,11 @@ namespace WeekAnkama
             effects.Clear();
         }
 
+        public void EndTurn()
+        {
+            turnFeedback.SetActive(false);
+        }
+
         public void DoDamage(Player attackTarget, int amount)
         {
             if(amount>0)
@@ -199,7 +209,6 @@ namespace WeekAnkama
 
         public void TakeHeal(int amount)
         {
-            Debug.Log(fatigue + " -= " + amount);
             fatigue -= amount;
             Debug.Log(fatigue);
             if (fatigue<0)
@@ -217,7 +226,6 @@ namespace WeekAnkama
             Hurt();
             if (amount>0)
             {
-                Debug.Log(fatigue);
                 takeDamage?.Invoke(attacker, this);
                 
             }
