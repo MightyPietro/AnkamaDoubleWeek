@@ -30,4 +30,4 @@ MonoBehaviour:
   areaRange: 0
   hasLineArea: 1
   customArea: []
-  actionTypes: 01000000
+  actionTypes: 0100000008000000
