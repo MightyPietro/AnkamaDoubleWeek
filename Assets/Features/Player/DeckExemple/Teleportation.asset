@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Teleportation
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: b84c86f734cd5b44f9ed281583d63813, type: 3}
+  icon: {fileID: 21300000, guid: 6b07c5b3169994340be065351fd3dd2e, type: 3}
   description: 
   paCost: 0
   bonusPA: 0
@@ -22,12 +22,10 @@ MonoBehaviour:
   minimalRange: 0
   canTerraform: 0
   tileEffects: []
-  hasSightView: 0
+  hasSightView: 1
   isLinedRange: 0
   isTargettingTile: 1
   canBePlayedOnself: 0
-  isAreaAction: 0
-  areaRange: 0
-  hasLineArea: 0
-  customArea: []
+  hasPlayerEffect: 0
+  playerEffects: []
   actionTypes: 04000000
