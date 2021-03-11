@@ -32,24 +32,25 @@ namespace WeekAnkama
         private void HandleMouseMove(Vector2 mousePosition)
         {
             _screenPosition = new Vector3(mousePosition.x, mousePosition.y);
-            Ray ray = Camera.main.ScreenPointToRay(_screenPosition);
-            if (Physics.Raycast(ray, out hitData, 100))
+            if (IsOverUI(mousePosition))// UI
             {
-                if (IsOverUI(mousePosition))// UI
-                {
-                    isOnUI = true;
-                }
-                else
+                isOnUI = true;
+            }
+            else
+            {                
+                Ray ray = Camera.main.ScreenPointToRay(_screenPosition);
+                if (Physics.Raycast(ray, out hitData, 100))
                 {
                     _currentWorldPosition = hitData.point;
                     isOnUI = false;
                 }
+                else
+                {
+                    _currentWorldPosition = Vector3.negativeInfinity;
+                    isOnUI = false;
+                }
             }
-            else
-            {
-                _currentWorldPosition = Vector3.negativeInfinity;
-                isOnUI = false;
-            }
+            
             if (isOnUI)
             {
                 MouseHandler.Instance.DisableGameplayInputs();
