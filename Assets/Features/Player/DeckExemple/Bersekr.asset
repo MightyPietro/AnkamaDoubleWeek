@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 'Bonus : Vous inflige 100 de fatigue et vous donne 2 PM pour 1 tour.
     Stock 1 PA.'
   paCost: 1
-  bonusPA: 0
+  bonusPA: 1
   fatigueDmg: 100
   pushCase: 0
   range: 0
@@ -29,5 +29,6 @@ MonoBehaviour:
   canBePlayedOnself: 1
   hasPlayerEffect: 1
   playerEffects:
-  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  - {fileID: 11400000, guid: e859cf43f14730a4cac1482a41c17059, type: 2}
+  - {fileID: 11400000, guid: e859cf43f14730a4cac1482a41c17059, type: 2}
   actionTypes: 08000000

@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4b6446afd89bca44b8b4f18725ba48bb, type: 3}
   description: "D\xE9truit une terraformation adjacente. Stock 1 PA."
   paCost: 2
-  bonusPA: 0
+  bonusPA: 1
   fatigueDmg: 0
   pushCase: 0
   range: 1
@@ -27,6 +27,5 @@ MonoBehaviour:
   isTargettingTile: 0
   canBePlayedOnself: 0
   hasPlayerEffect: 1
-  playerEffects:
-  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  playerEffects: []
   actionTypes: 00020000
