@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "Attire un joueur situ\xE9 jusqu'\xE0 3 cases de distance et lui inflige
     50 de fatigue. Stock 1 PA."
   paCost: 4
-  bonusPA: 0
+  bonusPA: 1
   fatigueDmg: 50
   pushCase: 0
   range: 3
@@ -28,6 +28,5 @@ MonoBehaviour:
   isTargettingTile: 0
   canBePlayedOnself: 0
   hasPlayerEffect: 1
-  playerEffects:
-  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  playerEffects: []
   actionTypes: 0100000008000000

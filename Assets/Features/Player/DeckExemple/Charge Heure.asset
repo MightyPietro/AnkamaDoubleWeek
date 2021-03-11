@@ -17,7 +17,7 @@ MonoBehaviour:
     vous percutez un joueur, vous arr\xEAte et lui inflige 80 de fatigue. Stock 1
     PA"
   paCost: 4
-  bonusPA: 0
+  bonusPA: 1
   fatigueDmg: 80
   pushCase: 0
   range: 3
@@ -29,6 +29,5 @@ MonoBehaviour:
   isTargettingTile: 0
   canBePlayedOnself: 0
   hasPlayerEffect: 1
-  playerEffects:
-  - {fileID: 11400000, guid: 191e723a101dc2642aeec57b8104d2c6, type: 2}
+  playerEffects: []
   actionTypes: 0200000008000000
