@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
-  m_Name: New Action
+  m_Name: Destructo Forme
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   description: 
