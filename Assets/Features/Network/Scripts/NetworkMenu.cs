@@ -124,6 +124,11 @@ namespace WeekAnkama
             }
         }
 
+        public void LaunchLocal()
+        {
+            SceneManager.LoadScene(1);
+        }
+
         private void OnDisable()
         {
             NetworkManager.OnRoomJoined -= ShowRoomLobby;

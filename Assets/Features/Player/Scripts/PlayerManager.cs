@@ -64,7 +64,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                if(_playerValue.Value == turnManager.turnValue)
+                if(_playerValue.Value == turnManager.turnValue || _playerValue.Value < 0)
                     ShowMovePossibility();
 
             };
@@ -218,11 +218,21 @@ namespace WeekAnkama
                             }
                             else if (actualPlayer.currentAction.canTerraform)
                             {
-                                if(_playerValue.Value == turnManager.turnValue)
+                                if (PhotonNetwork.IsConnected)
+                                {
+                                    if (_playerValue.Value == turnManager.turnValue)
+                                        _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                }
+                                else
+                                {
                                     _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
+                                }
+                                
+
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
                             {
+                                Debug.Log("isTargettingTile");
                                 DoAction(targetTile);
                             }
                             else
@@ -249,8 +259,10 @@ namespace WeekAnkama
             ActionType element;
 
             // show menu
-            _terraformingMenu.SetActive(true);
-            _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+
+
+            _terraformingMenu.GetComponent<Canvas>().enabled = true;
+             _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
 
             // wait for action (deselect or select terraformation)
             while (!_terraformingMenu.TryGetSelectedElement(out element))
@@ -260,15 +272,32 @@ namespace WeekAnkama
             //Not Stopped then do action
             if (actualPlayer.currentAction != null)
             {
-                actualPlayer.currentAction.AddActionElementalEffect(element);
+                if (PhotonNetwork.IsConnected)
+                {
+                    _photonView.RPC("DoTerraformAction", RpcTarget.All, targetTile.Coords.x, targetTile.Coords.y, (int)element);
+                }
+                else
+                {
+                    DoTerraformAction(targetTile.Coords.x, targetTile.Coords.y, (int)element);
+                }
 
-                DoAction(targetTile);
             }
             else
             {
+                Debug.Log("Current ACTION NULL");
                 HandleUnselectCardViaRPC(actualPlayer);
             }
 
+        }
+
+        [PunRPC]
+        public void DoTerraformAction(int x, int y, int element)
+        {
+            
+            actualPlayer.currentAction.AddActionElementalEffect((ActionType)element);
+            Debug.Log(actualPlayer.currentAction);
+            GridManager.Grid.TryGetTile(new Vector2Int(x, y), out Tile tile);
+            DoAction(tile);
         }
 
         private void MoveCharacter(Tile targetTile)
@@ -463,7 +492,7 @@ namespace WeekAnkama
                 StopCoroutine(_currentTerraformCoroutine);
                 _currentTerraformCoroutine = null;
             }            
-            _terraformingMenu.SetActive(false);
+            _terraformingMenu.GetComponent<Canvas>().enabled = false;
 
             SetPreviewTiles(_tilesInPreview, false, Color.cyan);
             HideTileFeedback();
