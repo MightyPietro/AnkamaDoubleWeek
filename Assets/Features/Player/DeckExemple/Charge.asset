@@ -26,8 +26,6 @@ MonoBehaviour:
   isLinedRange: 1
   isTargettingTile: 1
   canBePlayedOnself: 0
-  isAreaAction: 0
-  areaRange: 0
-  hasLineArea: 1
-  customArea: []
+  hasPlayerEffect: 1
+  playerEffects: []
   actionTypes: 02000000
