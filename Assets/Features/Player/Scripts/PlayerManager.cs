@@ -267,7 +267,6 @@ namespace WeekAnkama
             {
                 playerToTeleport.transform.position = tileWanted.WorldPosition;
                 playerToTeleport.position = tileWanted.Coords;
-                Debug.Log("Teleport with tiles");
                 tileWanted.SetPlayer(playerToTeleport);
                 FeedbackManager.instance.Feedback(_teleportPlayer, tileWanted.WorldPosition, 2.1f);
                 return true;
@@ -484,8 +483,8 @@ namespace WeekAnkama
             card.gameObject.SetActive(true);
             card.onClick.RemoveAllListeners();
             card.onClick.AddListener(() => { AddCurrentAction(action, card); });
-            Debug.Log(action);
             card.name = action.name;
+            card.image.sprite = action.icon;
             card.transform.Find("Name").GetComponent<Text>().text = action.name;
             card.transform.Find("PA").GetComponent<Text>().text = action.paCost.ToString();
             card.transform.Find("Fatigue").GetComponent<Text>().text = action.fatigueDmg.ToString();
@@ -653,7 +652,7 @@ namespace WeekAnkama
         }
 
         [SerializeField]
-        private TextMeshProUGUI spellTitle, spellDescription;
+        private TextMeshProUGUI spellTitle, spellDescription, stockMaanaText, damagesText;
         [SerializeField]
         private GameObject spellDetailObject;
 
@@ -662,6 +661,8 @@ namespace WeekAnkama
             spellDetailObject.transform.position = new Vector3(700+75*index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
             spellTitle.text = actualPlayerHand[index].name;
             spellDescription.text = actualPlayerHand[index].description;
+            stockMaanaText.text = actualPlayerHand[index].bonusPA.ToString();
+            damagesText.text = actualPlayerHand[index].fatigueDmg.ToString();
             spellDetailObject.SetActive(true);
         }
 

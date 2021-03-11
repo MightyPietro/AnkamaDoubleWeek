@@ -12,6 +12,7 @@ namespace WeekAnkama
         private TileEffect _actionTileEffect;
 
         [Header("Common Values")]
+        public Sprite icon;
         [TextArea(2, 5)]
         public string description;
         [Range(0, 10)]

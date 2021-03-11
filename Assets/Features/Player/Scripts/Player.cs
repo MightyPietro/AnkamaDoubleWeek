@@ -66,7 +66,7 @@ namespace WeekAnkama
 
                 if (mainFatigueTxt != null)
                 {
-                    Debug.Log("Allo ???????"); mainFatigueTxt.text = fatigue.ToString();
+                    mainFatigueTxt.text = fatigue.ToString();
                 }
             }
         }
