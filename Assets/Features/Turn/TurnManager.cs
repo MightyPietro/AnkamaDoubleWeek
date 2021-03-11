@@ -164,6 +164,10 @@ namespace WeekAnkama
         [PunRPC]
         private void EndTurn()
         {
+            if (currentPlayerTurn != null)
+            {
+                currentPlayerTurn.EndTurn();
+            }
             OnEndPlayerTurn?.Invoke(currentPlayerTurn);
             OnEndTurn?.Invoke();
         }
