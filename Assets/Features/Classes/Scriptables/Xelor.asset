@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Xelor
   m_EditorClassIdentifier: 
   nom: Xelor
-  description: "Contr\xF4le : deck orient\xE9 autour du contr\xF4le du paquet et
-    des PAs, pour ceux qui utilisent leur t\xEAte avant leurs muscles !"
+  description: "G\xE9n\xE8re un PA dans sa r\xE9serve \xE0 chaque pallier de fatigue
+    qu'il fait passer \xE0 un adversaire."
   icon: {fileID: 21300000, guid: e4faed26b239fdd408bb1b9c52326630, type: 3}
   passive: 1
   deck:

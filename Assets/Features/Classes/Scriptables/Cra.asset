@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Cra
   m_EditorClassIdentifier: 
   nom: Cra
-  description: "Distance : majorit\xE9 de carte \xE0 longue port\xE9e, parfait pour
-    maintenir ses adversaires \xE0 bonne distance tout en leur infligeant d'importants
-    d\xE9g\xE2ts !"
+  description: "Gagne 1 PM \xE0 chaque d\xE9but de tour."
   icon: {fileID: 21300000, guid: 973f9a54b150b524c8ebb3678e138ace, type: 3}
   passive: 2
   deck:
