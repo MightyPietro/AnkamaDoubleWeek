@@ -135,7 +135,7 @@ namespace WeekAnkama
             currentTurnTimeLeft = secondByTurn;
             turnIndex = (turnIndex + 1) % players.Count;
 
-            if (currentPlayerTurn != null)
+            if (currentPlayerTurn != null && playerValue.Value < 0)
             {
                 currentPlayerTurn.UnsetPlayerUI();
             }
