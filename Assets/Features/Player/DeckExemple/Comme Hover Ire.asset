@@ -18,7 +18,7 @@ MonoBehaviour:
   paCost: 3
   bonusPA: 0
   fatigueDmg: 0
-  pushCase: 0
+  pushCase: 1
   range: 2
   minimalRange: 0
   canTerraform: 1
