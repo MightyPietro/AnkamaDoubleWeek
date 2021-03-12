@@ -3564,6 +3564,8 @@ MonoBehaviour:
   _pushEffect: {fileID: 11400000, guid: 8a8cc5ed737e2bd4d8953bad1d50edce, type: 2}
   _charaFire: {fileID: 11400000, guid: 1efba8bd831464247b9f80fae80d2206, type: 2}
   _waterSplash: {fileID: 11400000, guid: dfff6942c57c0e74bbfe90ecbb0afc44, type: 2}
+  _buff: {fileID: 11400000, guid: a46fc5c66e6694646b2444ac36fe1239, type: 2}
+  _debuff: {fileID: 11400000, guid: 623b549909e510c45983d51cc1ccde0b, type: 2}
 --- !u!1 &7758075588610149339
 GameObject:
   m_ObjectHideFlags: 0

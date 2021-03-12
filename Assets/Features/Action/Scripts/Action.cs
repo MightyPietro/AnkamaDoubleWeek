@@ -114,6 +114,15 @@ namespace WeekAnkama
                 for (int i = 0; i < action.playerEffects.Count; i++)
                 {
                     playerTargeted.AddEffect(action.playerEffects[i]);
+                    if (action.playerEffects[i].isBuff)
+                    {
+                        FeedbackManager.instance.Feedback(FeedbackManager.instance._buff, targetTile.WorldPosition, 2f);
+                    }
+                    else
+                    {
+                        FeedbackManager.instance.Feedback(FeedbackManager.instance._debuff, targetTile.WorldPosition, 2f);
+                    }
+
                 }
             }
 
