@@ -180,7 +180,8 @@ namespace WeekAnkama
 
         private void ShowMovePossibility()
         {
-
+            Debug.Log(actualPlayer);
+            Debug.Log(GridManager.Grid);
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
@@ -634,14 +635,14 @@ namespace WeekAnkama
                 }
             }
 
-            for (int i = 0; i < tilesInRange.Count; i++)
+            /*for (int i = 0; i < tilesInRange.Count; i++)
             {
                 if (!IsTileVisible(castTile, tilesInRange[i]) && tilesInRange[i].Player == null)
                 {
                     tilesInRange.RemoveAt(i);
                     i--;
                 }
-            }
+            }*/
             if (actionToCheck.canBePlayedOnself)
             {
                 if (!tilesInRange.Contains(castTile))

@@ -104,7 +104,10 @@ namespace WeekAnkama
 
         public void GoToMenu()
         {
-            LeaveRoom();
+            if (!PhotonNetwork.IsConnected)
+            {
+                LeaveRoom();
+            }
             SceneManager.LoadSceneAsync(0);
         }
     }
