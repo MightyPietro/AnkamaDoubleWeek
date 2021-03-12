@@ -28,10 +28,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4ac70270c9562f47b974f403e51ad6e, type: 2}
   - {fileID: 11400000, guid: 8fc7142a897ebc041b8be4467353b3c1, type: 2}
   hasSightView: 0
-  isLinedRange: 0
+  isLinedRange: 1
   isTargettingTile: 0
   canBePlayedOnself: 0
   hasPlayerEffect: 0
   playerEffects:
   - {fileID: 0}
-  actionTypes: 
+  actionTypes: 10000000
