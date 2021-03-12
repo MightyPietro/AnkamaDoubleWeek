@@ -201,9 +201,7 @@ namespace WeekAnkama
             else
             {
                 DoSomethingOnTile(targetTile.Coords.x, targetTile.Coords.y);
-
             }
-
         }
 
 
