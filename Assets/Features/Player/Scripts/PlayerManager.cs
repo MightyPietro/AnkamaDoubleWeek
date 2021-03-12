@@ -64,7 +64,7 @@ namespace WeekAnkama
                 {
                     item.enabled = true;
                 }
-                if(_playerValue.Value == turnManager.turnValue || _playerValue.Value < 0)
+                if (_playerValue.Value == turnManager.turnValue || _playerValue.Value < 0)
                     ShowMovePossibility();
 
             };
@@ -79,7 +79,7 @@ namespace WeekAnkama
             }
             TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
             TurnManager.OnBeginTurn += ShowMovePossibility;
-            
+
             _tilesInPreview = new List<Tile>();
             yield return new WaitForSeconds(.5f);
             if (!PhotonNetwork.IsConnected)
@@ -88,7 +88,7 @@ namespace WeekAnkama
             }
 
 
-        }        
+        }
 
 
 
@@ -98,7 +98,7 @@ namespace WeekAnkama
 
 
             FeedbackManager.instance.Feedback(_playerOut, ragdoll.transform.position, 2);
-            ragdoll.transform.DORotate(-ragdoll.transform.forward * 200,.5f);
+            ragdoll.transform.DORotate(-ragdoll.transform.forward * 200, .5f);
 
             Destroy(ragdoll, 5);
             ScoreManager.AddScore(turnManager.GetPlayerEnemyTeam(killedPlayer));
@@ -117,7 +117,7 @@ namespace WeekAnkama
             {
                 actualPlayer.isOut = false;
                 Vector2Int spawnPoint = turnManager.GetSpawnPoint(actualPlayer);
-                if(GridManager.Grid.TryGetTile(spawnPoint, out Tile spawnTile))
+                if (GridManager.Grid.TryGetTile(spawnPoint, out Tile spawnTile))
                 {
                     spawnTile.UnSetTileEffect();
                     TeleportPlayer(actualPlayer, spawnPoint, true);
@@ -129,7 +129,8 @@ namespace WeekAnkama
             actualPlayer.BeginTurn();
             ChangeTextState(true);
 
-            if(_playerValue.Value == TurnManager.instance.turnValue){
+            if (_playerValue.Value == TurnManager.instance.turnValue)
+            {
                 foreach (Button butt in displayedCards)
                 {
                     butt.interactable = true;
@@ -143,13 +144,14 @@ namespace WeekAnkama
                 TurnManager.OnBeginTurn += ShowMovePossibility;
                 TurnManager.OnEndPlayerTurn += HandleUnselectCardViaRPC;
                 TurnManager.OnEndTurn += HideTileFeedback;
+                HideTileFeedback();
                 ShowMovePossibility();
             }
             else
             {
                 if (PhotonNetwork.IsConnected)
                 {
-                    foreach(Button butt in displayedCards)
+                    foreach (Button butt in displayedCards)
                     {
                         butt.interactable = false;
                     }
@@ -167,17 +169,18 @@ namespace WeekAnkama
 
                     DrawCard(actualPlayer);
                     DisplayCards();
+                    HideTileFeedback();
                     ShowMovePossibility();
                 }
 
             }
 
-           
+
         }
 
         private void ShowMovePossibility()
         {
-            
+
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
@@ -198,22 +201,22 @@ namespace WeekAnkama
             else
             {
                 DoSomethingOnTile(targetTile.Coords.x, targetTile.Coords.y);
-                
+
             }
-            
+
         }
 
 
         [PunRPC]
-        private void DoSomethingOnTile(int x,int y)
+        private void DoSomethingOnTile(int x, int y)
         {
             Tile targetTile;
-            Grid.instance.TryGetTile(new Vector2Int(x,y), out targetTile);
+            Grid.instance.TryGetTile(new Vector2Int(x, y), out targetTile);
 
 
             if (actualPlayer != null)
             {
-                if (actualPlayer.currentAction != null )
+                if (actualPlayer.currentAction != null)
                 {
                     if (actualPlayer.PA < actualPlayer.currentAction.paCost) HandleUnselectCard();
 
@@ -237,7 +240,7 @@ namespace WeekAnkama
                                 {
                                     _currentTerraformCoroutine = StartCoroutine("DoTerraformAction", targetTile);
                                 }
-                                
+
 
                             }
                             else if (actualPlayer.currentAction.isTargettingTile)
@@ -272,7 +275,7 @@ namespace WeekAnkama
 
 
             _terraformingMenu.GetComponent<Canvas>().enabled = true;
-             _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
+            _terraformingMenu.SetPosition(GridManager.Grid.GetTileWorldPosition(targetTile.Coords.x, targetTile.Coords.y));
 
             // wait for action (deselect or select terraformation)
             while (!_terraformingMenu.TryGetSelectedElement(out element))
@@ -298,20 +301,20 @@ namespace WeekAnkama
                 HandleUnselectCardViaRPC(actualPlayer);
             }
 
-            
+
 
         }
 
         [PunRPC]
         public void DoTerraformAction(int x, int y, int element)
         {
-            
+
             actualPlayer.currentAction.AddActionElementalEffect((ActionType)element);
             Debug.Log(actualPlayer.currentAction);
             GridManager.Grid.TryGetTile(new Vector2Int(x, y), out Tile tile);
             DoAction(tile);
             actualPlayer.anim.SetTrigger("Skill");
-            actualPlayer.transform.DOLookAt(tile.WorldPosition,.1f);
+            actualPlayer.transform.DOLookAt(tile.WorldPosition, .1f);
         }
 
         private void MoveCharacter(Tile targetTile)
@@ -320,7 +323,7 @@ namespace WeekAnkama
             if (DeplacementManager.instance.GetDistance(targetTile, castTile) / 10 <= actualPlayer.PM)
             {
                 DeplacementManager.instance.AskToMove(targetTile, actualPlayer, actualPlayer.PM);
-                
+
             }
 
         }
@@ -399,12 +402,12 @@ namespace WeekAnkama
             playerToDraw.discardPile.Add(playerToDraw.deck[rand]);
             playerToDraw.deck.RemoveAt(rand);
 
-            if (playerToDraw.deck.Count<=0)
+            if (playerToDraw.deck.Count <= 0)
             {
                 playerToDraw.deck = new List<Action>(playerToDraw.discardPile);
                 playerToDraw.discardPile = new List<Action>();
             }
-            if(playerToDraw == actualPlayer)
+            if (playerToDraw == actualPlayer)
             {
                 DisplayCards();
             }
@@ -421,7 +424,7 @@ namespace WeekAnkama
         {
             for (int i = 0; i < _actionsList.Value.Count; i++)
             {
-                if(action == _actionsList.Value[i])
+                if (action == _actionsList.Value[i])
                 {
                     if (PhotonNetwork.IsConnected)
                     {
@@ -455,8 +458,8 @@ namespace WeekAnkama
         {
             foreach (Tile tile in tilesInPreview)
             {
-                if(enable)
-                    GridManager.ChangeColor(tile,color);
+                if (enable)
+                    GridManager.ChangeColor(tile, color);
                 else
                 {
                     GridManager.Reset(tile, Color.gray);
@@ -478,7 +481,7 @@ namespace WeekAnkama
         {
             for (int i = 0; i < TurnManager.instance.players.Count; i++)
             {
-                if(player == TurnManager.instance.players[i])
+                if (player == TurnManager.instance.players[i])
                 {
                     if (PhotonNetwork.IsConnected)
                     {
@@ -501,11 +504,11 @@ namespace WeekAnkama
 
             if (player == null) return;
             //Stop element selection
-            if(_currentTerraformCoroutine != null)
+            if (_currentTerraformCoroutine != null)
             {
                 StopCoroutine(_currentTerraformCoroutine);
                 _currentTerraformCoroutine = null;
-            }            
+            }
             _terraformingMenu.GetComponent<Canvas>().enabled = false;
             _terraformingMenu._selectedElement = ActionType.None;
 
@@ -533,9 +536,9 @@ namespace WeekAnkama
         private void DisplayCards()
         {
             if (actualPlayer == null) return;
-            for(int i = 0; i < displayedCards.Count; i++)
+            for (int i = 0; i < displayedCards.Count; i++)
             {
-                if(i < actualPlayer.hand.Count)
+                if (i < actualPlayer.hand.Count)
                 {
                     ResetCards(displayedCards[i], actualPlayer.hand[i]);
                     displayedCards[i].gameObject.SetActive(true);
@@ -583,7 +586,7 @@ namespace WeekAnkama
             else card.interactable = false;
 
         }
-        
+
 
         private void HideCards()
         {
@@ -599,8 +602,8 @@ namespace WeekAnkama
             {
                 if (actualPlayer.hand[i].paCost > actualPlayer.PA)
                 {
-                    if(displayedCards[i] != null)
-                    displayedCards[i].interactable = false;
+                    if (displayedCards[i] != null)
+                        displayedCards[i].interactable = false;
                 }
             }
         }
@@ -624,17 +627,17 @@ namespace WeekAnkama
             List<Tile> tilesInRange = PathRequestManager.GetTilesWithRange(castTile, actionToCheck.minimalRange * 10, actionToCheck.range * 10, actionToCheck.isLinedRange);
 
             List<Tile> obstacles = new List<Tile>();
-            foreach(Tile t in tilesInRange)
+            foreach (Tile t in tilesInRange)
             {
-                if(!t.Walkable)
+                if (!t.Walkable)
                 {
                     obstacles.Add(t);
                 }
             }
 
-            for(int i = 0; i < tilesInRange.Count; i++)
+            for (int i = 0; i < tilesInRange.Count; i++)
             {
-                if(!IsTileVisible(castTile, tilesInRange[i]) && tilesInRange[i].Player == null)
+                if (!IsTileVisible(castTile, tilesInRange[i]) && tilesInRange[i].Player == null)
                 {
                     tilesInRange.RemoveAt(i);
                     i--;
@@ -693,7 +696,7 @@ namespace WeekAnkama
                 for (int i = x; i != startTile.Coords.x; i -= xCoef)
                 {
 
-                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i,j), out Tile t) || !t.Walkable)
+                    if (!GridManager.Grid.TryGetTile(new Vector2Int(i, j), out Tile t) || !t.Walkable)
                     {
                         return false;
                     }
@@ -747,7 +750,7 @@ namespace WeekAnkama
 
         public void DisplaySpellDetail(int index)
         {
-            spellDetailObject.transform.position = new Vector3(700+75*index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
+            spellDetailObject.transform.position = new Vector3(700 + 75 * index, spellDetailObject.transform.position.y, spellDetailObject.transform.position.z);
             spellTitle.text = actualPlayerHand[index].name;
             spellDescription.text = actualPlayerHand[index].description;
             stockMaanaText.text = actualPlayerHand[index].bonusPA.ToString();

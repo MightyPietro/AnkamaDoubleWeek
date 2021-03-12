@@ -102,7 +102,7 @@ namespace WeekAnkama
                 }
                 
                 players[i].uniquePlayerValue = i + 1;
-                if(i== playerValue.Value)
+                if(i+1== playerValue.Value)
                 {
                     players[i].SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
                 }

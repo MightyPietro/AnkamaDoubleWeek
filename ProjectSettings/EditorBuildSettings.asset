@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GP/Network - Quentin.unity
     guid: c9e991fdab8ca374ba16b37c6bf26dd8
   - enabled: 1
-    path: Assets/Scenes/GP/MainBattleScene_Solo.unity
-    guid: 583791486b0494b47b6cc3b7b3962147
+    path: Assets/Scenes/GP/MainBattleScene-Quentin.unity
+    guid: 9cbc5854ac2392744bdf6ad60e8ec898
   m_configObjects: {}
