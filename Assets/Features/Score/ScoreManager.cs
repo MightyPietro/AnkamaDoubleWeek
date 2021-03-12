@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using TMPro;
+using Sirenix.OdinInspector;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -59,6 +59,7 @@ public class ScoreManager : MonoBehaviour
 
     }
 
+    [Button]
     private static void WinGame(int team)
     {
         if (team > 0)
