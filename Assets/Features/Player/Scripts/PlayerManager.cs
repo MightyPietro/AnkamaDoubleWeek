@@ -382,6 +382,7 @@ namespace WeekAnkama
         {
             actualPlayer.PA += actualPlayer.stockPA;
             actualPlayer.stockPA = 0;
+            DisplayCards();
         }
 
         [Button]
