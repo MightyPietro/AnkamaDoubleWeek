@@ -95,33 +95,10 @@ namespace WeekAnkama
         #endregion
 
 
-        private void Start()
+        private IEnumerator Start()
         {
             ResetDatas();
             ResetFatigue();
-            if (!PhotonNetwork.IsConnected)
-            {
-                classe = playerValue.playerClass;
-            }
-            else
-            {
-                for (int i = 0; i < TurnManager.instance.players.Count; i++)
-                {
-                    if (this == TurnManager.instance.players[i])
-                    {
-                        for (int j = 0; j < _classes.Length; j++)
-                        {
-                            if (this.classe == _classes[j]) ;
-                            {
-                                _photonView.RPC("SetPlayerClassViaRPC", RpcTarget.All, i,j);
-
-                                break;
-                            }
-                        }
-
-                    }
-                }
-            }
 
 
             switch (classe.passive)
@@ -166,6 +143,32 @@ namespace WeekAnkama
             
             DeplacementManager.OnPlayerMovementFinished += StopRun;
             passEnemyExhaustSolo += PlayerManager.instance.DrawCard;
+
+            yield return new WaitForSeconds(.5f);
+            if (!PhotonNetwork.IsConnected)
+            {
+                classe = playerValue.playerClass;
+            }
+            else
+            {
+                for (int i = 0; i < TurnManager.instance.players.Count; i++)
+                {
+                    if (this == TurnManager.instance.players[i])
+                    {
+                        for (int j = 0; j < _classes.Length; j++)
+                        {
+                            if (this.classe == _classes[j]) ;
+                            {
+                                _photonView.RPC("SetPlayerClassViaRPC", RpcTarget.All, i, j);
+
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
         }
 
 
