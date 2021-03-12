@@ -104,7 +104,7 @@ namespace WeekAnkama
 
         public void GoToMenu()
         {
-            if (!PhotonNetwork.IsConnected)
+            if (PhotonNetwork.IsConnected)
             {
                 LeaveRoom();
             }
