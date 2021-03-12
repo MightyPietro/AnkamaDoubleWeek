@@ -246,7 +246,6 @@ namespace WeekAnkama
         public void TakeHeal(int amount)
         {
             fatigue -= amount;
-            Debug.Log(fatigue);
             if (fatigue<0)
             {
                 fatigue = 0;
