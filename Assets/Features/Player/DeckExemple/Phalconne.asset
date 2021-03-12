@@ -24,7 +24,7 @@ MonoBehaviour:
   tileEffects: []
   hasSightView: 0
   isLinedRange: 1
-  isTargettingTile: 0
+  isTargettingTile: 1
   canBePlayedOnself: 0
   hasPlayerEffect: 1
   playerEffects: []
