@@ -89,7 +89,13 @@ namespace WeekAnkama
             }
         }
 
-
+        private void OnDisable()
+        {
+            OnEndPlayerTurn = null;
+            OnEndTurn = null;
+            OnBeginPlayerTurn = null;
+            OnBeginTurn = null;
+        }
 
         void BeginBattle()
         {

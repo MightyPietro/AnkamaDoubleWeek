@@ -86,11 +86,7 @@ namespace WeekAnkama
             {
                 ShowMovePossibility();
             }
-
-
         }
-
-
 
         public void SetPlayerOutArena(Player killedPlayer, Vector3 pos)
         {
@@ -180,8 +176,7 @@ namespace WeekAnkama
 
         private void ShowMovePossibility()
         {
-            Debug.Log(actualPlayer);
-            Debug.Log(GridManager.Grid);
+            if (actualPlayer == null) return;
             GridManager.Grid.TryGetTile(actualPlayer.position, out Tile playerTile);
             _tilesInPreview = PathRequestManager.GetMovementTiles(playerTile, actualPlayer.PM);
             SetPreviewTiles(_tilesInPreview, true, Color.green);
