@@ -119,13 +119,13 @@ namespace WeekAnkama
         {
             DeplacementManager.instance.StopMovement();
 
-            if (pushingSomething && !queuedPush)
+            /*if (pushingSomething && !queuedPush)
             {
                 queuedPush = true;
                 queuedDir = pushDirection;
                 queuedPushForce = pushForce;
                 return;
-            }
+            }*/
             bool isPlayerOut = false;
             int damageTaken = 0;
 
