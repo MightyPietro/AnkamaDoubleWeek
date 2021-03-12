@@ -15,6 +15,8 @@ namespace WeekAnkama
         [SerializeField] Feedback _pushEffect;
         [SerializeField] Feedback _charaFire;
         [SerializeField] Feedback _waterSplash;
+        public Feedback _buff;
+        public Feedback _debuff;
 
         private GameObject _pushVFX;
 

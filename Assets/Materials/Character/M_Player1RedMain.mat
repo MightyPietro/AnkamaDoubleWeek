@@ -41,6 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - BOOLEAN_F925A6F7: 0
+    - Tint: 0.3
     - Vector1_79BC2641: 0.5
     - Vector1_8D4C4F8C: 1
     - Vector1_90A2BD7D: 0.018
@@ -51,5 +52,6 @@ Material:
     - Color_280B8743: {r: 4, g: 0, b: 0.038404465, a: 0}
     - Color_6CB87102: {r: 1, g: 1, b: 1, a: 0}
     - RimColor: {r: 0.9803922, g: 0.8941177, b: 0.5215687, a: 0}
+    - TintC: {r: 0, g: 0, b: 0, a: 0}
     - unity_4LightPosX0: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

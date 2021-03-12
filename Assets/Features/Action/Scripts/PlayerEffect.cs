@@ -9,4 +9,5 @@ public class PlayerEffect : ScriptableObject
 {
     public float value;
     public PlayerEffectTypes effectType;
+    public bool isBuff;
 }
