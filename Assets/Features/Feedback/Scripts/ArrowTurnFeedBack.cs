@@ -7,12 +7,16 @@ public class ArrowTurnFeedBack : MonoBehaviour
     [SerializeField] private GameObject _selfGameObject;
     [SerializeField] private Transform _selfTransform;
     [SerializeField] private Animation _selfAnimation;
+    [SerializeField] private MeshRenderer _selfRend;
 
     private Quaternion _startRotation;
+    private Vector3 _startPosition;
 
     private void Start()
     {
         _startRotation = _selfTransform.rotation;
+        _startPosition = _selfTransform.localPosition;
+        SetActive(false);
     }
 
     private void Update()
@@ -32,13 +36,15 @@ public class ArrowTurnFeedBack : MonoBehaviour
 
     public void SetActive(bool enable)
     {
-        _selfGameObject.SetActive(enable);
+        _selfRend.enabled = enable;
         if (enable)
         {
+            _selfTransform.position = _startPosition;
             _selfAnimation.Play();
         }
         else
         {
+            _selfTransform.localPosition = _startPosition + new Vector3(0, -0.5f,0);
             _selfAnimation.Stop();
         }
 
