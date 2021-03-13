@@ -19,12 +19,14 @@ namespace WeekAnkama
         public static event Action OnLobbyJoined;
         public static event Action OnRoomsListUpdate;
 
+        public UnityEngine.Events.UnityEvent _OnAwake;
+
         public bool isSolo;
         [SerializeField] private IntVariable _playerValue;
 
         private void Awake()
         {
-
+            _OnAwake.Invoke();
             instance = this;
             if (!PhotonNetwork.IsConnected)
             {
@@ -102,7 +104,10 @@ namespace WeekAnkama
 
         public void GoToMenu()
         {
-            LeaveRoom();
+            if (PhotonNetwork.IsConnected)
+            {
+                LeaveRoom();
+            }
             SceneManager.LoadSceneAsync(0);
         }
     }

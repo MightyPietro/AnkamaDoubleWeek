@@ -143,6 +143,12 @@ namespace WeekAnkama
             OnEndTurn?.Invoke(_player);
         }
 
+        ~Tile()
+        {
+            TurnManager.OnBeginPlayerTurn -= HandleBeginTurn;
+            TurnManager.OnEndPlayerTurn -= HandleEndTurn;
+        }
+
 
 
         #region Pathfinding

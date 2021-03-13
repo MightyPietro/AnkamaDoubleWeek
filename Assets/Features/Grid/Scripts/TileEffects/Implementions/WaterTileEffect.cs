@@ -14,7 +14,7 @@ namespace WeekAnkama
         {
             if (_player == null)
             {
-                Debug.LogError($"Player is Null in { this.GetType().ToString()}");
+                //Debug.LogError($"Player is Null in { this.GetType().ToString()}");
                 return;
             }
 

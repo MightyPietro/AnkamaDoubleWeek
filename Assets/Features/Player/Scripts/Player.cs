@@ -23,9 +23,11 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _PAText;
         [SerializeField] private TextMeshProUGUI _PMText;
         [SerializeField] private Feedback _playerFatigueDmg;
+        [SerializeField] private Feedback _playerFatigueDmgUI;
         [SerializeField] private Animator _anim;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private PlayerClassScriptable[] _classes;
+        
 
         private bool _processMovement = false;
         private bool _isOut = false;
@@ -38,6 +40,8 @@ namespace WeekAnkama
 
         [SerializeField]
         private GameObject turnFeedback;
+        [SerializeField]
+        private ArrowTurnFeedBack turnArrowFeedback;
 
         [HideInInspector]
         public List<Action> discardPile = new List<Action>();
@@ -91,33 +95,10 @@ namespace WeekAnkama
         #endregion
 
 
-        private void Start()
+        private IEnumerator Start()
         {
             ResetDatas();
             ResetFatigue();
-            if (!PhotonNetwork.IsConnected)
-            {
-                classe = playerValue.playerClass;
-            }
-            else
-            {
-                for (int i = 0; i < TurnManager.instance.players.Count; i++)
-                {
-                    if (this == TurnManager.instance.players[i])
-                    {
-                        for (int j = 0; j < _classes.Length; j++)
-                        {
-                            if (this.classe == _classes[j]) ;
-                            {
-                                _photonView.RPC("SetPlayerClassViaRPC", RpcTarget.All, i,j);
-
-                                break;
-                            }
-                        }
-
-                    }
-                }
-            }
 
 
             switch (classe.passive)
@@ -162,6 +143,32 @@ namespace WeekAnkama
             
             DeplacementManager.OnPlayerMovementFinished += StopRun;
             passEnemyExhaustSolo += PlayerManager.instance.DrawCard;
+
+            yield return new WaitForSeconds(.5f);
+            if (!PhotonNetwork.IsConnected)
+            {
+                classe = playerValue.playerClass;
+            }
+            else
+            {
+                for (int i = 0; i < TurnManager.instance.players.Count; i++)
+                {
+                    if (this == TurnManager.instance.players[i])
+                    {
+                        for (int j = 0; j < _classes.Length; j++)
+                        {
+                            if (this.classe == _classes[j]) ;
+                            {
+                                _photonView.RPC("SetPlayerClassViaRPC", RpcTarget.All, i, j);
+
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
         }
 
 
@@ -202,6 +209,7 @@ namespace WeekAnkama
             beginTurn?.Invoke(this, this);
 
             turnFeedback.SetActive(true);
+            turnArrowFeedback.SetActive(true);
 
             foreach (PlayerEffect eff in effects)
             {
@@ -224,6 +232,7 @@ namespace WeekAnkama
         public void EndTurn()
         {
             turnFeedback.SetActive(false);
+            turnArrowFeedback.SetActive(false);
         }
 
         public void DoDamage(Player attackTarget, int amount)
@@ -237,7 +246,6 @@ namespace WeekAnkama
         public void TakeHeal(int amount)
         {
             fatigue -= amount;
-            Debug.Log(fatigue);
             if (fatigue<0)
             {
                 fatigue = 0;
@@ -250,10 +258,12 @@ namespace WeekAnkama
 
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
             StopRun(this);
+            FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
+            //FeedbackManager.instance.Feedback(_playerFatigueDmgUI, fatigueText.transform.position, 2f);
+            Hurt();
             if (amount>0)
             {
-                FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
-                Hurt();
+                
                 takeDamage?.Invoke(attacker, this);
                 
             }

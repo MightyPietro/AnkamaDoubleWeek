@@ -11,7 +11,8 @@ namespace WeekAnkama
             base.Process(casterTile, targetTile, action);
             if(targetTile.Player != null)
             {
-                targetTile.Player.TakeDamage( casterTile.Player, action.fatigueDmg);
+                //targetTile.Player.TakeDamage( casterTile.Player, action.fatigueDmg);
+                targetTile.Player.TakeDamage( casterTile.Player, 50);
             }
             return true;
 

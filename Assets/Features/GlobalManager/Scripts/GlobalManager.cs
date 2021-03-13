@@ -48,18 +48,25 @@ namespace WeekAnkama
 
             for (int i = 1; i <= pushForce; i++)
             {
-                if (i > 500) return null; //Avoid infinite loop
+                if (i > 500)
+                {
+                    Debug.Log("Allo");
+                    return null; //Avoid infinite loop
+                }
 
                 Vector2Int newTilePos = (newTile.Coords + pushDirection);
                 GridManager.Grid.TryGetTile(newTilePos, out newTile);
+                
                 if(newTile == null)
                 {
+                    Debug.Log("OutPlayer");
                     isPlayerOut = true;
                     return path;
                 }
                 else
                 {
-                    if(newTile.Player == null && newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
+                    Debug.Log(newTile.WorldPosition);
+                    if (newTile.Player == null && newTile.Effect != null && newTile.Effect.GetType() == typeof(AirTileEffect))
                     {
                         pushForce++;
                     }
@@ -73,6 +80,8 @@ namespace WeekAnkama
         {
             List<Tile> unblockPath = GetPushPath(startTile, pushDirection, pushForce, out isPlayerOut);
             List<Tile> path = new List<Tile>();
+
+            Debug.Log(isPlayerOut);
 
             path.Add(startTile);
 
@@ -110,15 +119,14 @@ namespace WeekAnkama
         {
             DeplacementManager.instance.StopMovement();
 
-            if (pushingSomething && !queuedPush)
+            /*if (pushingSomething && !queuedPush)
             {
                 queuedPush = true;
                 queuedDir = pushDirection;
                 queuedPushForce = pushForce;
                 return;
-            }
+            }*/
             bool isPlayerOut = false;
-            Debug.Log(pushForce);
             int damageTaken = 0;
 
             Tile playerTile = null;
@@ -209,7 +217,6 @@ namespace WeekAnkama
                         }
                     }
 
-                    Debug.Log(currentWaypoint.Player + "___ toMove :" + playerToMove);
                     currentWaypoint.UnSetPlayer();
 
                     if (targetIndex < path.Count)

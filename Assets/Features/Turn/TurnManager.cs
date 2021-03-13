@@ -89,7 +89,13 @@ namespace WeekAnkama
             }
         }
 
-
+        private void OnDisable()
+        {
+            OnEndPlayerTurn = null;
+            OnEndTurn = null;
+            OnBeginPlayerTurn = null;
+            OnBeginTurn = null;
+        }
 
         void BeginBattle()
         {
@@ -102,7 +108,7 @@ namespace WeekAnkama
                 }
                 
                 players[i].uniquePlayerValue = i + 1;
-                if(i== playerValue.Value)
+                if(i+1== playerValue.Value)
                 {
                     players[i].SetPlayerUI(playerIcon, passiveIcon, playerFatigueTxt, playerPmTxt, playerPaTxt, playerStockPaTxt);
                 }
@@ -135,7 +141,7 @@ namespace WeekAnkama
             currentTurnTimeLeft = secondByTurn;
             turnIndex = (turnIndex + 1) % players.Count;
 
-            if (currentPlayerTurn != null)
+            if (currentPlayerTurn != null && playerValue.Value < 0)
             {
                 currentPlayerTurn.UnsetPlayerUI();
             }

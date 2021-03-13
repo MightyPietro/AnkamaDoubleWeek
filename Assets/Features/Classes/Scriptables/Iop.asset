@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Iop
   m_EditorClassIdentifier: 
   nom: Iop
-  description: "Enrag\xE9 : deck aggressif autour du d\xE9placement et des d\xE9g\xE2ts,
-    id\xE9al pour foncer t\xEAte baiss\xE9 au combat !"
+  description: "Inflige 20 de fatigues suppl\xE9mentaire lors d'une attaque."
   icon: {fileID: 21300000, guid: 7a99ccad540947b449675c77a16d55c8, type: 3}
   passive: 0
   deck:

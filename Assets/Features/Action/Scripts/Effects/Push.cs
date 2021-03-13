@@ -16,6 +16,7 @@ namespace WeekAnkama
                 FeedbackManager.instance.PushFeedback(casterTile.WorldPosition, 2f, targetTile.Player);
                 casterTile.Player.transform.DOLookAt(targetTile.WorldPosition, .1f);
                 targetTile.Player.transform.DOLookAt(casterTile.WorldPosition, .1f);
+                casterTile.Player.Punch();
                 GlobalManager.instance.AskPushPlayer(targetTile.Player, new Vector2Int((int)direction.x, (int)direction.y), action.pushCase + Mathf.FloorToInt(targetTile.Player.fatigue/100));
 
 

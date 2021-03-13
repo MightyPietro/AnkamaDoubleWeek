@@ -18,7 +18,7 @@ MonoBehaviour:
   paCost: 2
   bonusPA: 0
   fatigueDmg: 0
-  pushCase: 0
+  pushCase: 1
   range: 2
   minimalRange: 0
   canTerraform: 0
@@ -28,5 +28,6 @@ MonoBehaviour:
   isTargettingTile: 1
   canBePlayedOnself: 0
   hasPlayerEffect: 0
-  playerEffects: []
+  playerEffects:
+  - {fileID: 0}
   actionTypes: 0100000000040000

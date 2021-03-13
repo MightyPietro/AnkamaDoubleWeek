@@ -172,5 +172,12 @@ namespace WeekAnkama
 				MouseHandler.Instance.EnableGameplayInputs();
 			}
 		}
-	}
+
+        private void OnDisable()
+        {
+			OnPlayerMovement = null;
+			OnPlayerMovementFinished = null;
+			TurnManager.OnBeginPlayerTurn -= EnableInputs;
+		}
+    }
 }

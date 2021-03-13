@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace WeekAnkama
 {
@@ -10,6 +11,8 @@ namespace WeekAnkama
         {
             if(targetTile.Player != null)
             {
+                casterTile.Player.transform.DOLookAt(targetTile.WorldPosition, .1f);
+                targetTile.Player.transform.DOLookAt(casterTile.WorldPosition, .1f);
                 casterTile.Player.DoDamage(targetTile.Player, targetTile.Player.TakeDamage(casterTile.Player, action.fatigueDmg));
                 return true;
             }

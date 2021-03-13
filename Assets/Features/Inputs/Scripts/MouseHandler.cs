@@ -61,4 +61,10 @@ public class MouseHandler : MonoBehaviour
         asset.FindActionMap("Global").FindAction("Cursor").performed -= OnMove;
         asset.FindActionMap("Gameplay").FindAction("Select").performed -= OnLeftClick;
     }
+
+    private void OnDisable()
+    {
+        OnMouseLeftClick = null;
+        OnMouseMove = null;
+    }
 }

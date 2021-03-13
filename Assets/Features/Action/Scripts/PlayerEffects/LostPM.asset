@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c38921554d21745af3c3c69bc3a297, type: 3}
   m_Name: LostPM
   m_EditorClassIdentifier: 
-  value: 1
+  value: -1
   effectType: 1

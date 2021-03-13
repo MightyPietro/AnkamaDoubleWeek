@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 1
   effectType: 1
+  isBuff: 1
