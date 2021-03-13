@@ -34,6 +34,8 @@ public class ScoreManager : MonoBehaviour
         maxScore = scoreWanted;
         redTxt = redScoreTxt;
         blueTxt = blueScoreTxt;
+        score.x = 0;
+        score.y = 0;
     }
 
     public static void AddScore(int team)
