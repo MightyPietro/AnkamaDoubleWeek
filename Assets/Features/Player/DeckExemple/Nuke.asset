@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Nuke
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: f83ed2f0beb2143479a5be157a3a7618, type: 3}
+  icon: {fileID: 21300000, guid: b58ab5a9e86255043a5a749faa4097e6, type: 3}
   description: "D\xE9truit une terraformation jusqu'\xE0 3 cases de distance. Stock
     1 PA."
   paCost: 3

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToMove: {fileID: 0}
-  speed: 10
+  speed: 5
   testT: {fileID: 0}
   testMovable: {fileID: 0}
   _moveFeedback: {fileID: 11400000, guid: 075b008f0b8a6bb4f911eda1a50cd843, type: 2}

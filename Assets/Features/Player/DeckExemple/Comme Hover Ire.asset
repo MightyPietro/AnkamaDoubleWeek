@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Comme Hover Ire
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: d44749d9f5fccdd49a2076cb281e3632, type: 3}
+  icon: {fileID: 21300000, guid: cf5b7d33757e8de4da8d93be9d6aa757, type: 3}
   description: "Attire un joueur situ\xE9 jusqu'\xE0 2 cases de distance et terraforme
     \xE0 sa place d'origine."
   paCost: 3

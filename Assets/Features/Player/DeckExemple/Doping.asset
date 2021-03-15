@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Doping
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 4d2e85b3dc29d1246a3f74f5a64b833d, type: 3}
+  icon: {fileID: 21300000, guid: 6fdc90afa1afd6f4da30d1f9ea2de436, type: 3}
   description: "Bonus : Donne 2 PM \xE0 vous ou votre alli\xE9 pour 1 tour. Stock
     1 PA."
   paCost: 2

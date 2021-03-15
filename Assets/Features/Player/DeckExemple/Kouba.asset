@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Kouba
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 218816a66dedff446bf1b909ef543a8c, type: 3}
+  icon: {fileID: 21300000, guid: 7c578e50847521f429ddff541c36ea4d, type: 3}
   description: "Malus : Cible un joueur, la prochaine fois qu'il subira de la fatigue,
     il recevra 150% de la fatigue initiale. Actif jusqu'\xE0 votre prochain tour."
   paCost: 3

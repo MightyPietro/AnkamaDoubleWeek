@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Bouh !
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: d08925f247656114a9b3173efb547b5b, type: 3}
+  icon: {fileID: 21300000, guid: 40e3d656f48386b46a0127b3f7e50c4f, type: 3}
   description: "Pousse un joueur situ\xE9 jusqu'\xE0 3 cases de distance."
   paCost: 3
   bonusPA: 0

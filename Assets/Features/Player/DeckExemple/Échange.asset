@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: "\xC9change"
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: c681396efd137ae4fadf5a0d48472e01, type: 3}
+  icon: {fileID: 21300000, guid: df5778a6a72b6ab48a613b30705bed1c, type: 3}
   description: "\xC9change votre place avec celle d'un autre joueur situ\xE9 jusqu'\xE0
     3 cases de distance."
   paCost: 4

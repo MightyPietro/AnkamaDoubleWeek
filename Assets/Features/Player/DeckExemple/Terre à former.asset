@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: "Terre \xE0 former"
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: a80f671f0e833c84c90495a40c7fbe2e, type: 3}
+  icon: {fileID: 21300000, guid: 5bb610d0231f6304bb5c0c5da8ed48f6, type: 3}
   description: "Sur une case situ\xE9e jusqu'\xE0 3 cases de distance, pousse un
     joueur s'il est pr\xE9sent sur celle-ci et terraforme."
   paCost: 4

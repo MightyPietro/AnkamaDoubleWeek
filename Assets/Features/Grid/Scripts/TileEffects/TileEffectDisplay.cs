@@ -24,6 +24,7 @@ namespace WeekAnkama
                 if(item.CorrespondingEffect == effect)
                 {
                     item.SetActive(true);
+                    
                 }
                 else
                 {

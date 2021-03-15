@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Destructo Forme
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 4b6446afd89bca44b8b4f18725ba48bb, type: 3}
+  icon: {fileID: 21300000, guid: be8c912cc41b8b54abb1c121719f7123, type: 3}
   description: "D\xE9truit une terraformation adjacente. Stock 1 PA."
   paCost: 2
   bonusPA: 1
