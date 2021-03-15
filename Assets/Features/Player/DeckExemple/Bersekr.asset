@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Bersekr
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 4337f2c8f021a4748b73cb7fa87ebeb0, type: 3}
+  icon: {fileID: 21300000, guid: 021b6be2e589cda4fa9d972584da5e2a, type: 3}
   description: 'Bonus : Vous inflige 100 de fatigue et vous donne 2 PM pour 1 tour.
     Stock 1 PA.'
   paCost: 1

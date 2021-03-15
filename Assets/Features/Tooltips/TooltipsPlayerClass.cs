@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace WeekAnkama
 {
@@ -11,7 +12,9 @@ namespace WeekAnkama
 
         public override void ShowTooltip()
         {
-            TooltipsManager.ShowTooltip(playerData.playerClass.nom, playerData.playerClass.description);
+            if(!PhotonNetwork.IsConnected)
+                TooltipsManager.ShowTooltip(PlayerManager.instance.actualPlayer.classe.nom, PlayerManager.instance.actualPlayer.classe.description);
+            else TooltipsManager.ShowTooltip(playerData.playerClass.nom, playerData.playerClass.description);
         }
     }
 }

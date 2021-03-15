@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Peunche
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: bbccc8f15ce88c14aa9e7c057e54214f, type: 3}
+  icon: {fileID: 21300000, guid: 32cbf4f886c083146a1da6d1e260f4dc, type: 3}
   description: "Inflige 100 de fatigue \xE0 un joueur adjacent. Stock 1 PA."
   paCost: 3
   bonusPA: 1

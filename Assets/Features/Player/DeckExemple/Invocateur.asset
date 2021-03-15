@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Invocateur
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 4040ac57a7823604dbd9c496e45deb55, type: 3}
+  icon: {fileID: 21300000, guid: 4961ddd8c028d2b4fa5a7486b17da15d, type: 3}
   description: "Terraforme sur la case d'un joueur, jusqu'\xE0 2 cases de distance."
   paCost: 2
   bonusPA: 0

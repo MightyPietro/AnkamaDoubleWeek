@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
+using DG.Tweening;
 
 namespace WeekAnkama
 {
@@ -22,12 +23,20 @@ namespace WeekAnkama
         [SerializeField] private TextMeshProUGUI _fatigueText;
         [SerializeField] private TextMeshProUGUI _PAText;
         [SerializeField] private TextMeshProUGUI _PMText;
+        [SerializeField] private Image[] _PAImages;
+        [SerializeField] private Image[] _PMImages;
+        [SerializeField] private Image _icone;
+        [SerializeField] private TextMeshProUGUI _damages;
+        [SerializeField] private TextMeshProUGUI _playerFatigueDmgTxt;
         [SerializeField] private Feedback _playerFatigueDmg;
         [SerializeField] private Feedback _playerFatigueDmgUI;
         [SerializeField] private Animator _anim;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private PlayerClassScriptable[] _classes;
-        
+        [SerializeField] private Material _outlineMat;
+        [SerializeField] private Color _outlineColor;
+
+
 
         private bool _processMovement = false;
         private bool _isOut = false;
@@ -50,7 +59,7 @@ namespace WeekAnkama
         private List<PlayerEffect> effects = new List<PlayerEffect>();
 
         [SerializeField]
-        private PlayerClassScriptable classe;
+        public PlayerClassScriptable classe;
         [SerializeField]
         private IntVariable playerValue;
 
@@ -62,9 +71,53 @@ namespace WeekAnkama
 
 
         #region Getter/Setter
-        public int PA { get { return _PA; } set { _PA = value; if (paTxt != null) { paTxt.text = PA.ToString(); } } }
+        public int PA
+        {
+            get
+            {
+                return _PA;
+            }
+            set
+            {
+                _PA = value;
+                if (paTxt != null)
+                {
+                    paTxt.text = PA.ToString();
+                    for (int i = 0; i < _PAImages.Length; i++)
+                    {
+                        _PAImages[i].enabled = false;
+                        if (PA > i)
+                        {
+                            _PAImages[i].enabled = true;
+                        }
+                    }
+                }
+            }
+        }
         public int stockPA { get { return _stockPA; } set { _stockPA = value; if (stockPaTxt != null) { stockPaTxt.text = stockPA.ToString(); } } }
-        public int PM { get { return _PM; } set { _PM = value; if (pmTxt != null) { pmTxt.text = PM.ToString(); } } }
+        public int PM
+        {
+            get
+            {
+                return _PM;
+            }
+            set
+            {
+                _PM = value;
+                if (pmTxt != null)
+                {
+                    pmTxt.text = PM.ToString();
+                }
+                for (int i = 0; i < _PMImages.Length; i++)
+                {
+                    _PMImages[i].enabled = false;
+                    if (PM > i)
+                    {
+                        _PMImages[i].enabled = true;
+                    }
+                }
+            }
+        }
         public int fatigue
         {
             get { return _fatigue; }
@@ -117,9 +170,9 @@ namespace WeekAnkama
                     break;
             }
 
-            if(passive!=null)
+            if (passive != null)
             {
-                switch(passive.Trigger)
+                switch (passive.Trigger)
                 {
                     case PassiveTrigger.BeginTurn:
                         beginTurn += passive.ApplyPassive;
@@ -140,16 +193,12 @@ namespace WeekAnkama
             }
 
             _deck = new List<Action>(classe.deck);
-            
+
             DeplacementManager.OnPlayerMovementFinished += StopRun;
             passEnemyExhaustSolo += PlayerManager.instance.DrawCard;
 
             yield return new WaitForSeconds(.5f);
-            if (!PhotonNetwork.IsConnected)
-            {
-                classe = playerValue.playerClass;
-            }
-            else
+            if (PhotonNetwork.IsConnected)
             {
                 for (int i = 0; i < TurnManager.instance.players.Count; i++)
                 {
@@ -185,7 +234,7 @@ namespace WeekAnkama
         }
         private void StopRun(Player player)
         {
-            if(this == player)
+            if (this == player)
             {
                 player.anim.SetBool("isRun", false);
             }
@@ -196,13 +245,31 @@ namespace WeekAnkama
         {
             int rand = Random.Range(0, 3);
             anim.SetTrigger("Attack" + rand.ToString());
+            StartCoroutine(WaitResetPunch(rand));
         }
 
-        private void Hurt()
+        private void Hurt(out int rand)
         {
-            int rand = Random.Range(0,2);
+            rand = Random.Range(0, 2);
             anim.SetTrigger("Hurt" + rand.ToString());
+
         }
+
+        private IEnumerator WaitResetAnim(int rand)
+        {
+            yield return new WaitForSeconds(.1f);
+            anim.ResetTrigger("Hurt" + rand.ToString());
+            yield return null;
+        }
+
+        private IEnumerator WaitResetPunch(int rand)
+        {
+            yield return new WaitForSeconds(.1f);
+            anim.ResetTrigger("Attack" + rand.ToString());
+            yield return null;
+        }
+
+
         public void BeginTurn()
         {
             ResetDatas();
@@ -240,6 +307,7 @@ namespace WeekAnkama
             if(amount>0)
             {
                 doDamage?.Invoke(this, attackTarget);
+                Punch();
             }
         }
 
@@ -259,10 +327,19 @@ namespace WeekAnkama
             fatigue += Mathf.RoundToInt((float)amount * vulnerability);
             StopRun(this);
             FeedbackManager.instance.Feedback(_playerFatigueDmg, transform.position, 1f);
-            Hurt();
+            Hurt(out int rand);
+            StartCoroutine(WaitResetAnim(rand));
             if (amount>0)
             {
+
+                _playerFatigueDmgTxt.GetComponent<Animator>().SetTrigger("Damage");
+                _playerFatigueDmgTxt.text = amount.ToString();
                 FeedbackManager.instance.Feedback(_playerFatigueDmgUI, fatigueText.transform.position, 2f, fatigueText.transform);
+                Sequence _iconeSequence = DOTween.Sequence();
+                Sequence _damagesSequence = DOTween.Sequence();
+                _iconeSequence.Append(_icone.rectTransform.DOScale(_icone.rectTransform.localScale * 1.2f, .5f)).OnComplete(()=>_icone.rectTransform.DOScale(_icone.rectTransform.localScale / 1.2f, .5f));
+                _damagesSequence.Append(_damages.rectTransform.DOScale(_damages.rectTransform.localScale * 1.5f, .5f)).OnComplete(()=> _damages.rectTransform.DOScale(_damages.rectTransform.localScale / 1.5f, .5f));
+                
                 takeDamage?.Invoke(attacker, this);                
             }
 
@@ -320,6 +397,22 @@ namespace WeekAnkama
         public void AddEffect(PlayerEffect effect)
         {
             effects.Add(effect);
+        }
+
+        public void ChangeOutline(bool isPlayerTurn)
+        {
+            if (isPlayerTurn)
+            {
+                _outlineMat.SetColor("_Color", _outlineColor);
+                _outlineMat.SetFloat("_Size", 1.2f);
+            }
+            else
+            {
+                _outlineMat.SetColor("_Color", Color.black);
+                _outlineMat.SetFloat("_Size", .5f);
+
+            }
+            
         }
     }
 }

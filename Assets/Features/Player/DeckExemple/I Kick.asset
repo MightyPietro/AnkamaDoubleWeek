@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: I Kick
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: a9583ca32fd999e44aa68b0235584ba7, type: 3}
+  icon: {fileID: 21300000, guid: 5ac4e9381221d6345801e5b273824cb1, type: 3}
   description: "Pousse un joueur situ\xE9 jusqu'\xE0 2 cases de distance. Stock 1
     PA."
   paCost: 3

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Pichenette
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 87a09a4880c1997429c19f8b6aa99858, type: 3}
+  icon: {fileID: 21300000, guid: af922c6ab73f9ca4aa7e87f50dce3745, type: 3}
   description: Pousse un joueur adjacent.
   paCost: 2
   bonusPA: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Aimant
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 07dae977ca486f14098e7d7b93129aab, type: 3}
+  icon: {fileID: 21300000, guid: bc6f70e46ff5e4a47a18a6d080662c96, type: 3}
   description: "Attire un joueur situ\xE9 jusqu'\xE0 2 cases de distance et fait
     piocher une carte."
   paCost: 2

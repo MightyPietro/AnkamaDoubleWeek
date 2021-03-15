@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: "Sur place (ou \xE0 emporter)"
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 355a8bea85dfca14cbaec9d6c586ac0e, type: 3}
+  icon: {fileID: 21300000, guid: 72f79e1b5c1e0ba4fb931356da6857de, type: 3}
   description: 'Malus: Cible un joueur, ce dernier aura 0 PM lors de son prochain
     tour.'
   paCost: 3

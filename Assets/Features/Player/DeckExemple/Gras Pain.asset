@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0267863c77ea94baeb5d60356a52ed, type: 3}
   m_Name: Gras Pain
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: d23ee8ba6ffbb49488a2e87111639e82, type: 3}
+  icon: {fileID: 21300000, guid: 3dc0784fb0ef4034f875815b03e77f96, type: 3}
   description: "Attire un joueur situ\xE9 jusqu'\xE0 3 cases de distance et lui inflige
     50 de fatigue. Stock 1 PA."
   paCost: 4

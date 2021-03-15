@@ -159,6 +159,16 @@ namespace WeekAnkama
             for (int i = 0; i < players.Count; i++)
             {
                 turnFeedback[i].sprite = colorTests[(turnIndex + i) % players.Count];
+                if(players[i].uniquePlayerValue == turnValue)
+                {
+                    players[i].ChangeOutline(true);
+                }
+                else
+                {
+                    players[i].ChangeOutline(false);
+
+                }
+
             }
 
             OnBeginPlayerTurn?.Invoke(currentPlayerTurn);
